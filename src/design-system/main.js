@@ -154,6 +154,8 @@ const counts = {
 const icons = iconData.icons;
 const iconFlag = new Map();
 for (const l of iconData.lint) if (l.level !== 'ok') for (const k of l.keys) if (!iconFlag.has(k)) iconFlag.set(k, l.level);
+// 로고처럼 원래 여러 색인 게 당연한 아이콘은 '여러 색' 표시를 안 해요
+const HIDE_MULTI_TAG = new Set(['google']);
 const ICON_COLORS = [
   ['txt/black', '--color-txt-black'],
   ['txt/semiblack', '--color-txt-semiblack'],
@@ -202,7 +204,7 @@ const iconView = () => `
           <button class="ico" id="ico-${esc(i.key)}" data-search="${esc(`${i.key} ${i.figmaName}`.toLowerCase())}" data-copy="icon('${esc(i.key)}')" title="${esc(i.figmaName)}">
             <span class="ico-art ${i.type}">${i.svg.replace('<svg', '<svg aria-hidden="true"')}</span>
             <span class="ico-name">${esc(i.key)}</span>
-            ${i.type === 'multi' ? '<span class="ico-tag">여러 색</span>' : ''}
+            ${i.type === 'multi' && !HIDE_MULTI_TAG.has(i.key) ? '<span class="ico-tag">여러 색</span>' : ''}
             ${iconFlag.has(i.key) ? `<span class="flag ${iconFlag.get(i.key)}" title="점검 항목 있음"></span>` : ''}
           </button>`).join('')}
       </div>
