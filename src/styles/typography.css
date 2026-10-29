@@ -43,37 +43,37 @@
   font: var(--text-title-4);
   letter-spacing: 0;
 }
-/* body 3 · Pretendard SemiBold 16/24 */
+/* Body 3 · Pretendard SemiBold 16/24 */
 .t-body-3 {
   font: var(--text-body-3);
   letter-spacing: 0;
 }
-/* body 4 · Pretendard SemiBold 14/20 */
+/* Body 4 · Pretendard SemiBold 14/20 */
 .t-body-4 {
   font: var(--text-body-4);
   letter-spacing: 0;
 }
-/* chip · Pretendard SemiBold 14/20 */
+/* Chip · Pretendard SemiBold 14/20 */
 .t-chip {
   font: var(--text-chip);
   letter-spacing: 0;
 }
-/* btn · Pretendard Bold 16/24 */
+/* Btn · Pretendard Bold 16/24 */
 .t-btn {
   font: var(--text-btn);
   letter-spacing: 0;
 }
-/* caption 1 · Pretendard Medium 14/20 */
+/* Caption 1 · Pretendard Medium 14/20 */
 .t-caption-1 {
   font: var(--text-caption-1);
   letter-spacing: 0;
 }
-/* caption 2 · Pretendard SemiBold 12/16 */
+/* Caption 2 · Pretendard SemiBold 12/16 */
 .t-caption-2 {
   font: var(--text-caption-2);
   letter-spacing: 0;
 }
-/* unit · Mulish Black 24/20 */
+/* Unit · Mulish Black 24/20 */
 .t-unit {
   font: var(--text-unit);
   letter-spacing: 0;
