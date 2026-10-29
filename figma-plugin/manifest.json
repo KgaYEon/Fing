@@ -1,0 +1,14 @@
+{
+  "name": "Fing Token Sync",
+  "id": "fing-token-sync-dev",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["none"],
+    "devAllowedDomains": ["http://localhost:5173"],
+    "reasoning": "로컬 개발 서버(Fing 프로젝트)로 변수 정보를 보냅니다."
+  }
+}

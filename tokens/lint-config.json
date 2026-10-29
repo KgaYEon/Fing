@@ -1,0 +1,8 @@
+{
+  "$comment": "점검에서 '의도한 결정'으로 확인한 항목입니다. rule과 tokens가 점검 결과와 정확히 같으면 경고 대신 '의도함'으로 표시돼요. 토큰 구성이 바뀌면 다시 경고가 뜨니, 그때 한 번 더 판단하면 돼요. note에 이유를 적어두면 디자인시스템 페이지에 함께 표시돼요.",
+  "acknowledged": [
+    { "rule": "duplicate", "tokens": ["btn/gray-press", "btn/dis"], "note": "", "at": "2026-10-29" },
+    { "rule": "similar-name", "tokens": ["btn/dis", "btn/disable"], "note": "", "at": "2026-10-29" },
+    { "rule": "contrast", "tokens": ["txt/placeholder"], "note": "플레이스홀더는 일부러 대비를 낮춤", "at": "2026-10-29" }
+  ]
+}

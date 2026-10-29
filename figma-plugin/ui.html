@@ -1,0 +1,51 @@
+<style>
+  body { margin: 0; font: 12px/1.5 Inter, system-ui, sans-serif; color: var(--figma-color-text); background: var(--figma-color-bg); }
+  .wrap { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+  h1 { margin: 0; font-size: 13px; font-weight: 600; }
+  .status { display: flex; align-items: center; gap: 8px; padding: 10px; border-radius: 8px; background: var(--figma-color-bg-secondary); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--figma-color-icon-tertiary); flex: none; }
+  .ok .dot { background: #09A558; } .err .dot { background: #CF2A1E; } .busy .dot { background: #FFA600; }
+  label { display: flex; align-items: center; gap: 6px; }
+  input[type=text] { width: 100%; box-sizing: border-box; padding: 6px 8px; border: 1px solid var(--figma-color-border); border-radius: 6px; background: transparent; color: inherit; font: inherit; }
+  button { padding: 8px; border: 0; border-radius: 6px; background: #1769FF; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+  button:active { background: #1957D2; }
+  .log { color: var(--figma-color-text-secondary); max-height: 70px; overflow: auto; }
+</style>
+<div class="wrap">
+  <h1>Fing Token Sync</h1>
+  <div class="status" id="status"><span class="dot"></span><span id="statusText">준비 중…</span></div>
+  <div>
+    <div style="margin-bottom:4px;color:var(--figma-color-text-secondary)">프로젝트 개발 서버 주소</div>
+    <input type="text" id="url" value="http://localhost:5173" />
+  </div>
+  <label><input type="checkbox" id="auto" checked /> 변수가 바뀌면 자동으로 보내기</label>
+  <button id="sync">지금 동기화</button>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const setStatus = (cls, text) => { $('status').className = 'status ' + cls; $('statusText').textContent = text; };
+  const log = (t) => { const d = new Date(); $('log').innerHTML = `${d.toLocaleTimeString()} · ${t}<br>` + $('log').innerHTML; };
+
+  $('sync').onclick = () => parent.postMessage({ pluginMessage: { type: 'sync' } }, '*');
+  $('auto').onchange = (e) => parent.postMessage({ pluginMessage: { type: 'auto', value: e.target.checked } }, '*');
+
+  onmessage = async (e) => {
+    const msg = e.data.pluginMessage;
+    if (!msg || msg.type !== 'export') return;
+    setStatus('busy', '보내는 중…');
+    try {
+      const res = await fetch($('url').value.replace(/\/$/, '') + '/__figma-sync', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(msg.data),
+      });
+      const j = await res.json();
+      if (!j.ok) throw new Error(j.error || '토큰 생성 실패');
+      setStatus('ok', `동기화됨 · 색상 ${j.result.colors}개 · 점검 ${j.result.lint}개`);
+      log(msg.reason === 'changed' ? '변경 감지 → 전송' : '수동 전송');
+    } catch (err) {
+      setStatus('err', '전송 실패 — 개발 서버(npm run dev)가 켜져 있나요?');
+      log(String(err.message || err));
+      parent.postMessage({ pluginMessage: { type: 'failed' } }, '*');
+    }
+  };
+</script>

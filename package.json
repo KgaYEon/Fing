@@ -1,0 +1,15 @@
+{
+  "name": "fing",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tokens": "node scripts/build-tokens.mjs"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}

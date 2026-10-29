@@ -1,0 +1,972 @@
+{
+  "format": "fing-figma-variables@1",
+  "source": {
+    "fileName": "Fing",
+    "fileKey": "ePI19exWQwYPCHpC27V2G8",
+    "exportedAt": "2026-10-29T13:10:30.000Z",
+    "via": "figma-mcp"
+  },
+  "collections": [
+    {
+      "id": "VariableCollectionId:13:18",
+      "name": "원색",
+      "defaultModeId": "13:0",
+      "modes": [
+        {
+          "modeId": "13:0",
+          "name": "Mode 1"
+        }
+      ],
+      "variableIds": [
+        "VariableID:13:19",
+        "VariableID:13:20",
+        "VariableID:13:21",
+        "VariableID:13:22",
+        "VariableID:13:23",
+        "VariableID:13:24",
+        "VariableID:13:25",
+        "VariableID:13:26",
+        "VariableID:13:27",
+        "VariableID:13:28",
+        "VariableID:13:29",
+        "VariableID:13:30",
+        "VariableID:13:31",
+        "VariableID:13:32",
+        "VariableID:13:33",
+        "VariableID:13:34",
+        "VariableID:13:35",
+        "VariableID:13:36",
+        "VariableID:13:37",
+        "VariableID:13:38",
+        "VariableID:13:39",
+        "VariableID:13:40",
+        "VariableID:13:41",
+        "VariableID:13:42",
+        "VariableID:22:159",
+        "VariableID:130:1967",
+        "VariableID:22:160",
+        "VariableID:130:1964",
+        "VariableID:22:161",
+        "VariableID:22:162",
+        "VariableID:22:163",
+        "VariableID:22:164"
+      ]
+    },
+    {
+      "id": "VariableCollectionId:14:371",
+      "name": "Collection",
+      "defaultModeId": "14:0",
+      "modes": [
+        {
+          "modeId": "14:0",
+          "name": "Mode 1"
+        }
+      ],
+      "variableIds": [
+        "VariableID:15:422",
+        "VariableID:15:423",
+        "VariableID:111:946",
+        "VariableID:22:103",
+        "VariableID:33:581",
+        "VariableID:15:424",
+        "VariableID:67:455",
+        "VariableID:111:773",
+        "VariableID:67:473",
+        "VariableID:46:265",
+        "VariableID:15:426",
+        "VariableID:111:770",
+        "VariableID:33:641",
+        "VariableID:22:144",
+        "VariableID:15:425",
+        "VariableID:14:372",
+        "VariableID:315:2581",
+        "VariableID:82:595",
+        "VariableID:111:771"
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "id": "VariableID:13:19",
+      "name": "뉴트럴/100",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 100",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:20",
+      "name": "뉴트럴/200",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 200",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.9608,
+          "g": 0.9725,
+          "b": 0.9843,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:21",
+      "name": "뉴트럴/300",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 300",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.9294,
+          "g": 0.9412,
+          "b": 0.9647,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:22",
+      "name": "뉴트럴/400",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 400",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.8863,
+          "g": 0.9059,
+          "b": 0.9333,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:23",
+      "name": "뉴트럴/500",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 500",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.8275,
+          "g": 0.8549,
+          "b": 0.8902,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:24",
+      "name": "뉴트럴/600",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 600",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.7451,
+          "g": 0.7765,
+          "b": 0.8235,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:25",
+      "name": "뉴트럴/700",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 700",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.6353,
+          "g": 0.6745,
+          "b": 0.7294,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:26",
+      "name": "뉴트럴/800",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 800",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.5176,
+          "g": 0.5608,
+          "b": 0.6196,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:27",
+      "name": "뉴트럴/900",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 900",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.3882,
+          "g": 0.4314,
+          "b": 0.498,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:28",
+      "name": "뉴트럴/1000",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 1000",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.2824,
+          "g": 0.3255,
+          "b": 0.3882,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:29",
+      "name": "뉴트럴/1100",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 1100",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.1686,
+          "g": 0.2,
+          "b": 0.251,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:30",
+      "name": "뉴트럴/1200",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 뉴트럴 1200",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.0196,
+          "g": 0.0314,
+          "b": 0.051,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:31",
+      "name": "프라이머리/100",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 100",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.9529,
+          "g": 0.9686,
+          "b": 0.9961,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:32",
+      "name": "프라이머리/200",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 200",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.898,
+          "g": 0.9333,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:33",
+      "name": "프라이머리/300",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 300",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.8039,
+          "g": 0.8745,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:34",
+      "name": "프라이머리/400",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 400",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.6471,
+          "g": 0.7725,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:35",
+      "name": "프라이머리/500",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 500",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.4235,
+          "g": 0.6235,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:36",
+      "name": "프라이머리/600",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "메인 브랜드 색상 · 첨부 팔레트 기준",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.0902,
+          "g": 0.4118,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:37",
+      "name": "프라이머리/700",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 700",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.098,
+          "g": 0.3412,
+          "b": 0.8235,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:38",
+      "name": "프라이머리/800",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 800",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.0863,
+          "g": 0.2784,
+          "b": 0.6588,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:39",
+      "name": "프라이머리/900",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 900",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.0824,
+          "g": 0.2196,
+          "b": 0.4902,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:40",
+      "name": "프라이머리/1000",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 1000",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.0706,
+          "g": 0.1647,
+          "b": 0.349,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:41",
+      "name": "프라이머리/1100",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 1100",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.0627,
+          "g": 0.1216,
+          "b": 0.2392,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:42",
+      "name": "프라이머리/1200",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "첨부 팔레트 기준 · 프라이머리 1200",
+      "scopes": [],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.0431,
+          "g": 0.0863,
+          "b": 0.1608,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:14:372",
+      "name": "btn/disable",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:24"
+        }
+      }
+    },
+    {
+      "id": "VariableID:15:422",
+      "name": "btn/default",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:36"
+        }
+      }
+    },
+    {
+      "id": "VariableID:15:423",
+      "name": "txt/black",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:30"
+        }
+      }
+    },
+    {
+      "id": "VariableID:15:424",
+      "name": "bg",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:20"
+        }
+      }
+    },
+    {
+      "id": "VariableID:15:425",
+      "name": "btn/white",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:19"
+        }
+      }
+    },
+    {
+      "id": "VariableID:15:426",
+      "name": "btn/light",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:32"
+        }
+      }
+    },
+    {
+      "id": "VariableID:22:103",
+      "name": "txt/semiblack",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:29"
+        }
+      }
+    },
+    {
+      "id": "VariableID:22:144",
+      "name": "btn/gray-press",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:22"
+        }
+      }
+    },
+    {
+      "id": "VariableID:22:159",
+      "name": "시멘틱/danger light",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 1,
+          "g": 0.9294,
+          "b": 0.9216,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:22:160",
+      "name": "시멘틱/danger",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.8118,
+          "g": 0.1647,
+          "b": 0.1176,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:22:161",
+      "name": "시멘틱/warning 200",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 1,
+          "g": 0.949,
+          "b": 0.851,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:22:162",
+      "name": "시멘틱/warning 700",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 1,
+          "g": 0.651,
+          "b": 0,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:22:163",
+      "name": "시멘틱/success 200",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.8941,
+          "g": 0.9647,
+          "b": 0.9255,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:22:164",
+      "name": "시멘틱/success 700",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.0362,
+          "g": 0.6478,
+          "b": 0.3449,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:33:581",
+      "name": "txt/unselected",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:27"
+        }
+      }
+    },
+    {
+      "id": "VariableID:33:641",
+      "name": "btn/gray",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:21"
+        }
+      }
+    },
+    {
+      "id": "VariableID:46:265",
+      "name": "btn/default-press",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:37"
+        }
+      }
+    },
+    {
+      "id": "VariableID:67:455",
+      "name": "str/pri-light",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:33"
+        }
+      }
+    },
+    {
+      "id": "VariableID:67:473",
+      "name": "str/gray",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:22"
+        }
+      }
+    },
+    {
+      "id": "VariableID:82:595",
+      "name": "txt/placeholder",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:25"
+        }
+      }
+    },
+    {
+      "id": "VariableID:111:770",
+      "name": "btn/light-press",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:34"
+        }
+      }
+    },
+    {
+      "id": "VariableID:111:771",
+      "name": "txt/white",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:19"
+        }
+      }
+    },
+    {
+      "id": "VariableID:111:773",
+      "name": "str/primary",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:36"
+        }
+      }
+    },
+    {
+      "id": "VariableID:111:946",
+      "name": "txt/primary",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:15:422"
+        }
+      }
+    },
+    {
+      "id": "VariableID:130:1964",
+      "name": "시멘틱/danger press",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.6784,
+          "g": 0.1255,
+          "b": 0.0863,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:130:1967",
+      "name": "시멘틱/danger light press",
+      "collectionId": "VariableCollectionId:13:18",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE_COLOR"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "13:0": {
+          "r": 0.9922,
+          "g": 0.8627,
+          "b": 0.8392,
+          "a": 1
+        }
+      }
+    },
+    {
+      "id": "VariableID:315:2581",
+      "name": "btn/dis",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:22"
+        }
+      }
+    }
+  ]
+}
