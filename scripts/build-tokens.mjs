@@ -223,7 +223,6 @@ export function buildTokens({ write = true } = {}) {
   const json = {
     meta: {
       ...raw.source,
-      builtAt: new Date().toISOString(),
       counts: { color: colors.length, other: others.length, otherTypes: [...new Set(others.map((v) => v.resolvedType))] },
     },
     collections,
