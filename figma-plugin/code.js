@@ -1,6 +1,7 @@
 // Fing Token Sync — 피그마 변수를 로컬 프로젝트로 보내는 개발용 플러그인
 // 플러그인 창이 열려 있는 동안
 //  - 변수: 1.5초마다 확인해서 바뀌면 보냅니다.
+//  - 텍스트 스타일: 1.5초마다 확인해서 바뀌면 보냅니다.
 //  - 아이콘: 이름이 ic/ 로 시작하는 컴포넌트가 바뀌면 SVG로 보냅니다.
 figma.showUI(__html__, { width: 320, height: 300, themeColors: true });
 
@@ -40,7 +41,21 @@ async function exportIcons() {
   };
 }
 
+async function exportTextStyles() {
+  const styles = await figma.getLocalTextStylesAsync();
+  return {
+    format: 'fing-figma-text-styles@1',
+    source: { fileName: figma.root.name, fileKey: figma.fileKey || null, exportedAt: new Date().toISOString(), via: 'figma-plugin' },
+    styles: styles.map((s) => ({
+      id: s.id, name: s.name, description: s.description || '',
+      font: { family: s.fontName.family, style: s.fontName.style }, size: s.fontSize,
+      lineHeight: s.lineHeight, letterSpacing: s.letterSpacing, textCase: s.textCase, textDecoration: s.textDecoration,
+    })),
+  };
+}
+
 let lastSig = '';
+let lastTypeSig = '';
 let lastIconSig = '';
 let iconsDirty = true;
 let auto = true;
@@ -51,6 +66,14 @@ async function tick(force) {
   if (!force && sig === lastSig) return;
   lastSig = sig;
   figma.ui.postMessage({ type: 'export', data, reason: force ? 'manual' : 'changed', colorCount: data.variables.filter((v) => v.resolvedType === 'COLOR').length });
+}
+
+async function typeTick(force) {
+  const data = await exportTextStyles();
+  const sig = JSON.stringify(data.styles);
+  if (!force && sig === lastTypeSig) return;
+  lastTypeSig = sig;
+  figma.ui.postMessage({ type: 'export', data, reason: force ? 'manual' : 'changed', kind: 'type' });
 }
 
 async function iconTick(force) {
@@ -64,15 +87,16 @@ async function iconTick(force) {
 }
 
 figma.ui.onmessage = (msg) => {
-  if (msg.type === 'sync') { tick(true); iconTick(true); }
+  if (msg.type === 'sync') { tick(true); typeTick(true); iconTick(true); }
   if (msg.type === 'auto') auto = msg.value;
-  if (msg.type === 'failed') { lastSig = ''; lastIconSig = ''; iconsDirty = true; } // 전송 실패 시 다음 확인 때 다시 보냄
+  if (msg.type === 'failed') { lastSig = ''; lastTypeSig = ''; lastIconSig = ''; iconsDirty = true; } // 전송 실패 시 다음 확인 때 다시 보냄
 };
 
 (async () => {
   await figma.loadAllPagesAsync(); // 다른 페이지에 있는 아이콘까지 찾기 위해
   figma.on('documentchange', () => { iconsDirty = true; });
   tick(true);
+  typeTick(true);
   iconTick(true);
-  setInterval(() => { if (auto) { tick(false); iconTick(false); } }, 1500);
+  setInterval(() => { if (auto) { tick(false); typeTick(false); iconTick(false); } }, 1500);
 })();

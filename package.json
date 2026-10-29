@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tokens": "node scripts/build-tokens.mjs && node scripts/build-icons.mjs"
+    "tokens": "node scripts/build-tokens.mjs && node scripts/build-icons.mjs && node scripts/build-typography.mjs"
   },
   "devDependencies": {
     "vite": "^8.3.5"

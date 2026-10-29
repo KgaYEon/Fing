@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { buildTokens, TOKEN_PATHS } from './scripts/build-tokens.mjs';
 import { buildIcons, ICON_PATHS } from './scripts/build-icons.mjs';
+import { buildTypography, TYPE_PATHS } from './scripts/build-typography.mjs';
 
 // 피그마 ↔ 프로젝트 토큰 동기화
 // 1) 개발 서버가 켜질 때 토큰을 한 번 만듭니다.
@@ -15,10 +16,12 @@ function figmaTokenSync() {
     try {
       const result = buildTokens();
       const ic = buildIcons();
+      const ty = buildTypography();
       result.icons = ic.icons;
-      result.lint += ic.lint;
+      result.textStyles = ty.styles;
+      result.lint += ic.lint + ty.lint;
       last = { at: new Date().toISOString(), result, error: null };
-      console.log(`\x1b[36m[figma-sync]\x1b[0m ${why} → 색상 ${result.colors}개, 아이콘 ${ic.icons}개, 점검 ${result.lint}개`);
+      console.log(`\x1b[36m[figma-sync]\x1b[0m ${why} → 색상 ${result.colors}개, 아이콘 ${ic.icons}개, 글자 ${ty.styles}개, 점검 ${result.lint}개`);
     } catch (e) {
       last = { at: new Date().toISOString(), result: null, error: e.message };
       console.error(`\x1b[31m[figma-sync]\x1b[0m 토큰 생성 실패: ${e.message}`);
@@ -31,7 +34,7 @@ function figmaTokenSync() {
       run('빌드');
     },
     configureServer(server) {
-      const watched = [TOKEN_PATHS.raw, TOKEN_PATHS.map, TOKEN_PATHS.lintConfig, ICON_PATHS.raw];
+      const watched = [TOKEN_PATHS.raw, TOKEN_PATHS.map, TOKEN_PATHS.lintConfig, ICON_PATHS.raw, TYPE_PATHS.raw];
       server.watcher.add(watched);
       server.watcher.on('change', (file) => {
         if (watched.includes(file)) run('원본 변경 감지');
@@ -53,14 +56,15 @@ function figmaTokenSync() {
             const data = JSON.parse(body);
             const isVars = data.format === 'fing-figma-variables@1' && Array.isArray(data.variables);
             const isIcons = data.format === 'fing-figma-icons@1' && Array.isArray(data.icons);
-            if (!isVars && !isIcons) throw new Error('형식이 맞지 않아요');
-            const target = isIcons ? ICON_PATHS.raw : TOKEN_PATHS.raw;
+            const isType = data.format === 'fing-figma-text-styles@1' && Array.isArray(data.styles);
+            if (!isVars && !isIcons && !isType) throw new Error('형식이 맞지 않아요');
+            const target = isIcons ? ICON_PATHS.raw : isType ? TYPE_PATHS.raw : TOKEN_PATHS.raw;
             // 플러그인에서는 파일 키를 못 읽는 경우가 많아서, 기존 값을 이어받아요
             if (!data.source?.fileKey) {
               try { data.source = { ...data.source, fileKey: JSON.parse(readFileSync(target, 'utf8')).source?.fileKey ?? null }; } catch {}
             }
             writeFileSync(target, JSON.stringify(data, null, 2) + '\n');
-            run(isIcons ? '피그마 플러그인에서 아이콘 수신' : '피그마 플러그인에서 변수 수신');
+            run(`피그마 플러그인에서 ${isIcons ? '아이콘' : isType ? '텍스트 스타일' : '변수'} 수신`);
             res.end(JSON.stringify({ ok: !last.error, ...last }));
           } catch (e) {
             res.statusCode = 400;

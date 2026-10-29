@@ -2,6 +2,7 @@
 // 피그마에서 변수를 고치면 tokens.json 이 다시 만들어지고, 이 페이지도 그대로 따라 바뀝니다.
 import data from '../tokens/tokens.json';
 import iconData from '../icons/icons.json';
+import typeData from '../tokens/typography.json';
 
 const $app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -235,6 +236,77 @@ button.innerHTML = icon('arr-right', { size: 20, label: '다음' });
     </section>
 `;
 
+// ---------- 타이포그래피 ----------
+const tstyles = typeData.styles;
+const typeFlag = new Map();
+for (const l of typeData.lint) if (l.level !== 'ok') for (const k of l.keys) if (!typeFlag.has(k) && l.rule !== 'type-case') typeFlag.set(k, l.level);
+const keyLintCard = (prefix) => (l) => lintCard({ ...l, tokens: [] }).replace(/<\/p>\s*<\/div>\s*<\/article>$/, `</p>${l.keys.length && l.keys.length <= 8 ? `<div class="lint-tokens">${l.keys.map((k) => `<a class="ref-chip" href="#${prefix}${esc(k)}">${esc(k)}</a>`).join('')}</div>` : ''}</div></article>`);
+const typeWarn = typeData.lint.filter((l) => l.level === 'warn' || l.level === 'error').length;
+const tm = typeData.meta || {};
+const SAMPLE = '핑으로 오늘을 기록해요 Fing 2026';
+
+const typeView = () => `
+    <header class="page-head">
+      <p class="eyebrow">Foundations</p>
+      <h1>Typography</h1>
+      <p class="lead">피그마 텍스트 스타일에서 자동으로 만들어진 글자 스타일이에요. 클래스 이름을 누르면 복사돼요.</p>
+      <div class="meta">
+        ${tm.fileKey ? `<a class="pill" href="https://www.figma.com/design/${tm.fileKey}/" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
+        <span class="pill ghost">마지막 동기화 ${fmtDate(tm.exportedAt)}</span>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><span>스타일</span><strong>${tstyles.length}</strong></div>
+      <div class="stat"><span>글꼴</span><strong>${new Set(tstyles.map((t) => t.family)).size}</strong></div>
+      <a href="#type-health" class="stat ${typeWarn ? 'warn' : ''}"><span>확인 필요</span><strong>${typeWarn}</strong></a>
+    </div>
+
+    <div class="search">
+      <input id="sample" type="text" value="${SAMPLE}" placeholder="미리 볼 문장을 입력하세요" autocomplete="off" aria-label="미리보기 문장" />
+    </div>
+
+    <section class="section">
+      <div class="type-list">
+        ${tstyles.map((t) => `
+          <article class="type-row" id="type-${esc(t.key)}">
+            <div class="type-meta">
+              <strong>${esc(t.name)}</strong>
+              <button class="copy mono" data-copy="${esc(t.className)}">.${esc(t.className)}</button>
+              <div class="type-specs">
+                <span>${esc(t.family)} ${esc(t.style)} · ${t.weight}</span>
+                <span>${t.size} / ${t.lineHeightPx}</span>
+                ${t.letterSpacing !== '0' ? `<span>자간 ${esc(t.letterSpacing)}</span>` : ''}
+              </div>
+              ${typeFlag.has(t.key) ? `<span class="flag ${typeFlag.get(t.key)}" title="점검 항목 있음"></span>` : ''}
+            </div>
+            <p class="type-sample ${esc(t.className)}" data-sample>${SAMPLE}</p>
+          </article>`).join('')}
+      </div>
+    </section>
+
+    <section id="type-health" class="section">
+      <div class="section-head">
+        <h2>점검 <span class="sub">${typeData.lint.filter((l) => l.level !== 'ok').length}개 항목</span></h2>
+        <p>텍스트 스타일을 동기화할 때마다 다시 검사해요.</p>
+      </div>
+      <div class="lints">${typeData.lint.filter((l) => l.level !== 'ok').map(keyLintCard('type-')).join('') || '<p class="sub">발견된 문제가 없어요.</p>'}</div>
+      ${typeData.lint.some((l) => l.level === 'ok') ? `<h3 class="lint-sub">의도한 결정</h3><div class="lints">${typeData.lint.filter((l) => l.level === 'ok').map(keyLintCard('type-')).join('')}</div>` : ''}
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>코드에서 쓰는 법</h2></div>
+      <pre class="code"><code>&lt;!-- 클래스로 --&gt;
+&lt;h1 class="t-title-1"&gt;오늘의 기록&lt;/h1&gt;
+
+/* CSS에서 직접 */
+.card-title {
+  font: var(--text-title-3);
+  color: var(--color-txt-black);
+}</code></pre>
+    </section>
+`;
+
 const colorView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
@@ -306,8 +378,8 @@ $app.innerHTML = `
     <nav>
       <p class="nav-title">Foundations</p>
       <a href="#color" data-view="color">Color <span class="nav-n">${all.length}</span></a>
+      <a href="#type" data-view="type">Typography <span class="nav-n">${typeData.styles.length}</span></a>
       <a href="#icon" data-view="icon">Icon <span class="nav-n">${iconData.icons.length}</span></a>
-      <span class="soon">Typography</span>
       <span class="soon">Spacing</span>
       <span class="soon">Radius</span>
       <span class="soon">Effect</span>
@@ -329,7 +401,7 @@ $app.innerHTML = `
 
 
 // ---------- 화면 전환 (#color / #icon) ----------
-const VIEWS = { color: colorView, icon: iconView };
+const VIEWS = { color: colorView, type: typeView, icon: iconView };
 const main = document.getElementById('top');
 let current = null;
 function route() {
@@ -377,6 +449,11 @@ document.addEventListener('click', (e) => {
 
 // 검색
 document.addEventListener('input', (e) => {
+  if (e.target.id === 'sample') {
+    const v = e.target.value || ' ';
+    document.querySelectorAll('[data-sample]').forEach((el) => (el.textContent = v));
+    return;
+  }
   if (e.target.id !== 'q') return;
   const q = e.target.value.trim().toLowerCase();
   document.querySelectorAll('[data-search]').forEach((el) => el.classList.toggle('dim', !!q && !el.dataset.search.includes(q)));
