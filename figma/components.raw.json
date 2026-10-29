@@ -70,7 +70,7 @@
             "fill": {
               "hex": "#FFFFFF",
               "opacity": 1,
-              "var": null
+              "var": "txt/white"
             }
           }
         },
@@ -108,7 +108,7 @@
             "fill": {
               "hex": "#1769FF",
               "opacity": 1,
-              "var": "btn/default"
+              "var": "txt/primary"
             }
           }
         },
@@ -146,7 +146,7 @@
             "fill": {
               "hex": "#1769FF",
               "opacity": 1,
-              "var": "btn/default"
+              "var": "txt/primary"
             }
           }
         },
@@ -374,45 +374,7 @@
             "fill": {
               "hex": "#FFFFFF",
               "opacity": 1,
-              "var": null
-            }
-          }
-        },
-        {
-          "id": "332:2653",
-          "name": "color=primary, state=hover",
-          "props": {
-            "color": "primary",
-            "state": "hover"
-          },
-          "width": 337,
-          "height": 64,
-          "radius": 16,
-          "padding": [
-            20,
-            24,
-            20,
-            24
-          ],
-          "gap": 10,
-          "layout": "VERTICAL",
-          "align": [
-            "CENTER",
-            "CENTER"
-          ],
-          "fill": {
-            "hex": "#1957D2",
-            "opacity": 1,
-            "var": "btn/default-press"
-          },
-          "stroke": null,
-          "strokeWeight": 0,
-          "text": {
-            "style": "Btn",
-            "fill": {
-              "hex": "#FFFFFF",
-              "opacity": 1,
-              "var": null
+              "var": "txt/white"
             }
           }
         }
