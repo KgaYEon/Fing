@@ -1,0 +1,5 @@
+{
+  "git.autoStash": true,
+  "git.autofetch": true,
+  "git.confirmSync": false
+}

@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
-import { readFileSync, writeFileSync } from 'node:fs';
 import { buildTokens, TOKEN_PATHS } from './scripts/build-tokens.mjs';
 import { buildIcons, ICON_PATHS } from './scripts/build-icons.mjs';
 import { buildTypography, TYPE_PATHS } from './scripts/build-typography.mjs';
+import { writeRaw } from './scripts/figma-raw.mjs';
 
 // 피그마 ↔ 프로젝트 토큰 동기화
 // 1) 개발 서버가 켜질 때 토큰을 한 번 만듭니다.
@@ -59,12 +59,9 @@ function figmaTokenSync() {
             const isType = data.format === 'fing-figma-text-styles@1' && Array.isArray(data.styles);
             if (!isVars && !isIcons && !isType) throw new Error('형식이 맞지 않아요');
             const target = isIcons ? ICON_PATHS.raw : isType ? TYPE_PATHS.raw : TOKEN_PATHS.raw;
-            // 플러그인에서는 파일 키를 못 읽는 경우가 많아서, 기존 값을 이어받아요
-            if (!data.source?.fileKey) {
-              try { data.source = { ...data.source, fileKey: JSON.parse(readFileSync(target, 'utf8')).source?.fileKey ?? null }; } catch {}
-            }
-            writeFileSync(target, JSON.stringify(data, null, 2) + '\n');
-            run(`피그마 플러그인에서 ${isIcons ? '아이콘' : isType ? '텍스트 스타일' : '변수'} 수신`);
+            // 같은 내용이면 파일을 건드리지 않아요 (깃 충돌 방지). 바뀌면 감시 기능이 다시 만들어요.
+            const changed = writeRaw(target, data);
+            if (changed || !last.result) run(`피그마 플러그인에서 ${isIcons ? '아이콘' : isType ? '텍스트 스타일' : '변수'} 수신`);
             res.end(JSON.stringify({ ok: !last.error, ...last }));
           } catch (e) {
             res.statusCode = 400;

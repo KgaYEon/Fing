@@ -6,6 +6,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { lastSyncOf } from './figma-raw.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const P = {
@@ -180,7 +181,7 @@ export function buildTokens({ write = true } = {}) {
   // ---------- CSS ----------
   const lines = [
     '/* ⚠️ 자동 생성 파일 — 직접 수정하지 마세요.',
-    ` * 원본: 피그마 "${raw.source?.fileName ?? ''}" 변수 (${raw.source?.exportedAt ?? ''})`,
+    ` * 원본: 피그마 "${raw.source?.fileName ?? ''}" 변수 `,
     ' * 수정은 피그마에서 → 동기화하면 이 파일이 다시 만들어집니다. */',
     '',
     ':root {',
@@ -223,6 +224,7 @@ export function buildTokens({ write = true } = {}) {
   const json = {
     meta: {
       ...raw.source,
+      exportedAt: lastSyncOf(P.raw) || raw.source?.exportedAt || null,
       counts: { color: colors.length, other: others.length, otherTypes: [...new Set(others.map((v) => v.resolvedType))] },
     },
     collections,

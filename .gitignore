@@ -2,3 +2,10 @@ node_modules/
 dist/
 .DS_Store
 *.log
+
+# 자동 생성 파일 — 개발 서버/빌드가 실행될 때 만들어져요
+src/styles/tokens.css
+src/styles/typography.css
+src/tokens/
+src/icons/
+figma/.last-sync.json

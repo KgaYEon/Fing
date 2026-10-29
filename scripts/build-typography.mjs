@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { lastSyncOf } from './figma-raw.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const P = {
@@ -104,7 +105,7 @@ export function buildTypography({ write = true } = {}) {
 
   if (write) {
     writeFileSync(P.css, lines.join('\n') + '\n');
-    writeFileSync(P.json, JSON.stringify({ meta: raw.source, styles, lint }, null, 2));
+    writeFileSync(P.json, JSON.stringify({ meta: { ...raw.source, exportedAt: lastSyncOf(P.raw) || raw.source?.exportedAt || null }, styles, lint }, null, 2));
   }
   return { styles: styles.length, lint: lint.filter((l) => l.level !== 'ok').length };
 }

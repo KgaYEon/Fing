@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { lastSyncOf } from './figma-raw.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const P = {
@@ -108,7 +109,7 @@ export function icon(name, { size = 24, label, className = '' } = {}) {
 }
 `;
     writeFileSync(P.js, js);
-    writeFileSync(P.json, JSON.stringify({ meta: raw.source, icons, lint }, null, 2));
+    writeFileSync(P.json, JSON.stringify({ meta: { ...raw.source, exportedAt: lastSyncOf(P.raw) || raw.source?.exportedAt || null }, icons, lint }, null, 2));
   }
   return { icons: icons.length, lint: lint.filter((l) => l.level !== 'ok').length };
 }
