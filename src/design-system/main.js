@@ -1,6 +1,7 @@
 // 디자인시스템 페이지 — src/tokens/tokens.json 을 읽어 자동으로 그립니다.
 // 피그마에서 변수를 고치면 tokens.json 이 다시 만들어지고, 이 페이지도 그대로 따라 바뀝니다.
 import data from '../tokens/tokens.json';
+import iconData from '../icons/icons.json';
 
 const $app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -148,28 +149,91 @@ const counts = {
   warn: data.lint.filter((l) => l.level === 'warn' || l.level === 'error').length,
 };
 
-$app.innerHTML = `
-<div class="layout">
-  <aside class="side">
-    <div class="brand"><span class="logo"></span><span>Fing <em>Design System</em></span></div>
-    <nav>
-      <p class="nav-title">Foundations</p>
-      <a class="active" href="#top">Color <span class="nav-n">${all.length}</span></a>
-      <span class="soon">Typography</span>
-      <span class="soon">Spacing</span>
-      <span class="soon">Radius</span>
-      <span class="soon">Effect</span>
-      <p class="nav-title">Components</p>
-      <span class="soon">Button</span>
-      <span class="soon">Input</span>
-    </nav>
-    <div class="sync" id="sync">
-      <span class="dot"></span>
-      <span class="sync-text">정적 미리보기</span>
-    </div>
-  </aside>
 
-  <main id="top">
+// ---------- 아이콘 ----------
+const icons = iconData.icons;
+const iconFlag = new Map();
+for (const l of iconData.lint) if (l.level !== 'ok') for (const k of l.keys) if (!iconFlag.has(k)) iconFlag.set(k, l.level);
+const ICON_COLORS = [
+  ['txt/black', '--color-txt-black'],
+  ['txt/semiblack', '--color-txt-semiblack'],
+  ['txt/unselected', '--color-txt-unselected'],
+  ['txt/placeholder', '--color-txt-placeholder'],
+  ['txt/primary', '--color-txt-primary'],
+  ['txt/white', '--color-txt-white'],
+];
+const iconLintCard = (l) => lintCard({ ...l, tokens: [] }).replace('</h4>', '</h4>').replace(/<\/p>\s*<\/div>\s*<\/article>$/, `</p>${l.keys.length ? `<div class="lint-tokens">${l.keys.map((k) => `<a class="ref-chip" href="#ico-${esc(k)}">${esc(k)}</a>`).join('')}</div>` : ''}</div></article>`);
+const iconWarn = iconData.lint.filter((l) => l.level === 'warn' || l.level === 'error').length;
+const im = iconData.meta || {};
+const iconFigmaUrl = im.fileKey ? `https://www.figma.com/design/${im.fileKey}/?node-id=${(im.frame || '').replace(':', '-')}` : null;
+
+const iconView = () => `
+    <header class="page-head">
+      <p class="eyebrow">Foundations</p>
+      <h1>Icon</h1>
+      <p class="lead">피그마에서 이름이 <code>ic/</code>로 시작하는 아이콘 컴포넌트를 그대로 가져왔어요. 한 가지 색으로 된 아이콘은 놓인 곳의 글자색을 따라가서, 시멘틱 텍스트 토큰으로 색을 바꿀 수 있어요. 아이콘을 누르면 코드가 복사돼요.</p>
+      <div class="meta">
+        ${iconFigmaUrl ? `<a class="pill" href="${iconFigmaUrl}" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
+        <span class="pill ghost">마지막 동기화 ${fmtDate(im.exportedAt)}</span>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><span>전체</span><strong>${icons.length}</strong></div>
+      <div class="stat"><span>색 바꿀 수 있음</span><strong>${icons.filter((i) => i.type === 'mono').length}</strong></div>
+      <a href="#icon-health" class="stat ${iconWarn ? 'warn' : ''}"><span>확인 필요</span><strong>${iconWarn}</strong></a>
+    </div>
+
+    <div class="search icon-tools">
+      <input id="q" type="search" placeholder="아이콘 이름으로 찾기 (예: arr, star, batt)" autocomplete="off" />
+      <div class="tool-row">
+        <div class="seg" role="group" aria-label="미리보기 색">
+          ${ICON_COLORS.map(([n, v], i) => `<button class="seg-btn swatch-btn ${i === 0 ? 'on' : ''}" data-ico-color="${v}" title="${n}" aria-label="${n}"><span style="background:var(${v})"></span></button>`).join('')}
+        </div>
+        <div class="seg" role="group" aria-label="크기">
+          ${[16, 20, 24, 32].map((n) => `<button class="seg-btn ${n === 24 ? 'on' : ''}" data-ico-size="${n}">${n}</button>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="icon-grid" id="iconGrid" style="--ico-color: var(--color-txt-black); --ico-size: 24px">
+        ${icons.map((i) => `
+          <button class="ico" id="ico-${esc(i.key)}" data-search="${esc(`${i.key} ${i.figmaName}`.toLowerCase())}" data-copy="icon('${esc(i.key)}')" title="${esc(i.figmaName)}">
+            <span class="ico-art ${i.type}">${i.svg.replace('<svg', '<svg aria-hidden="true"')}</span>
+            <span class="ico-name">${esc(i.key)}</span>
+            ${i.type === 'multi' ? '<span class="ico-tag">여러 색</span>' : ''}
+            ${iconFlag.has(i.key) ? `<span class="flag ${iconFlag.get(i.key)}" title="점검 항목 있음"></span>` : ''}
+          </button>`).join('')}
+      </div>
+      <p class="sub legend">"여러 색" 아이콘은 피그마 색을 그대로 써서 미리보기 색이 바뀌지 않아요.</p>
+    </section>
+
+    <section id="icon-health" class="section">
+      <div class="section-head">
+        <h2>점검 <span class="sub">${iconData.lint.filter((l) => l.level !== 'ok').length}개 항목</span></h2>
+        <p>아이콘을 동기화할 때마다 다시 검사해요.</p>
+      </div>
+      <div class="lints">${iconData.lint.filter((l) => l.level !== 'ok').map(iconLintCard).join('') || '<p class="sub">발견된 문제가 없어요.</p>'}</div>
+      ${iconData.lint.some((l) => l.level === 'ok') ? `<h3 class="lint-sub">의도한 결정</h3><div class="lints">${iconData.lint.filter((l) => l.level === 'ok').map(iconLintCard).join('')}</div>` : ''}
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>코드에서 쓰는 법</h2></div>
+      <pre class="code"><code>import { icon } from '/src/icons/icons.js';
+
+// 기본 24px, 놓인 곳의 글자색을 따라가요
+button.innerHTML = icon('home');
+
+// 크기 지정 + 화면낭독기용 이름
+button.innerHTML = icon('arr-right', { size: 20, label: '다음' });
+
+/* 색은 CSS로 */
+.tab.active { color: var(--color-txt-primary); }</code></pre>
+    </section>
+`;
+
+const colorView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
       <h1>Color</h1>
@@ -231,10 +295,53 @@ $app.innerHTML = `
   background: var(--color-btn-default-press);
 }</code></pre>
     </section>
-  </main>
+`;
+
+$app.innerHTML = `
+<div class="layout">
+  <aside class="side">
+    <div class="brand"><span class="logo"></span><span>Fing <em>Design System</em></span></div>
+    <nav>
+      <p class="nav-title">Foundations</p>
+      <a href="#color" data-view="color">Color <span class="nav-n">${all.length}</span></a>
+      <a href="#icon" data-view="icon">Icon <span class="nav-n">${iconData.icons.length}</span></a>
+      <span class="soon">Typography</span>
+      <span class="soon">Spacing</span>
+      <span class="soon">Radius</span>
+      <span class="soon">Effect</span>
+      <p class="nav-title">Components</p>
+      <span class="soon">Button</span>
+      <span class="soon">Input</span>
+    </nav>
+    <div class="sync" id="sync">
+      <span class="dot"></span>
+      <span class="sync-text">정적 미리보기</span>
+    </div>
+  </aside>
+
+  <main id="top"></main>
+
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 `;
+
+
+// ---------- 화면 전환 (#color / #icon) ----------
+const VIEWS = { color: colorView, icon: iconView };
+const main = document.getElementById('top');
+let current = null;
+function route() {
+  const name = location.hash.slice(1);
+  if (current && !VIEWS[name]) return; // 화면 안의 이동 링크(#primitive 등)는 그대로 둠
+  const view = VIEWS[name] ? name : 'color';
+  if (view === current) return;
+  current = view;
+  main.innerHTML = VIEWS[view]();
+  document.querySelectorAll('nav a[data-view]').forEach((a) => a.classList.toggle('active', a.dataset.view === view));
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route);
+route();
 
 // ---------- 동작 ----------
 const toast = document.getElementById('toast');
@@ -267,13 +374,26 @@ document.addEventListener('click', (e) => {
 });
 
 // 검색
-document.getElementById('q').addEventListener('input', (e) => {
+document.addEventListener('input', (e) => {
+  if (e.target.id !== 'q') return;
   const q = e.target.value.trim().toLowerCase();
   document.querySelectorAll('[data-search]').forEach((el) => el.classList.toggle('dim', !!q && !el.dataset.search.includes(q)));
   document.querySelectorAll('[data-group]').forEach((g) => {
     const items = g.querySelectorAll('[data-search]');
     g.classList.toggle('hidden', !!q && [...items].every((i) => i.classList.contains('dim')));
   });
+});
+
+// 아이콘 미리보기 색·크기
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-ico-color],[data-ico-size]');
+  if (!b) return;
+  const grid = document.getElementById('iconGrid');
+  if (b.dataset.icoColor) {
+    grid.style.setProperty('--ico-color', `var(${b.dataset.icoColor})`);
+    grid.classList.toggle('on-dark', b.dataset.icoColor === '--color-txt-white');
+  } else grid.style.setProperty('--ico-size', b.dataset.icoSize + 'px');
+  b.parentElement.querySelectorAll('.seg-btn').forEach((x) => x.classList.toggle('on', x === b));
 });
 
 // 개발 서버에서 열었으면 동기화 연결 상태 표시

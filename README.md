@@ -1,6 +1,6 @@
 # Fing
 
-피그마 디자인을 단계별로 퍼블리싱하는 프로젝트. 현재 단계: **디자인시스템 — 색상**
+피그마 디자인을 단계별로 퍼블리싱하는 프로젝트. 현재 단계: **디자인시스템 — 색상, 아이콘**
 
 ## 실행
 
@@ -14,7 +14,8 @@ npm run dev
 
 ## 피그마 ↔ 프로젝트 실시간 동기화
 
-피그마에서 변수를 추가·삭제·수정하면 디자인시스템 페이지에 바로 반영돼요.
+피그마에서 변수나 아이콘을 추가·삭제·수정하면 디자인시스템 페이지에 바로 반영돼요.
+아이콘은 이름이 `ic/`로 시작하는 컴포넌트만 가져와요.
 
 **처음 한 번 설정 (피그마 데스크톱 앱 필요)**
 1. 피그마 데스크톱 앱 → 메뉴 `Plugins` → `Development` → `Import plugin from manifest…`
@@ -36,6 +37,8 @@ scripts/build-tokens.mjs   원본 → CSS 변수 + 점검 규칙
 src/styles/tokens.css      자동 생성 CSS 변수 (직접 수정 X)
 src/tokens/tokens.json     자동 생성 페이지용 데이터 (직접 수정 X)
 src/design-system/         디자인시스템 페이지
+figma/icons.raw.json       피그마 아이콘 원본 (직접 수정 X)
+src/icons/                 자동 생성 아이콘 (svg 파일, icon() 함수)
 figma-plugin/              개발용 피그마 동기화 플러그인
 ```
 
@@ -46,3 +49,13 @@ figma-plugin/              개발용 피그마 동기화 플러그인
 ```css
 .button { background: var(--color-btn-default); color: var(--color-txt-white); }
 ```
+
+아이콘:
+
+```js
+import { icon } from '/src/icons/icons.js';
+button.innerHTML = icon('home');                       // 글자색을 따라감
+button.innerHTML = icon('arr-right', { size: 20, label: '다음' });
+```
+
+> 피그마 플러그인을 새로 고쳤으면 피그마에서 플러그인을 한 번 껐다 켜주세요.
