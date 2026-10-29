@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@900&display=swap');
 @import './tokens.css';
 @import './typography.css';
+@import '../components/components.css';
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }

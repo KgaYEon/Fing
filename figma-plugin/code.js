@@ -2,6 +2,7 @@
 // 플러그인 창이 열려 있는 동안
 //  - 변수: 1.5초마다 확인해서 바뀌면 보냅니다.
 //  - 텍스트 스타일: 1.5초마다 확인해서 바뀌면 보냅니다.
+//  - 컴포넌트: 프로젝트 tokens/components.json 목록에 있는 것만, 바뀌면 보냅니다.
 //  - 아이콘: 이름이 ic/ 로 시작하는 컴포넌트가 바뀌면 SVG로 보냅니다.
 figma.showUI(__html__, { width: 320, height: 300, themeColors: true });
 
@@ -54,7 +55,42 @@ async function exportTextStyles() {
   };
 }
 
+// 아래 함수는 Claude가 피그마에서 읽어올 때 쓰는 코드와 똑같아야 해요 (결과가 같아야 깃 충돌이 없어요)
+let componentSetNames = [];
+async function exportComponents() {
+  const allVars = await figma.variables.getLocalVariablesAsync();
+  const varName = (id) => { const v = allVars.find((x) => x.id === id); return v ? v.name : null; };
+  const hex = (c) => '#' + [c.r, c.g, c.b].map((x) => Math.round(x * 255).toString(16).padStart(2, '0')).join('').toUpperCase();
+  const paintOf = (fills) => {
+    const f = Array.isArray(fills) ? fills.find((p) => p.type === 'SOLID' && p.visible !== false) : null;
+    return f ? { hex: hex(f.color), opacity: f.opacity === undefined ? 1 : f.opacity, var: f.boundVariables && f.boundVariables.color ? varName(f.boundVariables.color.id) : null } : null;
+  };
+  const textStyles = await figma.getLocalTextStylesAsync();
+  const allSets = figma.root.findAllWithCriteria({ types: ['COMPONENT_SET'] });
+  const sets = componentSetNames.map((n) => allSets.find((s) => s.name === n)).filter(Boolean);
+  return {
+    format: 'fing-figma-components@1',
+    source: { fileName: figma.root.name, fileKey: figma.fileKey || null, exportedAt: new Date().toISOString(), via: 'figma-plugin' },
+    componentSets: sets.map((s) => ({
+      id: s.id, name: s.name, description: s.description || '',
+      props: Object.fromEntries(Object.entries(s.componentPropertyDefinitions).map(([k, d]) => [k, { type: d.type, defaultValue: d.defaultValue, options: d.variantOptions || null }])),
+      variants: s.children.filter((c) => c.type === 'COMPONENT').map((c) => {
+        const t = c.findOne((n) => n.type === 'TEXT');
+        return {
+          id: c.id, name: c.name, props: c.variantProperties,
+          width: c.width, height: c.height, radius: c.cornerRadius === figma.mixed ? null : c.cornerRadius,
+          padding: [c.paddingTop, c.paddingRight, c.paddingBottom, c.paddingLeft], gap: c.itemSpacing,
+          layout: c.layoutMode, align: [c.primaryAxisAlignItems, c.counterAxisAlignItems],
+          fill: paintOf(c.fills), stroke: paintOf(c.strokes), strokeWeight: c.strokes && c.strokes.length ? c.strokeWeight : 0,
+          text: t ? { style: (textStyles.find((x) => x.id === t.textStyleId) || {}).name || null, fill: paintOf(t.fills) } : null,
+        };
+      }),
+    })),
+  };
+}
+
 let lastSig = '';
+let lastCompSig = '';
 let lastTypeSig = '';
 let lastIconSig = '';
 let iconsDirty = true;
@@ -76,6 +112,16 @@ async function typeTick(force) {
   figma.ui.postMessage({ type: 'export', data, reason: force ? 'manual' : 'changed', kind: 'type' });
 }
 
+async function compTick(force) {
+  if (!componentSetNames.length) return;
+  if (!force && !iconsDirty && lastCompSig) return;
+  const data = await exportComponents();
+  const sig = JSON.stringify(data.componentSets);
+  if (!force && sig === lastCompSig) return;
+  lastCompSig = sig;
+  figma.ui.postMessage({ type: 'export', data, reason: force ? 'manual' : 'changed', kind: 'components' });
+}
+
 async function iconTick(force) {
   if (!force && !iconsDirty) return;
   iconsDirty = false;
@@ -87,9 +133,10 @@ async function iconTick(force) {
 }
 
 figma.ui.onmessage = (msg) => {
-  if (msg.type === 'sync') { tick(true); typeTick(true); iconTick(true); }
+  if (msg.type === 'sync') { tick(true); typeTick(true); compTick(true); iconTick(true); }
+  if (msg.type === 'config') { const n = JSON.stringify(msg.componentSets || []); if (n !== JSON.stringify(componentSetNames)) { componentSetNames = msg.componentSets || []; compTick(true); } }
   if (msg.type === 'auto') auto = msg.value;
-  if (msg.type === 'failed') { lastSig = ''; lastTypeSig = ''; lastIconSig = ''; iconsDirty = true; } // 전송 실패 시 다음 확인 때 다시 보냄
+  if (msg.type === 'failed') { lastSig = ''; lastTypeSig = ''; lastCompSig = ''; lastIconSig = ''; iconsDirty = true; } // 전송 실패 시 다음 확인 때 다시 보냄
 };
 
 (async () => {
@@ -98,5 +145,5 @@ figma.ui.onmessage = (msg) => {
   tick(true);
   typeTick(true);
   iconTick(true);
-  setInterval(() => { if (auto) { tick(false); typeTick(false); iconTick(false); } }, 1500);
+  setInterval(async () => { if (auto) { tick(false); typeTick(false); await compTick(false); iconTick(false); } }, 1500);
 })();

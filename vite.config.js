@@ -4,6 +4,7 @@ import { buildTokens, TOKEN_PATHS } from './scripts/build-tokens.mjs';
 import { buildIcons, ICON_PATHS } from './scripts/build-icons.mjs';
 import { buildTypography, TYPE_PATHS } from './scripts/build-typography.mjs';
 import { writeRaw } from './scripts/figma-raw.mjs';
+import { buildComponents, COMPONENT_PATHS, componentList } from './scripts/build-components.mjs';
 
 // 피그마 ↔ 프로젝트 토큰 동기화
 // 1) 개발 서버가 켜질 때 토큰을 한 번 만듭니다.
@@ -17,11 +18,14 @@ function figmaTokenSync() {
       const result = buildTokens();
       const ic = buildIcons();
       const ty = buildTypography();
+      const co = buildComponents();
+      result.components = co.components;
+      result.lint += co.lint;
       result.icons = ic.icons;
       result.textStyles = ty.styles;
       result.lint += ic.lint + ty.lint;
       last = { at: new Date().toISOString(), result, error: null };
-      console.log(`\x1b[36m[figma-sync]\x1b[0m ${why} → 색상 ${result.colors}개, 아이콘 ${ic.icons}개, 글자 ${ty.styles}개, 점검 ${result.lint}개`);
+      console.log(`\x1b[36m[figma-sync]\x1b[0m ${why} → 색상 ${result.colors}개, 아이콘 ${ic.icons}개, 글자 ${ty.styles}개, 컴포넌트 ${co.components}개, 점검 ${result.lint}개`);
     } catch (e) {
       last = { at: new Date().toISOString(), result: null, error: e.message };
       console.error(`\x1b[31m[figma-sync]\x1b[0m 토큰 생성 실패: ${e.message}`);
@@ -34,7 +38,7 @@ function figmaTokenSync() {
       run('빌드');
     },
     configureServer(server) {
-      const watched = [TOKEN_PATHS.raw, TOKEN_PATHS.map, TOKEN_PATHS.lintConfig, ICON_PATHS.raw, TYPE_PATHS.raw];
+      const watched = [TOKEN_PATHS.raw, TOKEN_PATHS.map, TOKEN_PATHS.lintConfig, ICON_PATHS.raw, TYPE_PATHS.raw, COMPONENT_PATHS.raw, COMPONENT_PATHS.list];
       server.watcher.add(watched);
       server.watcher.on('change', (file) => {
         if (watched.includes(file)) run('원본 변경 감지');
@@ -46,6 +50,7 @@ function figmaTokenSync() {
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
         res.setHeader('Content-Type', 'application/json');
         if (req.method === 'OPTIONS') return res.end();
+        if (req.method === 'GET' && req.url.startsWith('/config')) return res.end(JSON.stringify({ componentSets: componentList() }));
         if (req.method === 'GET') return res.end(JSON.stringify({ ok: true, ...last }));
         if (req.method !== 'POST') { res.statusCode = 405; return res.end('{}'); }
 
@@ -57,11 +62,12 @@ function figmaTokenSync() {
             const isVars = data.format === 'fing-figma-variables@1' && Array.isArray(data.variables);
             const isIcons = data.format === 'fing-figma-icons@1' && Array.isArray(data.icons);
             const isType = data.format === 'fing-figma-text-styles@1' && Array.isArray(data.styles);
-            if (!isVars && !isIcons && !isType) throw new Error('형식이 맞지 않아요');
-            const target = isIcons ? ICON_PATHS.raw : isType ? TYPE_PATHS.raw : TOKEN_PATHS.raw;
+            const isComp = data.format === 'fing-figma-components@1' && Array.isArray(data.componentSets);
+            if (!isVars && !isIcons && !isType && !isComp) throw new Error('형식이 맞지 않아요');
+            const target = isIcons ? ICON_PATHS.raw : isType ? TYPE_PATHS.raw : isComp ? COMPONENT_PATHS.raw : TOKEN_PATHS.raw;
             // 같은 내용이면 파일을 건드리지 않아요 (깃 충돌 방지). 바뀌면 감시 기능이 다시 만들어요.
             const changed = writeRaw(target, data);
-            if (changed || !last.result) run(`피그마 플러그인에서 ${isIcons ? '아이콘' : isType ? '텍스트 스타일' : '변수'} 수신`);
+            if (changed || !last.result) run(`피그마 플러그인에서 ${isIcons ? '아이콘' : isType ? '텍스트 스타일' : isComp ? '컴포넌트' : '변수'} 수신`);
             res.end(JSON.stringify({ ok: !last.error, ...last }));
           } catch (e) {
             res.statusCode = 400;

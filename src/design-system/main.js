@@ -3,6 +3,7 @@
 import data from '../tokens/tokens.json';
 import iconData from '../icons/icons.json';
 import typeData from '../tokens/typography.json';
+import compData from '../components/components.json';
 
 const $app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -307,6 +308,93 @@ const typeView = () => `
     </section>
 `;
 
+// ---------- 컴포넌트 ----------
+const compLintFor = (set) => compData.lint.filter((l) => l.title.startsWith(set.name));
+const tokenChip = (c) => (c ? `<span class="tchip"><span class="sw sm" style="background:${c.css}"></span>${c.token ? esc(c.token) : `<em>${esc(c.hex)}</em>`}</span>` : '<span class="sub">—</span>');
+const componentView = (set) => () => {
+  const colorKey = set.otherKeys[0];
+  const colors = colorKey ? set.options[colorKey] : [null];
+  const states = set.stateKey ? set.options[set.stateKey] : [null];
+  const find = (c, st) => set.variants.find((v) => (!colorKey || v.props[colorKey] === c) && (!set.stateKey || v.props[set.stateKey] === st));
+  const stateCls = (st) => (st && st !== set.defaults[set.stateKey] ? ` is-${st}` : '');
+  const lints = compLintFor(set);
+  const warn = lints.filter((l) => l.level === 'warn' || l.level === 'error').length;
+  const v0 = set.variants[0];
+  return `
+    <header class="page-head">
+      <p class="eyebrow">Components</p>
+      <h1>${esc(set.name)}</h1>
+      <p class="lead">피그마 ${esc(set.name)} 컴포넌트에서 자동으로 만들어졌어요. 아래 버튼은 진짜 코드 버튼이라 눌러볼 수 있어요. 클래스 이름을 누르면 복사돼요.</p>
+      <div class="meta">
+        ${compData.meta?.fileKey ? `<a class="pill" href="https://www.figma.com/design/${compData.meta.fileKey}/?node-id=${set.id.replace(':', '-')}" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
+        <span class="pill ghost">마지막 동기화 ${fmtDate(compData.meta?.exportedAt)}</span>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><span>${esc(colorKey || 'variant')}</span><strong>${colors.length}</strong></div>
+      <div class="stat"><span>${esc(set.stateKey || 'state')}</span><strong>${states.length}</strong></div>
+      <a href="#comp-health" class="stat ${warn ? 'warn' : ''}"><span>확인 필요</span><strong>${warn}</strong></a>
+    </div>
+
+    <div class="search">
+      <input id="btnLabel" type="text" value="${esc(set.textProp)}" placeholder="버튼 글자" autocomplete="off" aria-label="버튼 글자" />
+    </div>
+
+    <section class="section">
+      <div class="comp-grid" style="--cols:${states.length}">
+        <div class="comp-head"><span></span>${states.map((st) => `<span>${esc(st || '')}${st === set.defaults[set.stateKey] ? ' (기본)' : ''}</span>`).join('')}</div>
+        ${colors.map((c) => {
+          const base = find(c, set.defaults[set.stateKey]);
+          const cls = `${set.className}${base?.modifier ? ' ' + base.modifier : ''}`;
+          return `
+          <div class="comp-row">
+            <div class="comp-label">
+              <strong>${esc(c || set.name)}</strong>
+              <button class="copy mono" data-copy='class="${esc(cls)}"'>.${esc(cls.replace(/ /g, '.'))}</button>
+            </div>
+            ${states.map((st) => {
+              const v = find(c, st);
+              if (!v) return `<div class="comp-cell empty"><span>피그마에 없음</span></div>`;
+              return `<div class="comp-cell">
+                <button class="${esc(cls)}${stateCls(st)}" type="button" data-label>${esc(set.textProp)}</button>
+                <div class="comp-tokens">${tokenChip(v.bg)}${tokenChip(v.fg)}</div>
+              </div>`;
+            }).join('')}
+          </div>`;
+        }).join('')}
+      </div>
+      <p class="sub legend">각 칸 아래는 배경 색 · 글자 색 토큰이에요. 기울어진 글씨는 토큰에 연결 안 된 색이에요.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>공통 규격</h2></div>
+      <div class="spec-row">
+        <span><em>높이</em>${v0.height}px</span>
+        <span><em>너비</em>꽉 차게 (피그마 ${v0.width}px)</span>
+        <span><em>안쪽 여백</em>${v0.padding[0]} / ${v0.padding[1]}px</span>
+        <span><em>모서리</em>${v0.radius}px</span>
+        <span><em>글자</em>${esc(v0.textStyle || '—')}</span>
+      </div>
+    </section>
+
+    <section id="comp-health" class="section">
+      <div class="section-head">
+        <h2>점검 <span class="sub">${lints.filter((l) => l.level !== 'ok').length}개 항목</span></h2>
+        <p>컴포넌트를 동기화할 때마다 다시 검사해요.</p>
+      </div>
+      <div class="lints">${lints.filter((l) => l.level !== 'ok').map((l) => lintCard({ ...l, tokens: [] })).join('') || '<p class="sub">발견된 문제가 없어요.</p>'}</div>
+      ${lints.some((l) => l.level === 'ok') ? `<h3 class="lint-sub">의도한 결정</h3><div class="lints">${lints.filter((l) => l.level === 'ok').map((l) => lintCard({ ...l, tokens: [] })).join('')}</div>` : ''}
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>코드에서 쓰는 법</h2></div>
+      <pre class="code"><code>&lt;button class="${esc(set.className)}"&gt;확인&lt;/button&gt;
+${colors.filter((c) => c && c !== set.defaults[colorKey]).map((c) => `&lt;button class="${esc(set.className)} ${esc(set.className)}--${esc(c)}"&gt;확인&lt;/button&gt;`).join('\n')}</code></pre>
+    </section>
+  `;
+};
+
 const colorView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
@@ -384,7 +472,7 @@ $app.innerHTML = `
       <span class="soon">Radius</span>
       <span class="soon">Effect</span>
       <p class="nav-title">Components</p>
-      <span class="soon">Button</span>
+      ${compData.sets.map((c) => `<a href="#c-${esc(c.className)}" data-view="c-${esc(c.className)}">${esc(c.name)} <span class="nav-n">${c.variants.length}</span></a>`).join('')}
       <span class="soon">Input</span>
     </nav>
     <div class="sync" id="sync">
@@ -402,6 +490,7 @@ $app.innerHTML = `
 
 // ---------- 화면 전환 (#color / #icon) ----------
 const VIEWS = { color: colorView, type: typeView, icon: iconView };
+for (const set of compData.sets) VIEWS[`c-${set.className}`] = componentView(set);
 const main = document.getElementById('top');
 let current = null;
 function route() {
@@ -449,6 +538,11 @@ document.addEventListener('click', (e) => {
 
 // 검색
 document.addEventListener('input', (e) => {
+  if (e.target.id === 'btnLabel') {
+    const v = e.target.value || ' ';
+    document.querySelectorAll('[data-label]').forEach((el) => (el.textContent = v));
+    return;
+  }
   if (e.target.id === 'sample') {
     const v = e.target.value || ' ';
     document.querySelectorAll('[data-sample]').forEach((el) => (el.textContent = v));

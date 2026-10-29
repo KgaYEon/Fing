@@ -1,0 +1,422 @@
+{
+  "format": "fing-figma-components@1",
+  "source": {
+    "fileName": "Fing",
+    "fileKey": "ePI19exWQwYPCHpC27V2G8"
+  },
+  "componentSets": [
+    {
+      "id": "46:262",
+      "name": "Button",
+      "description": "",
+      "props": {
+        "Text#46:0": {
+          "type": "TEXT",
+          "defaultValue": "버튼 텍스트",
+          "options": null
+        },
+        "color": {
+          "type": "VARIANT",
+          "defaultValue": "primary",
+          "options": [
+            "primary",
+            "secondary",
+            "danger",
+            "danger-sec",
+            "unselected"
+          ]
+        },
+        "state": {
+          "type": "VARIANT",
+          "defaultValue": "default",
+          "options": [
+            "default",
+            "hover"
+          ]
+        }
+      },
+      "variants": [
+        {
+          "id": "33:645",
+          "name": "color=primary, state=default",
+          "props": {
+            "color": "primary",
+            "state": "default"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#1769FF",
+            "opacity": 1,
+            "var": "btn/default"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#FFFFFF",
+              "opacity": 1,
+              "var": null
+            }
+          }
+        },
+        {
+          "id": "111:764",
+          "name": "color=secondary, state=default",
+          "props": {
+            "color": "secondary",
+            "state": "default"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#E5EEFF",
+            "opacity": 1,
+            "var": "btn/light"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#1769FF",
+              "opacity": 1,
+              "var": "btn/default"
+            }
+          }
+        },
+        {
+          "id": "111:768",
+          "name": "color=secondary, state=hover",
+          "props": {
+            "color": "secondary",
+            "state": "hover"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#A5C5FF",
+            "opacity": 1,
+            "var": "btn/light-press"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#1769FF",
+              "opacity": 1,
+              "var": "btn/default"
+            }
+          }
+        },
+        {
+          "id": "130:1958",
+          "name": "color=danger, state=default",
+          "props": {
+            "color": "danger",
+            "state": "default"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#CF2A1E",
+            "opacity": 1,
+            "var": "시멘틱/danger"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#FFFFFF",
+              "opacity": 1,
+              "var": "txt/white"
+            }
+          }
+        },
+        {
+          "id": "130:1962",
+          "name": "color=danger, state=hover",
+          "props": {
+            "color": "danger",
+            "state": "hover"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#AD2016",
+            "opacity": 1,
+            "var": "시멘틱/danger press"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#FFFFFF",
+              "opacity": 1,
+              "var": "txt/white"
+            }
+          }
+        },
+        {
+          "id": "130:1960",
+          "name": "color=danger-sec, state=default",
+          "props": {
+            "color": "danger-sec",
+            "state": "default"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#FFEDEB",
+            "opacity": 1,
+            "var": "시멘틱/danger light"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#CF2A1E",
+              "opacity": 1,
+              "var": "시멘틱/danger"
+            }
+          }
+        },
+        {
+          "id": "130:1965",
+          "name": "color=danger-sec, state=hover",
+          "props": {
+            "color": "danger-sec",
+            "state": "hover"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#FDDCD6",
+            "opacity": 1,
+            "var": "시멘틱/danger light press"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#CF2A1E",
+              "opacity": 1,
+              "var": "시멘틱/danger"
+            }
+          }
+        },
+        {
+          "id": "315:2578",
+          "name": "color=unselected, state=default",
+          "props": {
+            "color": "unselected",
+            "state": "default"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#BEC6D2",
+            "opacity": 1,
+            "var": "btn/disable"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#636E7F",
+              "opacity": 1,
+              "var": "txt/unselected"
+            }
+          }
+        },
+        {
+          "id": "46:263",
+          "name": "color=primary, state=hover",
+          "props": {
+            "color": "primary",
+            "state": "hover"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#1957D2",
+            "opacity": 1,
+            "var": "btn/default-press"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#FFFFFF",
+              "opacity": 1,
+              "var": null
+            }
+          }
+        },
+        {
+          "id": "332:2653",
+          "name": "color=primary, state=hover",
+          "props": {
+            "color": "primary",
+            "state": "hover"
+          },
+          "width": 337,
+          "height": 64,
+          "radius": 16,
+          "padding": [
+            20,
+            24,
+            20,
+            24
+          ],
+          "gap": 10,
+          "layout": "VERTICAL",
+          "align": [
+            "CENTER",
+            "CENTER"
+          ],
+          "fill": {
+            "hex": "#1957D2",
+            "opacity": 1,
+            "var": "btn/default-press"
+          },
+          "stroke": null,
+          "strokeWeight": 0,
+          "text": {
+            "style": "Btn",
+            "fill": {
+              "hex": "#FFFFFF",
+              "opacity": 1,
+              "var": null
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
