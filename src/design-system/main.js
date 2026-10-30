@@ -8,7 +8,7 @@ import spaceData from '../tokens/spacing.json';
 import radiusData from '../tokens/radius.json';
 import effectData from '../tokens/effects.json';
 import { components as uiComponents } from '../ui/registry.js';
-import { enhance } from '../ui/ui.js';
+import { enhance, openSheet, busy, wait } from '../ui/ui.js';
 
 const $app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -714,6 +714,11 @@ route();
 
 // ---------- 동작 ----------
 enhance(document);
+document.addEventListener('click', (e) => {
+  if (e.target.closest('[data-demo-sheet]')) openSheet({ title: '기준 종목 설정', sub: '어떤 종목의 기록을 표시할까요?', body: '<div style="display:flex;flex-direction:column;gap:12px">' + ['서핑', '패들보드', '바디보드'].map((t, i) => `<label class="choice"><input type="radio" name="sheet-demo"${i === 0 ? ' checked' : ''}><span class="choice__text"><span class="choice__title">${t}</span></span></label>`).join('') + '</div>' });
+  const b = e.target.closest('[data-demo-busy]');
+  if (b) busy(b, () => wait(1000));
+});
 const toast = document.getElementById('toast');
 let toastTimer;
 const showToast = (msg) => {

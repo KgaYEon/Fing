@@ -168,4 +168,18 @@ export const components = [
       '글자를 가운데 두려고 오른쪽에 투명한 애플 아이콘을 넣어뒀어요. 코드는 아이콘을 따로 띄워서 같은 결과를 냈어요.',
     ],
   },
+  {
+    key: 'sheet', name: 'Sheet', figma: 'sheet', figmaId: '19:523', file: 'sheet.css', wide: true,
+    lead: '아래에서 올라오는 시트예요. 바깥을 누르거나, 손잡이를 아래로 끌거나, Esc로 닫아요.',
+    demos: [{ label: '눌러서 열기', html: '<button class="button button--sm" data-demo-sheet style="width:auto">시트 열기</button>' }],
+    code: "import { openSheet } from '/src/ui/ui.js';\nopenSheet({ title: '기준 종목 설정', sub: '어떤 종목의 기록을 표시할까요?', body: '<p>내용</p>' });",
+    notes: ['약관 표의 머리글 배경이 #F0F0F0(토큰 아님)이에요. 코드는 가장 가까운 btn/gray를 썼어요.'],
+  },
+  {
+    key: 'press', name: 'Press · Loading', figma: '(공통 동작)', figmaId: '46:262', file: 'press.css', wide: true,
+    lead: '누르는 모든 것에 들어가는 공통 동작이에요. 누르면 살짝 작아지고, 로딩 중에는 다시 눌러도 반응하지 않아요.',
+    demos: [{ label: '눌러보세요 (1초 로딩)', html: '<div style="display:flex;flex-direction:column;gap:12px"><button class="button" data-demo-busy>저장하기</button><button type="button" class="social-button social-button--kakao" data-demo-busy><span>카카오로 시작하기</span></button></div>' }],
+    code: "import { busy, wait } from '/src/ui/ui.js';\nbtn.addEventListener('click', () => busy(btn, async () => {\n  await save();   // 끝날 때까지 빙글빙글 + 연타 막기\n}));",
+    notes: [],
+  },
 ].map((c) => ({ ...c, codeHtml: esc(c.code) }));

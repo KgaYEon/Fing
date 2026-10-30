@@ -56,3 +56,58 @@ export function enhance(root = document) {
     }
   });
 }
+
+/** 누르면 로딩 표시 + 연타 막기 — await busy(btn, async () => { ... }) */
+export async function busy(btn, task) {
+  if (btn.getAttribute('aria-busy') === 'true') return;
+  btn.setAttribute('aria-busy', 'true');
+  try { return await task(); } finally { btn.removeAttribute('aria-busy'); }
+}
+
+export const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/** 잠깐 뜨는 안내 — toast('준비 중이에요') */
+export function toast(message, ms = 2000) {
+  let el = document.querySelector('.toast');
+  if (!el) { el = document.createElement('div'); el.className = 'toast'; el.setAttribute('role', 'status'); document.body.append(el); }
+  el.textContent = message;
+  el.classList.add('is-on');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('is-on'), ms);
+}
+
+/** 아래에서 올라오는 시트 — openSheet({ title, sub, body }) */
+export function openSheet({ title, sub = '', body = '', label } = {}) {
+  const d = document.createElement('dialog');
+  d.className = 'sheet';
+  d.setAttribute('aria-label', label || title || '시트');
+  d.innerHTML = `
+    <button class="sheet__handle" type="button" aria-label="닫기"></button>
+    ${title ? `<header class="sheet__head"><h2 class="sheet__title">${title}</h2>${sub ? `<p class="sheet__sub">${sub}</p>` : ''}</header>` : ''}
+    <div class="sheet__body">${body}</div>`;
+  document.body.append(d);
+  const close = () => {
+    if (d.classList.contains('is-closing')) return;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    d.classList.add('is-closing');
+    const done = () => { d.close(); d.remove(); };
+    reduce ? done() : d.addEventListener('animationend', done, { once: true });
+  };
+  d.addEventListener('cancel', (e) => { e.preventDefault(); close(); });           // Esc
+  d.addEventListener('click', (e) => { if (e.target === d) close(); });          // 바깥(어두운 곳) 누르기
+  const handle = d.querySelector('.sheet__handle');
+  let dragged = false;
+  handle.addEventListener('click', () => { if (dragged) { dragged = false; return; } close(); });
+  // 손잡이를 아래로 끌어서 닫기
+  let startY = null;
+  handle.addEventListener('pointerdown', (e) => { startY = e.clientY; handle.setPointerCapture(e.pointerId); d.style.transition = 'none'; });
+  handle.addEventListener('pointermove', (e) => { if (startY == null) return; const dy = Math.max(0, e.clientY - startY); if (dy > 4) dragged = true; d.style.transform = `translateY(${dy}px)`; });
+  handle.addEventListener('pointerup', (e) => {
+    if (startY == null) return;
+    const dy = e.clientY - startY; startY = null; d.style.transition = ''; d.style.transform = '';
+    if (dy > 80) close();
+  });
+  d.showModal();
+  d.querySelector('.sheet__body').scrollTop = 0;
+  return { el: d, close };
+}

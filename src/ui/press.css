@@ -1,0 +1,46 @@
+/* 모든 누르는 것 공통 — 눌림 느낌 + 로딩 중 연타 막기 */
+:where(.button, .social-button, .chip, .segmented__tab, .tab-bar__item, .choice, .option-row, .record-card__fav, .sheet__close) {
+  -webkit-tap-highlight-color: transparent;
+  transition-property: background-color, color, box-shadow, transform, filter;
+  transition-duration: .15s;
+}
+:where(.button, .social-button, .chip, .segmented__tab, .choice, .option-row):active:not(:disabled, [aria-busy='true']) { transform: scale(.98); }
+:where(.tab-bar__item, .record-card__fav, .sheet__close):active { transform: scale(.92); }
+:where(.button, .social-button)[aria-busy='true'] { cursor: progress; pointer-events: none; }
+:where(.button, .social-button)[aria-disabled='true'] { pointer-events: none; }
+:where(.button, .social-button):disabled:not([aria-busy='true']) { opacity: .5; cursor: not-allowed; }
+
+/* 빙글빙글 — 글자색을 따라가요 */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  :where(.button, .social-button, .chip, .segmented__tab, .tab-bar__item, .choice, .option-row, .record-card__fav, .sheet__close):active { transform: none !important; }
+  .spinner { animation-duration: 1.6s; }
+}
+
+/* 잠깐 뜨는 안내 */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--space-32) + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+  max-width: calc(100% - var(--space-32));
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-12);
+  background: var(--color-txt-semiblack);
+  color: var(--color-txt-white);
+  font: var(--text-caption-1);
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.toast.is-on { opacity: 1; transform: translate(-50%, 0); }

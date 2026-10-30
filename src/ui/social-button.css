@@ -25,3 +25,13 @@
 .social-button--kakao { background: #FAE100; }
 .social-button--kakao .icon { color: #000; }
 .social-button--apple { background: #000; color: var(--color-txt-white); }
+
+/* 로딩 중: 아이콘·글자 대신 빙글빙글 */
+.social-button[aria-busy='true'] > * { visibility: hidden; }
+.social-button[aria-busy='true']::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  border: 2.5px solid currentColor; border-right-color: transparent; border-radius: 50%;
+  animation: spin .7s linear infinite;
+}

@@ -1,0 +1,60 @@
+/* sheet — 피그마 "sheet" (아래에서 올라오는 시트)
+   손잡이(57×7) · 제목(Title 3) · 설명(Caption 1) · 내용
+   openSheet({ title, sub, body })  (src/ui/ui.js)
+   닫기: 바깥 누르기 · 손잡이를 아래로 끌기 · Esc */
+.sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 402px;
+  max-height: min(88dvh, 860px);
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-16) var(--radius-16) 0 0;
+  background: var(--color-bg);
+  color: var(--color-txt-black);
+  overflow: hidden;
+}
+.sheet[open] { display: flex; flex-direction: column; animation: sheet-up .28s cubic-bezier(.2, .8, .2, 1); }
+.sheet.is-closing { animation: sheet-down .2s ease forwards; }
+.sheet::backdrop { background: rgba(5, 8, 13, .4); animation: sheet-fade .28s ease; }
+.sheet.is-closing::backdrop { animation: sheet-fade .2s ease reverse forwards; }
+
+.sheet__handle {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-20) 0 var(--space-12);
+  border: 0;
+  background: none;
+  cursor: grab;
+  touch-action: none;
+}
+.sheet__handle::before { content: ''; width: 57px; height: 7px; border-radius: var(--radius-full); background: var(--color-btn-disable); }
+.sheet__head { display: flex; flex-direction: column; padding: var(--space-12) var(--space-20); }
+.sheet__title { margin: 0; font: var(--text-title-3); color: var(--color-txt-semiblack); }
+.sheet__sub { margin: 0; font: var(--text-caption-1); color: var(--color-txt-unselected); }
+.sheet__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-8) var(--space-20) calc(var(--space-24) + env(safe-area-inset-bottom, 0px)); }
+.sheet__close { position: absolute; top: var(--space-12); right: var(--space-12); width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: var(--radius-full); background: none; color: var(--color-txt-unselected); cursor: pointer; }
+.sheet__close:focus-visible { outline: 2px solid var(--color-str-primary); }
+
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes sheet-down { to { transform: translateY(100%); } }
+@keyframes sheet-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sheet[open], .sheet.is-closing, .sheet::backdrop { animation: none; } }
+
+/* 시트 안 긴 글 (약관 등) */
+.doc { display: flex; flex-direction: column; gap: var(--space-24); }
+.doc section { display: flex; flex-direction: column; gap: var(--space-12); }
+.doc h3 { margin: 0; font: var(--text-title-3); color: var(--color-txt-black); }
+.doc p, .doc li { margin: 0; font: var(--text-caption-1); color: var(--color-txt-unselected); }
+.doc ul { margin: 0; padding-left: var(--space-20); display: flex; flex-direction: column; gap: var(--space-4); }
+.doc table { width: 100%; border-collapse: collapse; font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.doc caption { text-align: left; padding-bottom: var(--space-8); font: var(--text-caption-1); color: var(--color-txt-unselected); }
+.doc th, .doc td { padding: var(--space-8) var(--space-12); text-align: left; vertical-align: top; }
+.doc th { background: var(--color-btn-gray); font-weight: 600; }
+.doc th:first-child { border-radius: var(--radius-8) 0 0 var(--radius-8); }
+.doc th:last-child { border-radius: 0 var(--radius-8) var(--radius-8) 0; }
+.doc td:first-child { white-space: nowrap; color: var(--color-txt-semiblack); }
+.doc tr + tr td { border-top: 1px solid var(--color-btn-gray); }
+.doc__date { font: var(--text-title-4); color: var(--color-txt-black); }
