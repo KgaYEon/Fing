@@ -101,13 +101,14 @@ function trailingSlash(paths) {
 
 export default defineConfig({
   base: './',
-  plugins: [figmaTokenSync(), trailingSlash(['/ds'])],
+  plugins: [figmaTokenSync(), trailingSlash(['/ds', '/login'])],
   server: { port: 5173, strictPort: true },
   build: {
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
         ds: resolve(import.meta.dirname, 'ds/index.html'),
+        login: resolve(import.meta.dirname, 'login/index.html'),
       },
     },
   },

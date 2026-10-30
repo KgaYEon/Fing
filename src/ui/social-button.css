@@ -1,0 +1,27 @@
+/* social-button — 피그마 로그인 화면 "login-box"
+   socialButton('google' | 'kakao' | 'apple')  (src/ui/ui.js)
+   아이콘은 왼쪽, 글자는 버튼 정가운데 */
+.social-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 56px;
+  padding: var(--space-16) var(--space-28);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-btn-white);
+  color: var(--color-txt-semiblack);
+  font: var(--text-body-4);
+  cursor: pointer;
+  transition: filter .15s ease;
+}
+.social-button .icon { position: absolute; left: var(--space-28); width: 24px; height: 24px; }
+.social-button:active { filter: brightness(.95); }
+.social-button:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; }
+
+/* 브랜드 색은 각 회사 규칙을 따라서 토큰 대신 고정값이에요 */
+.social-button--kakao { background: #FAE100; }
+.social-button--kakao .icon { color: #000; }
+.social-button--apple { background: #000; color: var(--color-txt-white); }

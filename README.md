@@ -38,7 +38,7 @@ scripts/build-tokens.mjs   원본 → CSS 변수 + 점검 규칙
 src/styles/tokens.css      자동 생성 CSS 변수 (직접 수정 X)
 src/tokens/tokens.json     자동 생성 페이지용 데이터 (직접 수정 X)
 ds/ + src/design-system/   디자인시스템 페이지 (주소 /ds)
-index.html + src/app/      앱 화면 (지금은 스플래시)
+index.html, login/ + src/app/  앱 화면 (스플래시 → 로그인)
 figma/text-styles.raw.json 피그마 텍스트 스타일 원본 (직접 수정 X)
 src/styles/typography.css  자동 생성 글자 스타일 (.t-title-1 등)
 src/styles/spacing.css     자동 생성 간격 (--space-4 ~ --space-64, 4px 단위)

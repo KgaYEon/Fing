@@ -1,7 +1,7 @@
 // 디자인시스템 페이지에 보여줄 "직접 만든" 컴포넌트 목록
 // demos: 화면에 그려볼 예시들 / code: 복사용 코드 / notes: 피그마에서 확인하면 좋을 점
 import { icon } from '../icons/icons.js';
-import { logo, rating, tabBar } from './ui.js';
+import { logo, wordmark, rating, tabBar, socialButton } from './ui.js';
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -86,8 +86,9 @@ export const components = [
     demos: [
       { label: 'primary', html: logo() },
       { label: 'white', html: `<span style="display:inline-flex;padding:12px;border-radius:12px;background:var(--color-btn-default)">${logo({ white: true })}</span>` },
+      { label: '글자 로고 (로그인)', html: wordmark() },
     ],
-    code: "import { logo } from '/src/ui/ui.js';\nheader.innerHTML = logo();\nheader.innerHTML = logo({ white: true });",
+    code: "import { logo, wordmark } from '/src/ui/ui.js';\nheader.innerHTML = logo();\nheader.innerHTML = logo({ white: true });\nheader.innerHTML = wordmark();   // FING 글자",
     notes: [],
   },
   {
@@ -155,5 +156,16 @@ export const components = [
     ],
     code: '<dialog class="modal" id="save">\n  <div class="modal__text">\n    <p class="modal__title">기록을 저장할까요?</p>\n    <p class="modal__sub">저장하지 않으면 지금 기록이 사라져요</p>\n  </div>\n  <div class="modal__actions">\n    <button class="button button--sm button--secondary">저장 없이 나가기</button>\n    <button class="button button--sm">저장하고 나가기</button>\n  </div>\n</dialog>\n<!-- 열기: document.getElementById(\'save\').showModal() -->',
     notes: ['모달 안 버튼이 전부 Button의 primary에 색만 덮어씌워 쓰고 있어요. secondary·danger-sec·danger variant로 바꾸면 버튼 색을 고칠 때 같이 바뀌어요.'],
+  },
+  {
+    key: 'social-button', name: 'Social button', figma: '로그인 화면 login-box', figmaId: '185:1817', file: 'social-button.css', wide: true,
+    lead: '소셜 로그인 버튼이에요. 아이콘은 왼쪽, 글자는 가운데예요.',
+    demos: [{ label: '구글 · 카카오 · 애플', html: `<div style="display:flex;flex-direction:column;gap:12px">${socialButton('google')}${socialButton('kakao')}${socialButton('apple')}</div>` }],
+    code: "import { socialButton } from '/src/ui/ui.js';\nel.innerHTML = socialButton('kakao');",
+    notes: [
+      '피그마에서 컴포넌트가 아니라 화면 안의 프레임이에요. 다른 화면에서도 쓰면 컴포넌트로 만들어두면 좋아요.',
+      '카카오 노란색이 #FAE100이에요. 카카오 공식 로그인 버튼 색은 #FEE500이라 한 번 확인해보세요.',
+      '글자를 가운데 두려고 오른쪽에 투명한 애플 아이콘을 넣어뒀어요. 코드는 아이콘을 따로 띄워서 같은 결과를 냈어요.',
+    ],
   },
 ].map((c) => ({ ...c, codeHtml: esc(c.code) }));

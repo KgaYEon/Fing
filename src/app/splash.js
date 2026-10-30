@@ -2,7 +2,7 @@
 // 다음 화면(로그인)이 만들어지면 NEXT에 주소를 넣으면 돼요.
 import { logo } from '../ui/ui.js';
 
-const NEXT = null; // 예: './login/'
+const NEXT = './login/';
 const DURATION = 1800; // ms
 
 const el = document.getElementById('splash');
