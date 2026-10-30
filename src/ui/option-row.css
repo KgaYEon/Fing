@@ -1,0 +1,23 @@
+/* option-row — 피그마 "sheet box" (시트 안에서 고르는 줄)
+   <label class="option-row">
+     ${icon('shadow')}                       ← 상대유형만 아이콘이 있어요
+     <span class="option-row__text"><span class="option-row__title">상대</span><span class="option-row__desc">설명 텍스트</span></span>
+     <span class="option-row__value">파란텍스트</span>
+     <input type="radio" class="radio" name="…">
+   </label> */
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+  padding: var(--space-16);
+  border-radius: var(--radius-16);
+  background: var(--color-btn-white);
+  cursor: pointer;
+}
+.option-row > .icon { flex: none; width: 28px; height: 28px; }
+.option-row__text { display: flex; flex-direction: column; gap: var(--space-4); flex: 1; min-width: 0; }
+.option-row__title { font: var(--text-body-3); color: var(--color-txt-black); }
+/* 피그마는 #7E8B9D(토큰 아님) — 가장 가까운 뉴트럴/800을 써요 */
+.option-row__desc { font: var(--text-caption-2); color: var(--color-neutral-800); }
+.option-row__value { font: var(--text-caption-2); color: var(--color-txt-primary); white-space: nowrap; }
+.option-row > .radio { margin-left: calc(var(--space-16) - var(--space-20)); }

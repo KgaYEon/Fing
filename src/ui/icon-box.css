@@ -1,0 +1,13 @@
+/* icon-box — 피그마 "icon box"
+   <span class="icon-box">${icon('bluetooth')}</span> */
+.icon-box {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-12);
+  background: var(--color-btn-light);
+  color: var(--color-btn-default);
+}
+.icon-box .icon { width: 24px; height: 24px; }

@@ -7,6 +7,8 @@ import compData from '../components/components.json';
 import spaceData from '../tokens/spacing.json';
 import radiusData from '../tokens/radius.json';
 import effectData from '../tokens/effects.json';
+import { components as uiComponents } from '../ui/registry.js';
+import { enhance } from '../ui/ui.js';
 
 const $app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -31,15 +33,15 @@ for (const t of all) if (t.alias) (usage[t.alias.id] ||= []).push(t.name);
 
 const onColor = (t) => (t.contrast.white >= t.contrast.black ? '#fff' : '#05080D');
 const aaBadge = (ratio) => {
-  if (ratio >= 7) return `<span class="badge ok">AAA ${ratio}</span>`;
-  if (ratio >= 4.5) return `<span class="badge ok">AA ${ratio}</span>`;
-  if (ratio >= 3) return `<span class="badge mid">AA Large ${ratio}</span>`;
-  return `<span class="badge bad">${ratio}</span>`;
+  if (ratio >= 7) return `<span class="ds-badge ok">AAA ${ratio}</span>`;
+  if (ratio >= 4.5) return `<span class="ds-badge ok">AA ${ratio}</span>`;
+  if (ratio >= 3) return `<span class="ds-badge mid">AA Large ${ratio}</span>`;
+  return `<span class="ds-badge bad">${ratio}</span>`;
 };
 // 역할별 대비: 텍스트는 흰 배경 위, 배경/버튼은 그 위 글자, 테두리는 참고용 수치
 const contrastCell = (t, group) => {
-  if (group === 'txt') return t.contrast.white < 1.6 ? `<span class="badge plain">어두운 배경용</span>` : aaBadge(t.contrast.white);
-  if (group === 'str') return `<span class="badge plain">흰 배경 ${t.contrast.white}</span>`;
+  if (group === 'txt') return t.contrast.white < 1.6 ? `<span class="ds-badge plain">어두운 배경용</span>` : aaBadge(t.contrast.white);
+  if (group === 'str') return `<span class="ds-badge plain">흰 배경 ${t.contrast.white}</span>`;
   const onWhite = t.contrast.white >= t.contrast.black;
   return `${aaBadge(onWhite ? t.contrast.white : t.contrast.black)}<span class="badge-cap">${onWhite ? '흰' : '검은'} 글자</span>`;
 };
@@ -60,7 +62,7 @@ function rampGroup(g) {
       ${g.tokens.map((t) => {
         const used = usage[t.id]?.length || 0;
         return `
-        <button class="chip" id="${slugId(t.name)}" data-search="${esc(`${t.name} ${t.cssVar} ${t.hex}`.toLowerCase())}" data-copy="var(${esc(t.cssVar)})"
+        <button class="ds-chip" id="${slugId(t.name)}" data-search="${esc(`${t.name} ${t.cssVar} ${t.hex}`.toLowerCase())}" data-copy="var(${esc(t.cssVar)})"
           title="${esc(t.name)}${t.description ? ' · ' + esc(t.description) : ''}">
           <span class="chip-swatch" style="background:var(${esc(t.cssVar)});color:${onColor(t)}">
             <span class="chip-step">${esc(t.leaf)}</span>
@@ -546,6 +548,37 @@ const effectView = () => {
   `;
 };
 
+// ---------- 직접 만든 컴포넌트 ----------
+const FIGMA_KEY = 'ePI19exWQwYPCHpC27V2G8';
+const uiView = (c) => () => `
+    <header class="page-head">
+      <p class="eyebrow">Components</p>
+      <h1>${esc(c.name)}</h1>
+      <p class="lead">${esc(c.lead)}</p>
+      <div class="meta">
+        <a class="pill" href="https://www.figma.com/design/${FIGMA_KEY}/?node-id=${c.figmaId.replace(':', '-')}" target="_blank" rel="noopener">피그마 "${esc(c.figma)}" 열기 ↗</a>
+        <span class="pill ghost">코드로 직접 만듦 · src/ui/${esc(c.file)}</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="ui-demos ${c.wide ? 'is-wide' : ''}">
+        ${c.demos.map((d) => `<figure class="ui-demo"><div class="ui-stage">${d.html}</div><figcaption>${esc(d.label)}</figcaption></figure>`).join('')}
+      </div>
+    </section>
+
+    ${c.notes.length ? `
+    <section class="section">
+      <div class="section-head"><h2>피그마에서 확인할 점 <span class="sub">${c.notes.length}개</span></h2><p>코드로 옮기다가 발견한 거예요. 피그마에서 고치면 다음 동기화 때 반영할게요.</p></div>
+      <ul class="ui-notes">${c.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+    </section>` : ''}
+
+    <section class="section">
+      <div class="section-head"><h2>코드에서 쓰는 법</h2><p>색·간격·글자·둥글기는 토큰을 써서 피그마를 따라가요. 모양(구조)을 바꾸면 말씀해 주세요.</p></div>
+      <pre class="code"><code>${c.codeHtml}</code></pre>
+    </section>
+`;
+
 const colorView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
@@ -612,7 +645,7 @@ const colorView = () => `
 $app.innerHTML = `
 <div class="layout">
   <aside class="side">
-    <div class="brand"><span class="logo"></span><span>Fing <em>Design System</em></span></div>
+    <div class="brand"><span class="ds-logo"></span><span>Fing <em>Design System</em></span></div>
     <nav>
       <p class="nav-title">Foundations</p>
       <a href="#color" data-view="color">Color <span class="nav-n">${all.length}</span></a>
@@ -623,7 +656,7 @@ $app.innerHTML = `
       <a href="#icon" data-view="icon">Icon <span class="nav-n">${iconData.icons.length}</span></a>
       <p class="nav-title">Components</p>
       ${compData.sets.map((c) => `<a href="#c-${esc(c.className)}" data-view="c-${esc(c.className)}">${esc(c.name)} <span class="nav-n">${c.variants.length}</span></a>`).join('')}
-      <span class="soon">Input</span>
+      ${uiComponents.map((c) => `<a href="#u-${c.key}" data-view="u-${c.key}">${esc(c.name)}</a>`).join('')}
     </nav>
     <div class="sync" id="sync">
       <span class="dot"></span>
@@ -641,6 +674,7 @@ $app.innerHTML = `
 // ---------- 화면 전환 (#color / #icon) ----------
 const VIEWS = { color: colorView, type: typeView, space: spaceView, radius: radiusView, effect: effectView, icon: iconView };
 for (const set of compData.sets) VIEWS[`c-${set.className}`] = componentView(set);
+for (const c of uiComponents) VIEWS[`u-${c.key}`] = uiView(c);
 const main = document.getElementById('top');
 let current = null;
 function route() {
@@ -650,13 +684,14 @@ function route() {
   if (view === current) return;
   current = view;
   main.innerHTML = VIEWS[view]();
-  document.querySelectorAll('nav a[data-view]').forEach((a) => a.classList.toggle('active', a.dataset.view === view));
+  document.querySelectorAll('.side nav a[data-view]').forEach((a) => a.classList.toggle('active', a.dataset.view === view));
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', route);
 route();
 
 // ---------- 동작 ----------
+enhance(document);
 const toast = document.getElementById('toast');
 let toastTimer;
 const showToast = (msg) => {

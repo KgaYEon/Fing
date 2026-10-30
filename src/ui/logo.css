@@ -1,0 +1,5 @@
+/* logo — 피그마 "logo wrap" (color=primary/white)
+   logo() / logo({ white: true })  (src/ui/ui.js) */
+.logo { display: inline-flex; color: var(--color-btn-default); }
+.logo svg { display: block; width: 50px; height: auto; }
+.logo--white { color: var(--color-btn-white); }

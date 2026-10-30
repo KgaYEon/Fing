@@ -1,0 +1,28 @@
+/* card — 피그마 "card" 2종
+   .stat-card   : 작은 숫자 카드 (178px)
+   .record-card : 기록 카드 (날짜·위치·별·캐치율) */
+.stat-card,
+.record-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-16);
+  background: var(--color-btn-white);
+  box-shadow: inset 0 0 0 1px var(--color-str-gray);
+}
+
+.stat-card { gap: var(--space-20); padding: var(--space-16) var(--space-12); }
+.stat-card__label { font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.stat-card__body { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-8); }
+.stat-card__value { font: var(--text-title-2); color: var(--color-txt-black); }
+.stat-card__date { font: var(--text-caption-2); color: var(--color-txt-unselected); white-space: nowrap; }
+
+.record-card { gap: var(--space-24); padding: var(--space-20); }
+.record-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-12); }
+.record-card__title { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.record-card__date { display: flex; align-items: center; gap: var(--space-8); font: var(--text-title-4); color: var(--color-txt-black); }
+.record-card__meta { font: var(--text-caption-2); color: var(--color-txt-placeholder); }
+.record-card__fav { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: none; color: var(--color-txt-primary); cursor: pointer; }
+.record-card__fav .icon { width: 20px; height: 20px; }
+.record-card__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-12); }
+.record-card__note { font: var(--text-caption-2); color: var(--color-txt-placeholder); }
+.record-card__rate { font: var(--text-caption-1); color: var(--color-txt-primary); white-space: nowrap; }

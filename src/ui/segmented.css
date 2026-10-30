@@ -1,0 +1,25 @@
+/* segmented — 피그마 "Tab List - 설정 항목" (둘 중 하나 고르는 탭)
+   <div class="segmented" role="tablist">
+     <button class="segmented__tab" role="tab" aria-selected="true">왼쪽 버튼</button>
+     <button class="segmented__tab" role="tab" aria-selected="false">오른쪽 버튼</button>
+   </div> */
+.segmented {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-12);
+  background: var(--color-btn-light);
+}
+.segmented__tab {
+  flex: 1;
+  padding: var(--space-12) var(--space-24);
+  border: 0;
+  border-radius: var(--radius-8);
+  background: none;
+  color: var(--color-txt-unselected);
+  font: var(--text-chip);
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+.segmented__tab[aria-selected='true'] { background: var(--color-btn-default); color: var(--color-txt-white); }
+.segmented__tab:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; }

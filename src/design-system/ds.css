@@ -17,15 +17,15 @@ body { background: var(--color-bg); }
 }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; }
 .brand em { font-style: normal; font-weight: 500; color: var(--ds-muted); }
-.logo { width: 26px; height: 26px; border-radius: 8px; background: var(--color-btn-default);
+.ds-logo { width: 26px; height: 26px; border-radius: 8px; background: var(--color-btn-default);
   box-shadow: inset -8px -8px 0 var(--color-btn-default-press); }
-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.side nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
 .nav-title { margin: 14px 8px 6px; font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--color-txt-placeholder); text-transform: uppercase; }
-nav a, nav .soon { display: flex; justify-content: space-between; align-items: center; padding: 9px 10px; border-radius: 10px; font-size: 15px; text-decoration: none; color: var(--color-txt-semiblack); }
-nav a.active { background: var(--color-btn-light); color: var(--color-txt-primary); font-weight: 600; }
+.side nav a, .side nav .soon { display: flex; justify-content: space-between; align-items: center; padding: 9px 10px; border-radius: 10px; font-size: 15px; text-decoration: none; color: var(--color-txt-semiblack); }
+.side nav a.active { background: var(--color-btn-light); color: var(--color-txt-primary); font-weight: 600; }
 .nav-n { font-size: 12px; font-weight: 600; padding: 1px 7px; border-radius: 99px; background: var(--ds-surface); }
-nav .soon { color: var(--color-txt-placeholder); cursor: default; }
-nav .soon::after { content: '준비 중'; font-size: 11px; padding: 2px 6px; border-radius: 6px; background: var(--color-btn-gray); color: var(--ds-muted); }
+.side nav .soon { color: var(--color-txt-placeholder); cursor: default; }
+.side nav .soon::after { content: '준비 중'; font-size: 11px; padding: 2px 6px; border-radius: 6px; background: var(--color-btn-gray); color: var(--ds-muted); }
 .sync { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--color-btn-gray); font-size: 13px; color: var(--ds-muted); }
 .sync .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-btn-disable); flex: none; }
 .sync.live .dot { background: var(--color-status-success-700); box-shadow: 0 0 0 4px var(--color-status-success-200); }
@@ -70,9 +70,9 @@ h1 { margin: 0 0 12px; font-size: 40px; letter-spacing: -.02em; }
 
 /* ramp */
 .ramp { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 6px; }
-.chip { display: flex; flex-direction: column; gap: 6px; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; min-width: 0; border-radius: 10px; }
+.ds-chip { display: flex; flex-direction: column; gap: 6px; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; min-width: 0; border-radius: 10px; }
 .chip-swatch { position: relative; height: 88px; border-radius: 10px; display: flex; align-items: flex-end; padding: 8px; box-shadow: inset 0 0 0 1px rgba(5, 8, 13, .06); transition: transform .15s; }
-.chip:hover .chip-swatch { transform: translateY(-2px); }
+.ds-chip:hover .chip-swatch { transform: translateY(-2px); }
 .chip-step { font-size: 13px; font-weight: 700; }
 .chip-main { position: absolute; top: 8px; left: 8px; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(255,255,255,.22); }
 .chip-hex { font-size: 11.5px; color: var(--color-txt-semiblack); overflow: hidden; text-overflow: ellipsis; }
@@ -106,12 +106,12 @@ h1 { margin: 0 0 12px; font-size: 40px; letter-spacing: -.02em; }
 .arrow { color: var(--color-txt-placeholder); font-size: 12px; }
 .val { font-size: 12.5px; color: var(--color-txt-semiblack); }
 
-.badge { display: inline-flex; padding: 3px 8px; border-radius: 7px; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.badge.ok { background: var(--color-status-success-200); color: #067A41; }
-.badge.mid { background: var(--color-status-warning-200); color: #8A5A00; }
-.badge.bad { background: var(--color-status-danger-light); color: var(--color-status-danger-press); }
+.ds-badge { display: inline-flex; padding: 3px 8px; border-radius: 7px; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ds-badge.ok { background: var(--color-status-success-200); color: #067A41; }
+.ds-badge.mid { background: var(--color-status-warning-200); color: #8A5A00; }
+.ds-badge.bad { background: var(--color-status-danger-light); color: var(--color-status-danger-press); }
 
-.badge.plain { background: var(--color-btn-gray); color: var(--color-txt-semiblack); font-weight: 500; }
+.ds-badge.plain { background: var(--color-btn-gray); color: var(--color-txt-semiblack); font-weight: 500; }
 .cc { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
 .badge-cap { font-size: 11px; color: var(--color-txt-placeholder); }
 .flag { width: 8px; height: 8px; border-radius: 50%; flex: none; }
@@ -272,3 +272,14 @@ h1 { margin: 0 0 12px; font-size: 40px; letter-spacing: -.02em; }
 .effect-meta code { font-size: 12px; color: var(--color-txt-semiblack); }
 .effect-meta .sub { font-size: 13px; }
 .effect-spec { font-size: 11.5px; color: var(--color-txt-placeholder); overflow-wrap: anywhere; }
+
+/* ---- 직접 만든 컴포넌트 ---- */
+.ui-demos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: 10px; }
+.ui-demos.is-wide { grid-template-columns: repeat(auto-fill, minmax(min(402px, 100%), 1fr)); }
+.ui-demo { display: flex; flex-direction: column; margin: 0; border-radius: 14px; border: 1px solid var(--ds-line); background: var(--ds-surface); overflow: hidden; min-width: 0; }
+.ui-stage { display: flex; align-items: center; justify-content: center; min-height: 120px; padding: 24px 20px; background: var(--color-bg); }
+.ui-demos.is-wide .ui-stage { display: block; padding: 24px 20px; }
+.ui-demo figcaption { padding: 10px 14px; font-size: 13px; font-weight: 600; color: var(--color-txt-semiblack); }
+.ui-notes { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ui-notes li { padding: 14px 16px 14px 40px; border-radius: 12px; background: var(--ds-surface); border: 1px solid var(--ds-line); position: relative; font-size: 14px; line-height: 1.6; color: var(--color-txt-semiblack); }
+.ui-notes li::before { content: ''; position: absolute; left: 18px; top: 22px; width: 8px; height: 8px; border-radius: 50%; background: var(--color-status-warning-700); }

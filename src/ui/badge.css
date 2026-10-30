@@ -1,0 +1,18 @@
+/* badge — 피그마 "chip 2" (상태 표시용, 누르지 않음)
+   <span class="badge">칩버튼</span>
+   <span class="badge badge--warn">주의</span>  (warn · danger · success · white) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-full);
+  background: var(--color-btn-light);
+  color: var(--color-txt-primary);
+  font: var(--text-caption-2);
+  white-space: nowrap;
+}
+.badge--sm { padding: var(--space-4) var(--space-12); }
+.badge--warn { background: var(--color-status-warning-200); color: var(--color-status-warning-700); }
+.badge--danger { background: var(--color-status-danger-light); color: var(--color-status-danger); }
+.badge--success { background: var(--color-status-success-200); color: var(--color-status-success-700); }
+.badge--white { background: var(--color-btn-white); box-shadow: inset 0 0 0 1px var(--color-str-gray); }

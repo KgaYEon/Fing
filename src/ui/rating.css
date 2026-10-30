@@ -1,0 +1,4 @@
+/* rating — 피그마 "star" (채운 별 / 빈 별)
+   rating(3)  → ★★★☆☆  (src/ui/ui.js) */
+.rating { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--color-txt-primary); }
+.rating .icon { width: 16px; height: 16px; }

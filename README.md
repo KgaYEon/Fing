@@ -1,6 +1,6 @@
 # Fing
 
-피그마 디자인을 단계별로 퍼블리싱하는 프로젝트. 현재 단계: **디자인시스템 — 색상, 타이포그래피, 간격, 둥글기, 그림자, 아이콘, 버튼**
+피그마 디자인을 단계별로 퍼블리싱하는 프로젝트. 현재 단계: **디자인시스템 — 기초 7종 + 컴포넌트 15종**
 
 ## 실행
 
@@ -46,7 +46,8 @@ figma/effect-styles.raw.json 피그마 이펙트 스타일 원본 (직접 수정
 src/styles/effects.css     자동 생성 그림자 (--shadow-sm, --shadow-md)
 figma/components.raw.json  피그마 컴포넌트 원본 (직접 수정 X)
 tokens/components.json     코드로 만들 컴포넌트 목록 (직접 수정 O)
-src/components/            자동 생성 컴포넌트 CSS (.button 등)
+src/components/            자동 생성 컴포넌트 CSS (.button)
+src/ui/                    직접 만든 컴포넌트 (toggle, chip, badge, tab-bar, modal 등) — 토큰을 써서 색·간격은 피그마를 따라감
 figma/icons.raw.json       피그마 아이콘 원본 (직접 수정 X)
 src/icons/                 자동 생성 아이콘 (svg 파일, icon() 함수)
 figma-plugin/              개발용 피그마 동기화 플러그인
@@ -90,6 +91,14 @@ figma-plugin/              개발용 피그마 동기화 플러그인
 ```html
 <button class="button">확인</button>
 <button class="button button--danger">삭제</button>
+```
+
+그 밖의 컴포넌트 (자세한 코드는 디자인시스템 페이지 Components 메뉴):
+
+```html
+<input type="checkbox" class="toggle" role="switch">
+<button class="chip" aria-pressed="false">칩</button>
+<span class="badge badge--warn">주의</span>
 ```
 
 아이콘:
