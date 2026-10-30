@@ -1,0 +1,20 @@
+/* 스플래시 — 피그마 onboarding / splash (180:1596)
+   파란 배경 + 가운데 흰 로고 (logo wrap color=white) */
+.splash {
+  align-items: center;
+  justify-content: center;
+  /* 피그마에서 로고가 가운데보다 살짝 위(약 36px)에 있어요 */
+  padding-bottom: calc(var(--space-32) + var(--space-40));
+  background: var(--color-btn-default);
+}
+.splash .logo svg { width: 50px; }
+
+.splash .logo { animation: splash-in .6s cubic-bezier(.2, .8, .2, 1) both; }
+.splash.is-leaving { animation: splash-out .35s ease forwards; }
+
+@keyframes splash-in { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+@keyframes splash-out { to { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .splash .logo, .splash.is-leaving { animation: none; }
+}

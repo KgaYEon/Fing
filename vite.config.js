@@ -89,15 +89,25 @@ function figmaTokenSync() {
   };
 }
 
+// 주소 끝 슬래시 없이 와도 열리게: /ds → /ds/
+function trailingSlash(paths) {
+  const mw = (req, res, next) => {
+    const url = req.url.split('?')[0];
+    if (paths.includes(url)) { res.statusCode = 301; res.setHeader('Location', url + '/' + (req.url.slice(url.length) || '')); return res.end(); }
+    next();
+  };
+  return { name: 'fing-trailing-slash', configureServer(s) { s.middlewares.use(mw); }, configurePreviewServer(s) { s.middlewares.use(mw); } };
+}
+
 export default defineConfig({
   base: './',
-  plugins: [figmaTokenSync()],
+  plugins: [figmaTokenSync(), trailingSlash(['/ds'])],
   server: { port: 5173, strictPort: true },
   build: {
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
-        designSystem: resolve(import.meta.dirname, 'design-system/index.html'),
+        ds: resolve(import.meta.dirname, 'ds/index.html'),
       },
     },
   },

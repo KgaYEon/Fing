@@ -9,8 +9,8 @@ npm install
 npm run dev
 ```
 
-- 홈: http://localhost:5173
-- 디자인시스템: http://localhost:5173/design-system/
+- 앱 (스플래시부터): http://localhost:5173
+- 디자인시스템: http://localhost:5173/ds
 
 ## 피그마 ↔ 프로젝트 실시간 동기화
 
@@ -37,7 +37,8 @@ tokens/name-map.json       한글 그룹명 → 영문 CSS 이름 사전 (직접
 scripts/build-tokens.mjs   원본 → CSS 변수 + 점검 규칙
 src/styles/tokens.css      자동 생성 CSS 변수 (직접 수정 X)
 src/tokens/tokens.json     자동 생성 페이지용 데이터 (직접 수정 X)
-src/design-system/         디자인시스템 페이지
+ds/ + src/design-system/   디자인시스템 페이지 (주소 /ds)
+index.html + src/app/      앱 화면 (지금은 스플래시)
 figma/text-styles.raw.json 피그마 텍스트 스타일 원본 (직접 수정 X)
 src/styles/typography.css  자동 생성 글자 스타일 (.t-title-1 등)
 src/styles/spacing.css     자동 생성 간격 (--space-4 ~ --space-64, 4px 단위)
