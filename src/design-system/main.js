@@ -646,17 +646,25 @@ $app.innerHTML = `
 <div class="layout">
   <aside class="side">
     <div class="brand"><span class="ds-logo"></span><span>Fing <em>Design System</em></span></div>
-    <nav>
-      <p class="nav-title">Foundations</p>
-      <a href="#color" data-view="color">Color <span class="nav-n">${all.length}</span></a>
-      <a href="#type" data-view="type">Typography <span class="nav-n">${typeData.styles.length}</span></a>
-      <a href="#space" data-view="space">Spacing <span class="nav-n">${spaceData.steps.length}</span></a>
-      <a href="#radius" data-view="radius">Radius <span class="nav-n">${radiusData.steps.length}</span></a>
-      <a href="#effect" data-view="effect">Effect <span class="nav-n">${effectData.styles.length}</span></a>
-      <a href="#icon" data-view="icon">Icon <span class="nav-n">${iconData.icons.length}</span></a>
-      <p class="nav-title">Components</p>
-      ${compData.sets.map((c) => `<a href="#c-${esc(c.className)}" data-view="c-${esc(c.className)}">${esc(c.name)} <span class="nav-n">${c.variants.length}</span></a>`).join('')}
-      ${uiComponents.map((c) => `<a href="#u-${c.key}" data-view="u-${c.key}">${esc(c.name)}</a>`).join('')}
+    <nav aria-label="디자인시스템 메뉴">
+      <details class="nav-group" data-group="foundations" open>
+        <summary class="nav-title">Foundations <span class="nav-count">6</span></summary>
+        <div class="nav-items">
+          <a href="#color" data-view="color">Color <span class="nav-n">${all.length}</span></a>
+          <a href="#type" data-view="type">Typography <span class="nav-n">${typeData.styles.length}</span></a>
+          <a href="#space" data-view="space">Spacing <span class="nav-n">${spaceData.steps.length}</span></a>
+          <a href="#radius" data-view="radius">Radius <span class="nav-n">${radiusData.steps.length}</span></a>
+          <a href="#effect" data-view="effect">Effect <span class="nav-n">${effectData.styles.length}</span></a>
+          <a href="#icon" data-view="icon">Icon <span class="nav-n">${iconData.icons.length}</span></a>
+        </div>
+      </details>
+      <details class="nav-group" data-group="components" open>
+        <summary class="nav-title">Components <span class="nav-count">${compData.sets.length + uiComponents.length}</span></summary>
+        <div class="nav-items">
+          ${compData.sets.map((c) => `<a href="#c-${esc(c.className)}" data-view="c-${esc(c.className)}">${esc(c.name)} <span class="nav-n">${c.variants.length}</span></a>`).join('')}
+          ${uiComponents.map((c) => `<a href="#u-${c.key}" data-view="u-${c.key}">${esc(c.name)}</a>`).join('')}
+        </div>
+      </details>
     </nav>
     <div class="sync" id="sync">
       <span class="dot"></span>
@@ -685,9 +693,23 @@ function route() {
   current = view;
   main.innerHTML = VIEWS[view]();
   document.querySelectorAll('.side nav a[data-view]').forEach((a) => a.classList.toggle('active', a.dataset.view === view));
+  const activeLink = document.querySelector(`.side nav a[data-view="${view}"]`);
+  if (activeLink) { const g = activeLink.closest('details'); if (g && !g.open) g.open = true; activeLink.scrollIntoView({ block: 'nearest' }); }
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', route);
+
+// 메뉴 묶음 접기/펴기 — 내 브라우저에 기억해둬요
+const NAV_KEY = 'fing-ds-nav';
+let navState = {};
+try { navState = JSON.parse(localStorage.getItem(NAV_KEY) || '{}'); } catch {}
+document.querySelectorAll('.nav-group').forEach((g) => {
+  if (navState[g.dataset.group] === false) g.open = false;
+  g.addEventListener('toggle', () => {
+    navState[g.dataset.group] = g.open;
+    try { localStorage.setItem(NAV_KEY, JSON.stringify(navState)); } catch {}
+  });
+});
 route();
 
 // ---------- 동작 ----------

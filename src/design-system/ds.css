@@ -19,7 +19,15 @@ body { background: var(--color-bg); }
 .brand em { font-style: normal; font-weight: 500; color: var(--ds-muted); }
 .ds-logo { width: 26px; height: 26px; border-radius: 8px; background: var(--color-btn-default);
   box-shadow: inset -8px -8px 0 var(--color-btn-default-press); }
-.side nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.side nav { display: flex; flex-direction: column; gap: 4px; flex: 1; min-height: 0; overflow-y: auto; margin: 0 -8px; padding: 0 8px; scrollbar-width: thin; }
+.nav-group > .nav-items { display: flex; flex-direction: column; gap: 2px; padding-bottom: 6px; }
+.nav-group > summary { display: flex; align-items: center; gap: 6px; list-style: none; cursor: pointer; user-select: none; border-radius: 8px; padding: 6px 8px; margin: 8px 0 4px; }
+.nav-group > summary::-webkit-details-marker { display: none; }
+.nav-group > summary::after { content: ''; margin-left: auto; width: 7px; height: 7px; border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); transition: transform .15s; }
+.nav-group:not([open]) > summary::after { transform: rotate(-45deg); }
+.nav-group > summary:hover { background: var(--color-btn-gray); color: var(--color-txt-semiblack); }
+.nav-group > summary:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: -2px; }
+.nav-count { font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 99px; background: var(--color-btn-gray); color: var(--ds-muted); letter-spacing: 0; }
 .nav-title { margin: 14px 8px 6px; font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--color-txt-placeholder); text-transform: uppercase; }
 .side nav a, .side nav .soon { display: flex; justify-content: space-between; align-items: center; padding: 9px 10px; border-radius: 10px; font-size: 15px; text-decoration: none; color: var(--color-txt-semiblack); }
 .side nav a.active { background: var(--color-btn-light); color: var(--color-txt-primary); font-weight: 600; }
