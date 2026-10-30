@@ -17,6 +17,7 @@ const P = {
   list: resolve(ROOT, 'tokens/components.json'),
   tokens: resolve(ROOT, 'src/tokens/tokens.json'),
   type: resolve(ROOT, 'src/tokens/typography.json'),
+  spacing: resolve(ROOT, 'src/tokens/spacing.json'),
   lintConfig: resolve(ROOT, 'tokens/lint-config.json'),
   css: resolve(ROOT, 'src/components/components.css'),
   json: resolve(ROOT, 'src/components/components.json'),
@@ -36,6 +37,11 @@ export function buildComponents({ write = true } = {}) {
   const raw = read(P.raw);
   const tokens = read(P.tokens);
   const type = read(P.type);
+  const spacing = read(P.spacing);
+  const spaceBy = Object.fromEntries((spacing?.steps || []).map((s) => [s.value, s]));
+  const BASE = spacing?.base || 4;
+  // 간격 값 → 토큰이 있으면 var(--space-N), 없으면 px 그대로
+  const sp = (n) => (n === 0 ? '0' : spaceBy[n] ? `var(${spaceBy[n].cssVar})` : `${n}px`);
   const tokenByName = {};
   for (const c of tokens?.collections || []) for (const g of c.groups) for (const t of g.tokens) tokenByName[t.name] = t;
   const typeByName = Object.fromEntries((type?.styles || []).map((s) => [s.name, s]));
@@ -77,6 +83,24 @@ export function buildComponents({ write = true } = {}) {
       variants.push({ ...v, sig, bg, fg, border, textStyle: ts ? { name: ts.name, cssVar: ts.cssVar, letterSpacing: ts.letterSpacing } : null });
     }
 
+    // 간격이 4px 단위인지 (모든 variant의 값 모아서 한 번만)
+    if (spacing?.steps?.length) {
+      const offs = new Map();
+      for (const v of variants) {
+        const vals = [['안쪽 여백', ...v.padding], ['간격', v.layout && v.layout !== 'NONE' && v.align?.[0] !== 'SPACE_BETWEEN' ? v.gap : 0]];
+        for (const [label, ...nums] of vals) for (const n of nums) if (n && n % BASE !== 0) offs.set(`${label} ${n}px`, n);
+      }
+      const onlyGap = [...offs.keys()].every((k) => k.startsWith('간격'));
+      if (offs.size)
+        lint.push({ level: onlyGap ? 'info' : 'warn', extra: onlyGap ? ' 지금은 안에 글자 하나뿐이라 화면엔 차이가 없지만, 아이콘을 같이 넣으면 이 간격이 보여요.' : '', rule: 'comp-space-grid', title: `${set.name} 간격 중 ${BASE}px 단위가 아닌 값이 있어요`, detail: `${[...offs.keys()].join(', ')}. ${[...new Set(offs.values())].map((n) => `${n}px → ${Math.round(n / BASE) * BASE || BASE}px`).join(', ')} 로 맞추는 걸 추천해요.`, keys: [...offs.keys()] });
+      if (lint.at(-1)?.extra !== undefined) { lint.at(-1).detail += lint.at(-1).extra; delete lint.at(-1).extra; }
+      else {
+        const loose = new Set();
+        for (const v of variants) for (const n of [...v.padding, v.gap]) if (n && !spaceBy[n]) loose.add(n);
+        if (loose.size) lint.push({ level: 'info', rule: 'comp-space-token', title: `${set.name} 간격 ${[...loose].join(', ')}px에 맞는 토큰이 없어요`, detail: 'Spacing에 해당 값을 추가하거나 가까운 값으로 바꿔주세요.', keys: [...loose].map(String) });
+      }
+    }
+
     // 빠진 state 조합
     if (stateKey && otherKeys.length) {
       const states = set.props[stateKey].options;
@@ -97,8 +121,8 @@ export function buildComponents({ write = true } = {}) {
       if (full) {
         out.push('display: flex', `flex-direction: ${v.layout === 'HORIZONTAL' ? 'row' : 'column'}`, 'align-items: center', 'justify-content: center', 'width: 100%', 'border: 0', 'cursor: pointer', 'text-decoration: none', 'transition: background-color .15s ease, color .15s ease');
       }
-      if (diff((x) => x.padding.join())) out.push(`padding: ${v.padding.map((n) => n + 'px').join(' ')}`);
-      if (diff((x) => x.gap)) out.push(`gap: ${v.gap}px`);
+      if (diff((x) => x.padding.join())) out.push(`padding: ${v.padding.map(sp).join(' ')}`);
+      if (diff((x) => x.gap)) out.push(`gap: ${sp(v.gap)}`);
       if (diff((x) => x.radius)) out.push(`border-radius: ${v.radius ?? 0}px`);
       if (v.textStyle && diff((x) => x.textStyle?.cssVar)) out.push(`font: var(${v.textStyle.cssVar})`, `letter-spacing: ${v.textStyle.letterSpacing}`);
       if (v.bg && (full || v.bg.css !== base.bg?.css)) out.push(`background: ${v.bg.css}`);

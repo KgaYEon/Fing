@@ -81,6 +81,31 @@
         "VariableID:82:595",
         "VariableID:111:771"
       ]
+    },
+    {
+      "id": "VariableCollectionId:381:2716",
+      "name": "Spacing",
+      "defaultModeId": "381:0",
+      "modes": [
+        {
+          "modeId": "381:0",
+          "name": "Value"
+        }
+      ],
+      "variableIds": [
+        "VariableID:381:2717",
+        "VariableID:381:2718",
+        "VariableID:381:2719",
+        "VariableID:381:2720",
+        "VariableID:381:2721",
+        "VariableID:381:2722",
+        "VariableID:381:2723",
+        "VariableID:381:2724",
+        "VariableID:381:2725",
+        "VariableID:381:2726",
+        "VariableID:381:2727",
+        "VariableID:381:2728"
+      ]
     }
   ],
   "variables": [
@@ -964,6 +989,174 @@
         "14:0": {
           "alias": "VariableID:13:22"
         }
+      }
+    },
+    {
+      "id": "VariableID:381:2717",
+      "name": "spacing/4",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "4px · 4px 단위 1칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 4
+      }
+    },
+    {
+      "id": "VariableID:381:2718",
+      "name": "spacing/8",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "8px · 4px 단위 2칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 8
+      }
+    },
+    {
+      "id": "VariableID:381:2719",
+      "name": "spacing/12",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "12px · 4px 단위 3칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 12
+      }
+    },
+    {
+      "id": "VariableID:381:2720",
+      "name": "spacing/16",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "16px · 4px 단위 4칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 16
+      }
+    },
+    {
+      "id": "VariableID:381:2721",
+      "name": "spacing/20",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "20px · 4px 단위 5칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 20
+      }
+    },
+    {
+      "id": "VariableID:381:2722",
+      "name": "spacing/24",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "24px · 4px 단위 6칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 24
+      }
+    },
+    {
+      "id": "VariableID:381:2723",
+      "name": "spacing/28",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "28px · 4px 단위 7칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 28
+      }
+    },
+    {
+      "id": "VariableID:381:2724",
+      "name": "spacing/32",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "32px · 4px 단위 8칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 32
+      }
+    },
+    {
+      "id": "VariableID:381:2725",
+      "name": "spacing/40",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "40px · 4px 단위 10칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 40
+      }
+    },
+    {
+      "id": "VariableID:381:2726",
+      "name": "spacing/48",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "48px · 4px 단위 12칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 48
+      }
+    },
+    {
+      "id": "VariableID:381:2727",
+      "name": "spacing/56",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "56px · 4px 단위 14칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 56
+      }
+    },
+    {
+      "id": "VariableID:381:2728",
+      "name": "spacing/64",
+      "collectionId": "VariableCollectionId:381:2716",
+      "resolvedType": "FLOAT",
+      "description": "64px · 4px 단위 16칸",
+      "scopes": [
+        "GAP"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "381:0": 64
       }
     }
   ]

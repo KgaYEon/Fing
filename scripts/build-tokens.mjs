@@ -82,7 +82,7 @@ export function buildTokens({ write = true } = {}) {
   };
 
   // 컬렉션 → 그룹 → 토큰
-  const collections = raw.collections.map((c) => {
+  const collections = raw.collections.filter((c) => c.variableIds.some((id) => varById[id]?.resolvedType === 'COLOR')).map((c) => {
     const conf = map.collections?.[c.name] || {};
     const vars = c.variableIds.map((id) => varById[id]).filter((v) => v && v.resolvedType === 'COLOR');
     const aliasCount = vars.filter((v) => v.valuesByMode[c.defaultModeId]?.alias).length;
@@ -138,7 +138,7 @@ export function buildTokens({ write = true } = {}) {
   for (const c of raw.collections) {
     if (/^Collection( \d+)?$/.test(c.name)) lint.push({ level: 'info', rule: 'default-name', title: `컬렉션 이름이 기본값("${c.name}")이에요`, detail: '역할이 드러나게 "Semantic" 같은 이름으로 바꾸면 피그마에서도 찾기 쉬워요. 바꾼 뒤 tokens/name-map.json의 collections 항목도 같은 이름으로 맞춰주세요.', tokens: [] });
   }
-  const defaultModeCols = raw.collections.filter((c) => c.modes.some((m) => /^Mode \d+$/.test(m.name)));
+  const defaultModeCols = raw.collections.filter((c) => c.variableIds.some((id) => varById[id]?.resolvedType === 'COLOR')).filter((c) => c.modes.some((m) => /^Mode \d+$/.test(m.name)));
   if (defaultModeCols.length)
     lint.push({ level: 'info', rule: 'default-mode', title: '모드 이름이 기본값("Mode 1")이에요', detail: `${defaultModeCols.map((c) => `"${c.name}"`).join(', ')}. 모드가 하나뿐이면 그대로 둬도 괜찮아요. 다크모드 등을 추가할 계획이면 "Light"처럼 이름을 붙여두면 코드에서 [data-theme="이름"]으로 그대로 쓰여요.`, tokens: [] });
 

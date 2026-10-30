@@ -4,6 +4,7 @@ import { buildTokens, TOKEN_PATHS } from './scripts/build-tokens.mjs';
 import { buildIcons, ICON_PATHS } from './scripts/build-icons.mjs';
 import { buildTypography, TYPE_PATHS } from './scripts/build-typography.mjs';
 import { writeRaw } from './scripts/figma-raw.mjs';
+import { buildSpacing } from './scripts/build-spacing.mjs';
 import { buildComponents, COMPONENT_PATHS, componentList } from './scripts/build-components.mjs';
 
 // 피그마 ↔ 프로젝트 토큰 동기화
@@ -16,16 +17,18 @@ function figmaTokenSync() {
   const run = (why) => {
     try {
       const result = buildTokens();
+      const sp = buildSpacing();
       const ic = buildIcons();
       const ty = buildTypography();
       const co = buildComponents();
       result.components = co.components;
-      result.lint += co.lint;
+      result.spacing = sp.steps;
+      result.lint += co.lint + sp.lint;
       result.icons = ic.icons;
       result.textStyles = ty.styles;
       result.lint += ic.lint + ty.lint;
       last = { at: new Date().toISOString(), result, error: null };
-      console.log(`\x1b[36m[figma-sync]\x1b[0m ${why} → 색상 ${result.colors}개, 아이콘 ${ic.icons}개, 글자 ${ty.styles}개, 컴포넌트 ${co.components}개, 점검 ${result.lint}개`);
+      console.log(`\x1b[36m[figma-sync]\x1b[0m ${why} → 색상 ${result.colors}개, 아이콘 ${ic.icons}개, 글자 ${ty.styles}개, 간격 ${sp.steps}개, 컴포넌트 ${co.components}개, 점검 ${result.lint}개`);
     } catch (e) {
       last = { at: new Date().toISOString(), result: null, error: e.message };
       console.error(`\x1b[31m[figma-sync]\x1b[0m 토큰 생성 실패: ${e.message}`);

@@ -1,6 +1,6 @@
 # Fing
 
-피그마 디자인을 단계별로 퍼블리싱하는 프로젝트. 현재 단계: **디자인시스템 — 색상, 타이포그래피, 아이콘, 버튼**
+피그마 디자인을 단계별로 퍼블리싱하는 프로젝트. 현재 단계: **디자인시스템 — 색상, 타이포그래피, 간격, 아이콘, 버튼**
 
 ## 실행
 
@@ -40,6 +40,7 @@ src/tokens/tokens.json     자동 생성 페이지용 데이터 (직접 수정 X
 src/design-system/         디자인시스템 페이지
 figma/text-styles.raw.json 피그마 텍스트 스타일 원본 (직접 수정 X)
 src/styles/typography.css  자동 생성 글자 스타일 (.t-title-1 등)
+src/styles/spacing.css     자동 생성 간격 (--space-4 ~ --space-64, 4px 단위)
 figma/components.raw.json  피그마 컴포넌트 원본 (직접 수정 X)
 tokens/components.json     코드로 만들 컴포넌트 목록 (직접 수정 O)
 src/components/            자동 생성 컴포넌트 CSS (.button 등)
@@ -60,6 +61,12 @@ figma-plugin/              개발용 피그마 동기화 플러그인
 
 ```html
 <h1 class="t-title-1">오늘의 기록</h1>
+```
+
+간격 (4px 단위):
+
+```css
+.card { padding: var(--space-16) var(--space-20); gap: var(--space-12); }
 ```
 
 버튼:
