@@ -3,6 +3,7 @@
 @import './tokens.css';
 @import './typography.css';
 @import './spacing.css';
+@import './radius.css';
 @import '../components/components.css';
 
 *, *::before, *::after { box-sizing: border-box; }

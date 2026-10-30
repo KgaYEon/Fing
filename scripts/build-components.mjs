@@ -18,6 +18,7 @@ const P = {
   tokens: resolve(ROOT, 'src/tokens/tokens.json'),
   type: resolve(ROOT, 'src/tokens/typography.json'),
   spacing: resolve(ROOT, 'src/tokens/spacing.json'),
+  radius: resolve(ROOT, 'src/tokens/radius.json'),
   lintConfig: resolve(ROOT, 'tokens/lint-config.json'),
   css: resolve(ROOT, 'src/components/components.css'),
   json: resolve(ROOT, 'src/components/components.json'),
@@ -41,6 +42,8 @@ export function buildComponents({ write = true } = {}) {
   const spaceBy = Object.fromEntries((spacing?.steps || []).map((s) => [s.value, s]));
   const BASE = spacing?.base || 4;
   // 간격 값 → 토큰이 있으면 var(--space-N), 없으면 px 그대로
+  const radiusBy = Object.fromEntries((read(P.radius)?.steps || []).map((s) => [s.value, s]));
+  const rd = (n) => (!n ? '0' : radiusBy[n] ? `var(${radiusBy[n].cssVar})` : `${n}px`);
   const sp = (n) => (n === 0 ? '0' : spaceBy[n] ? `var(${spaceBy[n].cssVar})` : `${n}px`);
   const tokenByName = {};
   for (const c of tokens?.collections || []) for (const g of c.groups) for (const t of g.tokens) tokenByName[t.name] = t;
@@ -123,7 +126,7 @@ export function buildComponents({ write = true } = {}) {
       }
       if (diff((x) => x.padding.join())) out.push(`padding: ${v.padding.map(sp).join(' ')}`);
       if (diff((x) => x.gap)) out.push(`gap: ${sp(v.gap)}`);
-      if (diff((x) => x.radius)) out.push(`border-radius: ${v.radius ?? 0}px`);
+      if (diff((x) => x.radius)) out.push(`border-radius: ${rd(v.radius)}`);
       if (v.textStyle && diff((x) => x.textStyle?.cssVar)) out.push(`font: var(${v.textStyle.cssVar})`, `letter-spacing: ${v.textStyle.letterSpacing}`);
       if (v.bg && (full || v.bg.css !== base.bg?.css)) out.push(`background: ${v.bg.css}`);
       if (v.fg && (full || v.fg.css !== base.fg?.css)) out.push(`color: ${v.fg.css}`);

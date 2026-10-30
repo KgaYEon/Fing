@@ -249,3 +249,14 @@ h1 { margin: 0 0 12px; font-size: 40px; letter-spacing: -.02em; }
   .space-head { display: none; }
   .space-bar-wrap { grid-column: 1 / -1; }
 }
+
+/* ---- Radius ---- */
+.radius-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 10px; }
+.radius-card { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: 14px; border: 1px solid var(--ds-line); background: var(--ds-surface); cursor: pointer; text-align: left; min-width: 0; }
+.radius-card:hover { border-color: var(--color-str-pri-light); }
+.radius-demo { width: 72px; height: 72px; flex: none; background: var(--color-btn-light); box-shadow: inset 0 0 0 2px var(--color-str-primary); }
+.radius-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.radius-meta strong { font-size: 15px; }
+.radius-meta code { font-size: 12px; color: var(--color-txt-semiblack); }
+.radius-meta .sub { font-size: 12.5px; }
+.radius-use { margin-top: 4px; font-size: 12.5px; color: var(--color-txt-semiblack); }

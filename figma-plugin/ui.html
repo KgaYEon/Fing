@@ -51,7 +51,7 @@
       });
       const j = await res.json();
       if (!j.ok) throw new Error(j.error || '토큰 생성 실패');
-      setStatus('ok', `동기화됨 · 색상 ${j.result.colors} · 글자 ${j.result.textStyles ?? 0} · 간격 ${j.result.spacing ?? 0} · 아이콘 ${j.result.icons ?? 0} · 컴포넌트 ${j.result.components ?? 0}`);
+      setStatus('ok', `동기화됨 · 색상 ${j.result.colors} · 글자 ${j.result.textStyles ?? 0} · 간격 ${j.result.spacing ?? 0} · 둥글기 ${j.result.radius ?? 0} · 아이콘 ${j.result.icons ?? 0} · 컴포넌트 ${j.result.components ?? 0}`);
       log(`${{ icons: '아이콘', type: '텍스트 스타일', components: '컴포넌트' }[msg.kind] || '색상'} ${msg.reason === 'changed' ? '변경 감지 → 전송' : '전송'}`);
     } catch (err) {
       setStatus('err', '전송 실패 — 개발 서버(npm run dev)가 켜져 있나요?');

@@ -5,6 +5,7 @@ import iconData from '../icons/icons.json';
 import typeData from '../tokens/typography.json';
 import compData from '../components/components.json';
 import spaceData from '../tokens/spacing.json';
+import radiusData from '../tokens/radius.json';
 
 const $app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -458,6 +459,53 @@ const spaceView = () => {
   `;
 };
 
+// ---------- 둥글기 ----------
+const radiusView = () => {
+  const steps = radiusData.steps;
+  const warn = radiusData.lint.filter((l) => l.level === 'warn' || l.level === 'error').length;
+  const usage = { '4': '작은 배지, 체크박스', '8': '칩, 작은 입력칸', '12': '작은 카드, 썸네일', '16': '버튼, 카드', '24': '시트, 모달 윗부분', full: '알약 모양 버튼·태그, 동그란 프로필' };
+  return `
+    <header class="page-head">
+      <p class="eyebrow">Foundations</p>
+      <h1>Radius</h1>
+      <p class="lead">모서리 둥글기는 <strong>${steps.length}단계</strong>만 써요. 피그마 Radius 변수에서 자동으로 만들어졌고, 피그마에서는 모서리 둥글기 자리에서만 고를 수 있어요. 이름을 누르면 복사돼요.</p>
+      <div class="meta">
+        ${radiusData.meta?.fileKey ? `<a class="pill" href="https://www.figma.com/design/${radiusData.meta.fileKey}/" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
+        <span class="pill ghost">마지막 동기화 ${fmtDate(radiusData.meta?.exportedAt)}</span>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><span>단계</span><strong>${steps.length}</strong></div>
+      <div class="stat"><span>가장 많이 쓰는 값</span><strong>16px</strong></div>
+      <div class="stat ${warn ? 'warn' : ''}"><span>확인 필요</span><strong>${warn}</strong></div>
+    </div>
+
+    <section class="section">
+      <div class="radius-grid">
+        ${steps.map((s) => `
+          <button class="radius-card" id="radius-${esc(s.key)}" data-copy="var(${esc(s.cssVar)})">
+            <span class="radius-demo" style="border-radius:var(${esc(s.cssVar)})"></span>
+            <span class="radius-meta">
+              <strong>${esc(s.name)}</strong>
+              <code>${esc(s.cssVar)}</code>
+              <span class="sub">${s.key === 'full' ? `${s.value}px · 완전히 둥글게` : `${s.value}px`}</span>
+              ${usage[s.key] ? `<span class="radius-use">${usage[s.key]}</span>` : ''}
+            </span>
+          </button>`).join('')}
+      </div>
+    </section>
+
+    ${radiusData.lint.length ? `<section class="section"><div class="section-head"><h2>점검</h2></div><div class="lints">${radiusData.lint.map((l) => lintCard({ ...l, tokens: [] })).join('')}</div></section>` : ''}
+
+    <section class="section">
+      <div class="section-head"><h2>코드에서 쓰는 법</h2></div>
+      <pre class="code"><code>.card { border-radius: var(--radius-16); }
+.tag  { border-radius: var(--radius-full); }</code></pre>
+    </section>
+  `;
+};
+
 const colorView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
@@ -530,8 +578,8 @@ $app.innerHTML = `
       <a href="#color" data-view="color">Color <span class="nav-n">${all.length}</span></a>
       <a href="#type" data-view="type">Typography <span class="nav-n">${typeData.styles.length}</span></a>
       <a href="#space" data-view="space">Spacing <span class="nav-n">${spaceData.steps.length}</span></a>
+      <a href="#radius" data-view="radius">Radius <span class="nav-n">${radiusData.steps.length}</span></a>
       <a href="#icon" data-view="icon">Icon <span class="nav-n">${iconData.icons.length}</span></a>
-      <span class="soon">Radius</span>
       <span class="soon">Effect</span>
       <p class="nav-title">Components</p>
       ${compData.sets.map((c) => `<a href="#c-${esc(c.className)}" data-view="c-${esc(c.className)}">${esc(c.name)} <span class="nav-n">${c.variants.length}</span></a>`).join('')}
@@ -551,7 +599,7 @@ $app.innerHTML = `
 
 
 // ---------- 화면 전환 (#color / #icon) ----------
-const VIEWS = { color: colorView, type: typeView, space: spaceView, icon: iconView };
+const VIEWS = { color: colorView, type: typeView, space: spaceView, radius: radiusView, icon: iconView };
 for (const set of compData.sets) VIEWS[`c-${set.className}`] = componentView(set);
 const main = document.getElementById('top');
 let current = null;
