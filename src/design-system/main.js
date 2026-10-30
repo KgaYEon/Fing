@@ -6,6 +6,7 @@ import typeData from '../tokens/typography.json';
 import compData from '../components/components.json';
 import spaceData from '../tokens/spacing.json';
 import radiusData from '../tokens/radius.json';
+import effectData from '../tokens/effects.json';
 
 const $app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -506,6 +507,45 @@ const radiusView = () => {
   `;
 };
 
+// ---------- 그림자 ----------
+const effectView = () => {
+  const styles = effectData.styles;
+  return `
+    <header class="page-head">
+      <p class="eyebrow">Foundations</p>
+      <h1>Effect</h1>
+      <p class="lead">그림자는 <strong>${styles.length}단계</strong>만 써요. 피그마 이펙트 스타일에서 자동으로 만들어졌어요. 이름을 누르면 복사돼요.</p>
+      <div class="meta">
+        ${effectData.meta?.fileKey ? `<a class="pill" href="https://www.figma.com/design/${effectData.meta.fileKey}/" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
+        <span class="pill ghost">마지막 동기화 ${fmtDate(effectData.meta?.exportedAt)}</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="effect-grid">
+        ${styles.map((s) => `
+          <button class="effect-card" id="effect-${esc(s.key)}" data-copy="var(${esc(s.cssVar)})">
+            <span class="effect-stage"><span class="effect-demo" style="box-shadow:var(${esc(s.cssVar)})"></span></span>
+            <span class="effect-meta">
+              <strong>${esc(s.name)}</strong>
+              <code>${esc(s.cssVar)}</code>
+              ${s.description ? `<span class="sub">${esc(s.description)}</span>` : ''}
+              ${s.layers.map((l) => `<span class="effect-spec mono">y ${l.y} · 흐림 ${l.blur} · ${esc(l.rgba)}</span>`).join('')}
+            </span>
+          </button>`).join('')}
+      </div>
+    </section>
+
+    ${effectData.lint.length ? `<section class="section"><div class="section-head"><h2>점검</h2></div><div class="lints">${effectData.lint.map((l) => lintCard({ ...l, tokens: [] })).join('')}</div></section>` : ''}
+
+    <section class="section">
+      <div class="section-head"><h2>코드에서 쓰는 법</h2></div>
+      <pre class="code"><code>.card   { box-shadow: var(--shadow-sm); }
+.header { box-shadow: var(--shadow-md); }</code></pre>
+    </section>
+  `;
+};
+
 const colorView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
@@ -579,8 +619,8 @@ $app.innerHTML = `
       <a href="#type" data-view="type">Typography <span class="nav-n">${typeData.styles.length}</span></a>
       <a href="#space" data-view="space">Spacing <span class="nav-n">${spaceData.steps.length}</span></a>
       <a href="#radius" data-view="radius">Radius <span class="nav-n">${radiusData.steps.length}</span></a>
+      <a href="#effect" data-view="effect">Effect <span class="nav-n">${effectData.styles.length}</span></a>
       <a href="#icon" data-view="icon">Icon <span class="nav-n">${iconData.icons.length}</span></a>
-      <span class="soon">Effect</span>
       <p class="nav-title">Components</p>
       ${compData.sets.map((c) => `<a href="#c-${esc(c.className)}" data-view="c-${esc(c.className)}">${esc(c.name)} <span class="nav-n">${c.variants.length}</span></a>`).join('')}
       <span class="soon">Input</span>
@@ -599,7 +639,7 @@ $app.innerHTML = `
 
 
 // ---------- 화면 전환 (#color / #icon) ----------
-const VIEWS = { color: colorView, type: typeView, space: spaceView, radius: radiusView, icon: iconView };
+const VIEWS = { color: colorView, type: typeView, space: spaceView, radius: radiusView, effect: effectView, icon: iconView };
 for (const set of compData.sets) VIEWS[`c-${set.className}`] = componentView(set);
 const main = document.getElementById('top');
 let current = null;

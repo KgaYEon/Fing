@@ -8,6 +8,7 @@ src/styles/tokens.css
 src/styles/typography.css
 src/styles/spacing.css
 src/styles/radius.css
+src/styles/effects.css
 src/tokens/
 src/icons/
 src/components/

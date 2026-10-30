@@ -1,0 +1,49 @@
+{
+  "format": "fing-figma-effect-styles@1",
+  "source": {
+    "fileName": "Fing",
+    "fileKey": "ePI19exWQwYPCHpC27V2G8"
+  },
+  "styles": [
+    {
+      "id": "S:ed479de6baa3437f39dab93af0d25981104c93f7,",
+      "name": "shadow/sm",
+      "description": "카드처럼 살짝 떠 있는 것",
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "x": 0,
+          "y": 2,
+          "blur": 4,
+          "spread": 0,
+          "color": {
+            "r": 0.6902,
+            "g": 0.6902,
+            "b": 0.6902,
+            "a": 0.12
+          }
+        }
+      ]
+    },
+    {
+      "id": "S:6102deecf83e950a97958560cffcae80b212f3a6,",
+      "name": "shadow/md",
+      "description": "고정 헤더처럼 위에 떠 있는 넓은 그림자",
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "x": 0,
+          "y": 2,
+          "blur": 12,
+          "spread": 0,
+          "color": {
+            "r": 0.8157,
+            "g": 0.8157,
+            "b": 0.8157,
+            "a": 0.1
+          }
+        }
+      ]
+    }
+  ]
+}

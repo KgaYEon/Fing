@@ -2,6 +2,7 @@
 // 플러그인 창이 열려 있는 동안
 //  - 변수: 1.5초마다 확인해서 바뀌면 보냅니다.
 //  - 텍스트 스타일: 1.5초마다 확인해서 바뀌면 보냅니다.
+//  - 그림자(이펙트 스타일): 1.5초마다 확인해서 바뀌면 보냅니다.
 //  - 컴포넌트: 프로젝트 tokens/components.json 목록에 있는 것만, 바뀌면 보냅니다.
 //  - 아이콘: 이름이 ic/ 로 시작하는 컴포넌트가 바뀌면 SVG로 보냅니다.
 figma.showUI(__html__, { width: 320, height: 300, themeColors: true });
@@ -55,6 +56,20 @@ async function exportTextStyles() {
   };
 }
 
+async function exportEffectStyles() {
+  const styles = await figma.getLocalEffectStylesAsync();
+  return {
+    format: 'fing-figma-effect-styles@1',
+    source: { fileName: figma.root.name, fileKey: figma.fileKey || null, exportedAt: new Date().toISOString(), via: 'figma-plugin' },
+    styles: styles.map((s) => ({
+      id: s.id, name: s.name, description: s.description || '',
+      effects: s.effects.filter((e) => e.visible !== false).map((e) => (e.type === 'DROP_SHADOW' || e.type === 'INNER_SHADOW')
+        ? { type: e.type, x: r4(e.offset.x), y: r4(e.offset.y), blur: r4(e.radius), spread: r4(e.spread || 0), color: { r: r4(e.color.r), g: r4(e.color.g), b: r4(e.color.b), a: r4(e.color.a) } }
+        : { type: e.type, blur: r4(e.radius) }),
+    })),
+  };
+}
+
 // 아래 함수는 Claude가 피그마에서 읽어올 때 쓰는 코드와 똑같아야 해요 (결과가 같아야 깃 충돌이 없어요)
 let componentSetNames = [];
 async function exportComponents() {
@@ -92,6 +107,7 @@ async function exportComponents() {
 let lastSig = '';
 let lastCompSig = '';
 let lastTypeSig = '';
+let lastEffSig = '';
 let lastIconSig = '';
 let iconsDirty = true;
 let auto = true;
@@ -110,6 +126,14 @@ async function typeTick(force) {
   if (!force && sig === lastTypeSig) return;
   lastTypeSig = sig;
   figma.ui.postMessage({ type: 'export', data, reason: force ? 'manual' : 'changed', kind: 'type' });
+}
+
+async function effTick(force) {
+  const data = await exportEffectStyles();
+  const sig = JSON.stringify(data.styles);
+  if (!force && sig === lastEffSig) return;
+  lastEffSig = sig;
+  figma.ui.postMessage({ type: 'export', data, reason: force ? 'manual' : 'changed', kind: 'effects' });
 }
 
 async function compTick(force) {
@@ -133,10 +157,10 @@ async function iconTick(force) {
 }
 
 figma.ui.onmessage = (msg) => {
-  if (msg.type === 'sync') { tick(true); typeTick(true); compTick(true); iconTick(true); }
+  if (msg.type === 'sync') { tick(true); typeTick(true); effTick(true); compTick(true); iconTick(true); }
   if (msg.type === 'config') { const n = JSON.stringify(msg.componentSets || []); if (n !== JSON.stringify(componentSetNames)) { componentSetNames = msg.componentSets || []; compTick(true); } }
   if (msg.type === 'auto') auto = msg.value;
-  if (msg.type === 'failed') { lastSig = ''; lastTypeSig = ''; lastCompSig = ''; lastIconSig = ''; iconsDirty = true; } // 전송 실패 시 다음 확인 때 다시 보냄
+  if (msg.type === 'failed') { lastSig = ''; lastTypeSig = ''; lastEffSig = ''; lastCompSig = ''; lastIconSig = ''; iconsDirty = true; } // 전송 실패 시 다음 확인 때 다시 보냄
 };
 
 (async () => {
@@ -144,6 +168,7 @@ figma.ui.onmessage = (msg) => {
   figma.on('documentchange', () => { iconsDirty = true; });
   tick(true);
   typeTick(true);
+  effTick(true);
   iconTick(true);
-  setInterval(async () => { if (auto) { tick(false); typeTick(false); await compTick(false); iconTick(false); } }, 1500);
+  setInterval(async () => { if (auto) { tick(false); typeTick(false); effTick(false); await compTick(false); iconTick(false); } }, 1500);
 })();

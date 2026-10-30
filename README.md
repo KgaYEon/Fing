@@ -1,6 +1,6 @@
 # Fing
 
-피그마 디자인을 단계별로 퍼블리싱하는 프로젝트. 현재 단계: **디자인시스템 — 색상, 타이포그래피, 간격, 둥글기, 아이콘, 버튼**
+피그마 디자인을 단계별로 퍼블리싱하는 프로젝트. 현재 단계: **디자인시스템 — 색상, 타이포그래피, 간격, 둥글기, 그림자, 아이콘, 버튼**
 
 ## 실행
 
@@ -14,7 +14,7 @@ npm run dev
 
 ## 피그마 ↔ 프로젝트 실시간 동기화
 
-피그마에서 변수·텍스트 스타일·아이콘을 추가·삭제·수정하면 디자인시스템 페이지에 바로 반영돼요.
+피그마에서 변수·텍스트 스타일·이펙트 스타일·아이콘을 추가·삭제·수정하면 디자인시스템 페이지에 바로 반영돼요.
 아이콘은 이름이 `ic/`로 시작하는 컴포넌트만 가져와요.
 컴포넌트는 `tokens/components.json`에 적힌 이름만 가져와요 (지금은 Button).
 
@@ -42,6 +42,8 @@ figma/text-styles.raw.json 피그마 텍스트 스타일 원본 (직접 수정 X
 src/styles/typography.css  자동 생성 글자 스타일 (.t-title-1 등)
 src/styles/spacing.css     자동 생성 간격 (--space-4 ~ --space-64, 4px 단위)
 src/styles/radius.css      자동 생성 둥글기 (--radius-4 ~ --radius-24, --radius-full)
+figma/effect-styles.raw.json 피그마 이펙트 스타일 원본 (직접 수정 X)
+src/styles/effects.css     자동 생성 그림자 (--shadow-sm, --shadow-md)
 figma/components.raw.json  피그마 컴포넌트 원본 (직접 수정 X)
 tokens/components.json     코드로 만들 컴포넌트 목록 (직접 수정 O)
 src/components/            자동 생성 컴포넌트 CSS (.button 등)
@@ -75,6 +77,12 @@ figma-plugin/              개발용 피그마 동기화 플러그인
 ```css
 .card { border-radius: var(--radius-16); }
 .tag  { border-radius: var(--radius-full); }
+```
+
+그림자:
+
+```css
+.card { box-shadow: var(--shadow-sm); }
 ```
 
 버튼:
