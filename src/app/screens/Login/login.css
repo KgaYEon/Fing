@@ -2,7 +2,7 @@
    위: "성장하는 서퍼의 기록" + FING 글자 로고
    아래: 소셜 로그인 버튼 3개 + 약관 링크 */
 .login {
-  padding: 0 var(--space-28) calc(var(--space-56) + env(safe-area-inset-bottom, 0px));
+  padding: 0 var(--space-28) calc(var(--space-40) + env(safe-area-inset-bottom, 0px));   /* 피그마: 아래 92 − 시스템 버튼 52 */
   background: var(--color-bg);
 }
 .login__brand {
