@@ -1,5 +1,5 @@
 /* 스플래시 — 피그마 onboarding / splash (180:1596)
-   파란 배경 + 가운데 흰 로고 (logo wrap color=white) */
+   파란 배경 + 가운데 흰 로고 (logo wrap color=ver2 white) */
 .splash {
   align-items: center;
   justify-content: center;
@@ -7,14 +7,55 @@
   padding-bottom: calc(var(--space-32) + var(--space-40));
   background: var(--color-btn-default);
 }
-.splash .logo svg { width: 62px; }
+.splash .logo { position: relative; }
+.splash .logo svg { width: 62px; overflow: visible; }
 
-.splash .logo { animation: splash-in .6s cubic-bezier(.2, .8, .2, 1) both; }
+/* 로고 애니메이션 — "파도를 타고 올라와서, 점이 핑! 하고 떨어지기"
+   1) 몸통: 아래에서 살짝 기울어진 채 올라와 자리 잡기 (보드가 파도에 올라타듯)
+   2) 점: 몸통이 자리 잡을 때쯤 톡 떨어지며 살짝 튕기기
+   3) 물결: 점 자리에서 동그란 물결 한 번 퍼지기 (핑!) */
+.splash .logo path {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: splash-ride .7s cubic-bezier(.2, .9, .3, 1.15) both;
+}
+.splash .logo circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: splash-drop .45s .5s cubic-bezier(.3, 1.6, .5, 1) both;
+}
+.splash__ripple {
+  position: absolute;
+  left: 57.5px;                 /* 로고 안 점의 가운데 */
+  top: 53.6px;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border: 1.5px solid var(--color-btn-white);
+  border-radius: var(--radius-full);
+  opacity: 0;
+  pointer-events: none;
+  animation: splash-ripple .9s .75s cubic-bezier(.2, .7, .3, 1) forwards;   /* 기다리는 동안엔 안 보이게 */
+}
+
 .splash.is-leaving { animation: splash-out .35s ease forwards; }
 
-@keyframes splash-in { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+@keyframes splash-ride {
+  from { opacity: 0; transform: translateY(18px) rotate(-8deg); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: none; }
+}
+@keyframes splash-drop {
+  from { opacity: 0; transform: translateY(-10px) scale(.4); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes splash-ripple {
+  0% { opacity: .5; transform: scale(1); }
+  100% { opacity: 0; transform: scale(4.5); }
+}
 @keyframes splash-out { to { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .splash .logo, .splash.is-leaving { animation: none; }
+  .splash .logo path, .splash .logo circle, .splash.is-leaving { animation: none; }
+  .splash__ripple { display: none; }
 }

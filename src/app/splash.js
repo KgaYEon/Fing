@@ -7,6 +7,7 @@ const DURATION = 1800; // ms
 
 const el = document.getElementById('splash');
 el.innerHTML = logo({ white: true });
+el.querySelector('.logo').insertAdjacentHTML('beforeend', '<span class="splash__ripple" aria-hidden="true"></span>'); // 핑! 물결
 
 if (NEXT) {
   setTimeout(() => {
