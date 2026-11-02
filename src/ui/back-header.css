@@ -1,0 +1,28 @@
+/* back-header — 피그마 "이용약관 헤더" (뒤로가기 + 가운데 제목) */
+.back-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  padding: calc(var(--space-24) + env(safe-area-inset-top, 0px)) var(--space-20) var(--space-12);
+  background: var(--color-bg);
+}
+.back-header__btn {
+  position: absolute;
+  left: var(--space-20);
+  bottom: var(--space-12);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-txt-semiblack);
+  cursor: pointer;
+}
+.back-header__btn:active { transform: scale(.92); }
+.back-header__btn:focus-visible { outline: 2px solid var(--color-str-primary); }
+.back-header__title { margin: 0; font: var(--text-title-3); color: var(--color-txt-semiblack); }

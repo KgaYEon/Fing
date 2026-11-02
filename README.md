@@ -62,12 +62,14 @@ src/app/main.jsx            시작점 (토큰·공통 스타일 불러오기)
 src/app/App.jsx             주소 ↔ 화면 연결
 src/app/routes.js           화면 주소 모음 (ready: 만든 화면인지)
 src/app/components/         여러 화면이 같이 쓰는 컴포넌트
-  Icon · Logo · Button · Chip(Badge) · IconBox · Choice · OptionRow · SocialButton · TabBar · Sheet
+  Icon · Logo · Button · Chip(Badge) · ChipTabs · Segmented · BackHeader · IconBox · Choice · OptionRow · SocialButton · TabBar · Sheet
 src/app/screens/
   Splash/      /            스플래시
   Login/       /login       로그인 + 약관 시트 (LegalLinks · LegalSheet)
   Onboarding/  /onboarding/…  단계마다 화면 하나 (steps/: Welcome · Permission · PermissionDone · Nickname · Intro · Question · Done)
   Home/        /home        HomeHeader(TrackerPopover) · WaveInfo(FitDonut) · GoalCard · BestRecords · RecentRecords · MetricSheet
+  Report/      /report      종합(summary/: MetricChart · BestGrid · FirstRecords) · 서핑별(sessions/: SessionCard)
+               /report/compare?ids=…  두 기록 비교 · /report/session/:id  기록 하나 상세 (compare/: GlanceCard · BarPair · DetailRows · ConditionCompare · ConditionTable)
 ```
 
 화면 CSS는 각 화면 폴더 안에, 공통 컴포넌트 CSS는 `src/ui/`(디자인시스템과 같이 써요)에 있어요.

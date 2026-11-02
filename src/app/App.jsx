@@ -5,6 +5,9 @@ import Login from './screens/Login/Login.jsx';
 import Onboarding from './screens/Onboarding/Onboarding.jsx';
 import { STEP_ROUTES } from './screens/Onboarding/steps.js';
 import Home from './screens/Home/Home.jsx';
+import Report from './screens/Report/Report.jsx';
+import ReportCompare from './screens/Report/ReportCompare.jsx';
+import ReportDetail from './screens/Report/ReportDetail.jsx';
 
 export default function App() {
   return (
@@ -18,6 +21,10 @@ export default function App() {
           <Route path="*" element={<Navigate to="welcome" replace />} />
         </Route>
         <Route path="/home" element={<Home />} />
+        <Route path="/report" element={<Report />} />
+        <Route path="/report/sessions" element={<Report />} />
+        <Route path="/report/compare" element={<ReportCompare />} />
+        <Route path="/report/session/:id" element={<ReportDetail />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

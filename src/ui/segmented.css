@@ -21,5 +21,7 @@
   cursor: pointer;
   transition: background-color .15s ease, color .15s ease;
 }
-.segmented__tab[aria-selected='true'] { background: var(--color-btn-default); color: var(--color-txt-white); }
+.segmented__tab { text-align: center; text-decoration: none; }
+.segmented__tab[aria-selected='true'],
+.segmented__tab[aria-current='page'] { background: var(--color-btn-default); color: var(--color-txt-white); }
 .segmented__tab:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; }

@@ -31,3 +31,9 @@
   color: var(--color-txt-white);
 }
 .chip:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; }
+
+/* 하나만 고르는 칩 줄 (리포트) — 넘치면 옆으로 넘겨요 */
+.chip-tabs { flex: none; display: flex; gap: var(--space-8); overflow-x: auto; scrollbar-width: none; }
+.chip-tabs::-webkit-scrollbar { display: none; }
+.chip-tabs > .chip { flex: none; }
+.chip--lg { padding: var(--space-8) var(--space-20); }   /* 피그마 리포트-서핑별 칩 (높이 37) */
