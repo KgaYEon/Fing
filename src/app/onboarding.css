@@ -1,0 +1,142 @@
+/* 온보딩 — 피그마 "onboarding" 섹션 (180:1595)
+   위치 숫자(px)는 피그마 402 × 940 화면 기준이에요. 간격은 토큰을 써요. */
+.ob { background: var(--color-bg); }
+
+.ob__step {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  animation: ob-in .35s cubic-bezier(.2, .8, .2, 1) both;
+}
+.ob__step[data-dir='back'] { animation-name: ob-back; }
+@keyframes ob-in { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+@keyframes ob-back { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ob__step { animation: none; } }
+.ob__step h1:focus { outline: none; }
+
+/* ─── 글자 ─── */
+.ob__title { margin: 0; font: var(--text-title-2); color: var(--color-txt-black); }
+.ob__title--center { text-align: center; }
+.ob__sub { margin: 0; font: var(--text-caption-1); color: var(--color-txt-unselected); }
+.ob__eyebrow { margin: 0; font: var(--text-title-4); color: var(--color-txt-unselected); }
+.ob__hint { margin: 0; font: var(--text-caption-1); color: var(--color-txt-unselected); text-align: center; }
+
+.ob__head { display: flex; flex-direction: column; gap: var(--space-8); }
+.ob__head--center { align-items: center; gap: var(--space-12); text-align: center; }
+.ob__head--tight { gap: var(--space-16); }
+.ob__head--pad { padding: 0 var(--space-12); }
+
+/* ─── 가운데 정렬 화면 (환영 · 권한 완료 · 기록 준비 · 준비 끝) ─── */
+.ob__center { display: flex; flex-direction: column; align-items: center; gap: var(--space-24); padding: 0 var(--space-20); }
+.ob__center--welcome { padding-top: 252px; }   /* 피그마 y 253 */
+.ob__center--done { padding-top: 252px; }      /* 피그마 y 251 */
+.ob__center--intro { padding-top: 312px; }     /* 피그마 y 314 */
+.ob__center--finish { padding-top: 248px; }    /* 피그마 y 249 */
+
+/* 큰 아이콘 상자 — 피그마 "icon box"를 64px로 키운 것 */
+.icon-box--lg { width: 64px; height: 64px; border-radius: var(--radius-16); }
+.icon-box--lg .icon { width: 32px; height: 32px; }
+.icon-box--md-r { border-radius: var(--radius-12); }
+.icon-box--md-r .icon, .icon-box--finish .icon { width: 28px; height: 28px; }
+.icon-box--finish { width: 54px; height: 54px; border-radius: var(--radius-16); }
+
+/* 준비 끝: 체크 둘레 꽃가루 (피그마 그림 그대로) */
+.ob__burst { position: relative; display: inline-grid; }
+.ob__confetti {
+  position: absolute;
+  top: -38px;                 /* 피그마: 그림 y 211, 상자 y 249 */
+  left: 50%;
+  width: 171px;
+  height: 101px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: ob-pop .6s .15s cubic-bezier(.2, 1.4, .4, 1) both;
+}
+@keyframes ob-pop { from { opacity: 0; transform: translateX(-50%) scale(.6); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .ob__confetti { animation: none; } }
+
+/* ─── 아래 버튼 영역 ─── */
+.ob__foot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: 0 var(--space-20) calc(var(--space-56) * 2 + env(safe-area-inset-bottom, 0px));   /* 피그마: 버튼 아래 113 */
+}
+.ob__foot--one { padding-inline: var(--space-24); padding-bottom: calc(var(--space-48) + var(--space-56) + env(safe-area-inset-bottom, 0px)); }   /* 피그마: 아래 106 */
+.ob__foot--stack { gap: var(--space-8); padding-inline: var(--space-24); }
+.ob__pair { display: flex; gap: var(--space-8); }
+.ob__pair .button { padding-inline: var(--space-20); }
+
+/* ─── 권한 안내 (190:2257) ─── */
+.ob__body { display: flex; flex-direction: column; }
+.ob__body--perm { padding: 124px var(--space-40) 0; }   /* 피그마 x 41 · y 126 */
+.ob__perms { display: flex; flex-direction: column; gap: calc(var(--space-32) + var(--space-4)); margin-top: var(--space-40); }
+.ob__perm-group { display: flex; flex-direction: column; gap: var(--space-16); }
+.ob__perm-label { margin: 0; font: var(--text-body-4); color: var(--color-txt-unselected); }
+.ob__perm-list { display: flex; flex-direction: column; gap: var(--space-16); margin: 0; padding: 0; list-style: none; }
+.ob__perm { display: flex; align-items: center; gap: var(--space-12); }
+.ob__perm-text { display: flex; flex-direction: column; gap: var(--space-4); }
+.ob__perm-text b { font: var(--text-body-3); color: var(--color-txt-black); }
+.ob__perm-text span { font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.ob__note {
+  margin: calc(var(--space-40) + var(--space-4)) calc(var(--space-4) * -1) 0;   /* 피그마 x 38 */
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-btn-gray-press);
+  font: var(--text-caption-2);
+  color: var(--color-txt-placeholder);
+}
+
+/* ─── 닉네임 (193:2525) ─── */
+.ob__body--nick { gap: calc(var(--space-64) + var(--space-8)); padding: 136px var(--space-32) 0; }   /* 피그마 x 33 · y 136 */
+.ob__field { display: flex; flex-direction: column; gap: var(--space-4); }
+.ob__input {
+  width: 100%;
+  height: 36px;
+  margin: 0;
+  padding: 0 0 var(--space-4);
+  border: 0;
+  border-bottom: 1px solid var(--color-txt-unselected);
+  border-radius: 0;
+  background: transparent;
+  font: var(--text-title-3);
+  color: var(--color-txt-semiblack);
+  caret-color: var(--color-btn-default);
+  outline: none;
+  transition: border-color .15s ease;
+}
+.ob__input::placeholder { color: var(--color-txt-placeholder); }
+.ob__input:focus-visible { border-bottom-color: var(--color-str-primary); }
+.ob__field-msg { display: flex; justify-content: space-between; gap: var(--space-8); min-height: 16px; font: var(--text-caption-2); }
+.ob__msg { color: var(--color-str-primary); }
+.ob__count { margin-left: auto; color: var(--color-txt-placeholder); white-space: nowrap; }
+.ob__field[data-tone='danger'] .ob__msg,
+.ob__field[data-tone='danger'] .ob__count { color: var(--color-status-danger); }
+.ob__field[data-tone='danger'] .ob__input { border-bottom-color: var(--color-status-danger); }
+
+/* ─── 질문 (193:2577 · 194:1862 · 198:1928) ─── */
+.ob__progress {
+  position: absolute;
+  top: 97px;                    /* 피그마 y 97 */
+  left: var(--space-20);
+  right: var(--space-20);
+  height: 6px;
+  border-radius: var(--radius-12);
+  background: var(--color-btn-gray-press);
+  overflow: hidden;
+}
+.ob__progress-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-btn-default-press);
+  transform-origin: left;
+  transform: scaleX(var(--to));
+  animation: ob-bar .5s cubic-bezier(.2, .8, .2, 1) both;
+}
+@keyframes ob-bar { from { transform: scaleX(var(--from)); } }
+@media (prefers-reduced-motion: reduce) { .ob__progress-fill { animation: none; } }
+.ob__body--q { gap: var(--space-32); padding: 156px var(--space-20) 0; }   /* 피그마 y 157 */
+.ob__choices { display: flex; flex-direction: column; gap: var(--space-12); }
+.ob__choices .choice { min-height: 78px; }

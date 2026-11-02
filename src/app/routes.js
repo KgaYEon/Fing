@@ -2,7 +2,7 @@
 // (아직 없는 화면으로 가면 스플래시로 돌아가 버려서, 준비 안 된 곳은 안내만 띄워요)
 export const ROUTES = {
   login: { path: '/login/', ready: true },
-  onboarding: { path: '/onboarding/', ready: false },
+  onboarding: { path: '/onboarding/', ready: true },
   home: { path: '/home/', ready: false },
 };
 
