@@ -30,12 +30,12 @@ export const socialButton = (kind, { label } = {}) =>
   `<button type="button" class="social-button social-button--${kind}" data-provider="${kind}">${icon(SOCIAL[kind].icon)}<span>${label || SOCIAL[kind].label}</span></button>`;
 
 /** 하단 탭 — tabBar('report') */
+// 피그마 홈 화면의 btm nav는 4개예요 (기록하기 탭은 꺼져 있어요)
 export const TABS = [
-  { key: 'home', label: '홈', icon: 'home', href: '#' },
-  { key: 'record', label: '기록하기', icon: 'plus', href: '#' },
-  { key: 'report', label: '리포트', icon: 'chart', href: '#' },
-  { key: 'ai', label: 'AI', icon: 'ai', href: '#' },
-  { key: 'my', label: '마이', icon: 'my', href: '#' },
+  { key: 'home', label: '홈', icon: 'home', href: '/home/' },
+  { key: 'report', label: '리포트', icon: 'chart', href: '/report/' },
+  { key: 'ai', label: 'AI', icon: 'ai', href: '/ai/' },
+  { key: 'my', label: '마이', icon: 'my', href: '/my/' },
 ];
 export const tabBar = (current = 'home', tabs = TABS) =>
   `<nav class="tab-bar" aria-label="주요 메뉴">${tabs
