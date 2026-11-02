@@ -81,7 +81,7 @@ export const components = [
     notes: ['왼쪽 여백만 12px이고 나머지는 8px이에요. 코드는 아이콘을 가운데에 놨어요.'],
   },
   {
-    key: 'logo', name: 'Logo', figma: 'logo wrap', figmaId: '185:1937', file: 'logo.css',
+    key: 'logo', name: 'Logo', figma: 'logo wrap · full - logo', figmaId: '185:1937', file: 'logo.css',
     lead: 'Fing 로고예요. 파란색과 흰색 두 가지예요.',
     demos: [
       { label: 'primary', html: logo() },

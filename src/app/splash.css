@@ -7,7 +7,7 @@
   padding-bottom: calc(var(--space-32) + var(--space-40));
   background: var(--color-btn-default);
 }
-.splash .logo svg { width: 50px; }
+.splash .logo svg { width: 62px; }
 
 .splash .logo { animation: splash-in .6s cubic-bezier(.2, .8, .2, 1) both; }
 .splash.is-leaving { animation: splash-out .35s ease forwards; }

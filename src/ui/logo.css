@@ -1,10 +1,10 @@
-/* logo — 피그마 "logo wrap" (color=primary/white)
+/* logo — 피그마 components "logo wrap" (color=ver2 primary / ver2 white)
    logo() / logo({ white: true })  (src/ui/ui.js) */
 .logo { display: inline-flex; color: var(--color-btn-default); }
-.logo svg { display: block; width: 50px; height: auto; }
+.logo svg { display: block; width: 62px; height: auto; }   /* 피그마 64×60 */
 .logo--white { color: var(--color-btn-white); }
 
-/* 글자 로고 FING — 로그인 화면 */
+/* 글자 로고 FING — 피그마 components "full - logo" · 로그인 화면 */
 .wordmark { display: inline-flex; color: var(--color-btn-default); }
-.wordmark svg { display: block; width: 121px; height: auto; }
+.wordmark svg { display: block; width: 133px; height: auto; }   /* 피그마 로그인 145×53 */
 .wordmark.logo--white { color: var(--color-btn-white); }
