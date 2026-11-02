@@ -20,6 +20,10 @@ body { background: var(--color-btn-white); }
 }
 .app__body { position: relative; flex: 1; min-height: 0; }
 
+/* 스크롤바 숨기기 — 폰처럼 스크롤바가 자리를 차지하지 않게 (윈도우에서 카드 너비가 바뀌는 문제) */
+.app * { scrollbar-width: none; }
+.app *::-webkit-scrollbar { display: none; }
+
 /* 위 상태바 · 아래 시스템 버튼 (피그마 그림) — 폰에는 진짜가 있어서 컴퓨터 폰 틀에서만 보여요 */
 .status-bar, .system-nav { display: none; flex: none; }
 .status-bar { height: 38px; background: var(--status-bg, var(--color-bg)); transition: background-color .2s ease; }

@@ -96,6 +96,10 @@
 .report-card:active:not(:has(.record-card__fav:active)) { transform: scale(.99); }
 .report-card .record-card__fav { position: relative; z-index: 1; }
 .report-card .record-card__fav[aria-pressed='false'] { color: var(--color-btn-disable); }
+.report__pick { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); padding: 0 var(--space-4) var(--space-12); animation: pick-in .2s ease; }
+.report__pick-msg { font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.report__pick-clear { padding: var(--space-4) 0; border: 0; background: none; font: var(--text-caption-2); color: var(--color-txt-primary); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+@keyframes pick-in { from { opacity: 0; transform: translateY(4px); } }
 .report__dock { flex: none; padding: var(--space-12) var(--space-20) var(--space-20); background: linear-gradient(to bottom, transparent, var(--color-bg) var(--space-12)); margin-top: calc(var(--space-24) * -1); position: relative; }
 
 /* ─── 비교 · 상세: 한눈에 ─── */

@@ -1,6 +1,9 @@
-// 서핑별 — 필터 칩 · 월별 기록 카드 · 비교하기
-// 카드 1개 고르면 → 그 기록 상세 (평균과 비교), 2개 고르면 → 두 기록 비교
-import { useMemo, useState } from 'react';
+// 서핑별 — 필터 칩 · 월별 기록 카드 · 아래 버튼
+// 카드를 누르면 선택, 다시 누르면 선택 취소 (최대 2개)
+//   0개: 비교하기(누를 수 없음) · 1개: 기록 보기 → 그 기록 상세 · 2개: 비교하기 → 두 기록 비교
+//   2개 고른 상태에서 다른 카드를 누르면 → 먼저 고른 것이 빠지고 새 카드가 들어가요
+// 고른 기록은 다른 칩(달·즐겨찾기)으로 바꿔도, 상세를 보고 돌아와도 그대로 남아요. "선택 취소"로 한 번에 비워요.
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChipTabs from '../../../components/ChipTabs.jsx';
 import Button from '../../../components/Button.jsx';
@@ -10,12 +13,15 @@ import useFavorites from '../useFavorites.js';
 import SessionCard from './SessionCard.jsx';
 
 const MAX_PICK = 2;
+const PICK_KEY = 'fing.report.picked';
+const loadPicked = () => { try { const v = JSON.parse(sessionStorage.getItem(PICK_KEY)); return Array.isArray(v) ? v.filter((id) => SESSIONS.some((s) => s.id === id)).slice(0, MAX_PICK) : []; } catch { return []; } };
 const monthOf = (s) => dateParts(s.date).m;
 
 export default function Sessions() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('all');
-  const [picked, setPicked] = useState([]);
+  const [picked, setPicked] = useState(loadPicked);
+  useEffect(() => { try { sessionStorage.setItem(PICK_KEY, JSON.stringify(picked)); } catch {} }, [picked]);
   const [favs, toggleFav] = useFavorites();
 
   // 칩: 전체 · 즐겨찾기 · 기록이 있는 달
@@ -29,11 +35,12 @@ export default function Sessions() {
     return [...g];
   }, [shown]);
 
-  const select = (id) => setPicked((p) => {
-    if (p.includes(id)) return p.filter((x) => x !== id);
-    if (p.length >= MAX_PICK) { toast(`기록은 ${MAX_PICK}개까지 고를 수 있어요`); return p; }
-    return [...p, id];
-  });
+  const select = (id) => {
+    if (picked.includes(id)) { setPicked(picked.filter((x) => x !== id)); return; }       // 다시 누르면 취소
+    if (picked.length >= MAX_PICK) { setPicked([...picked.slice(1), id]); toast('먼저 고른 기록 대신 새 기록을 골랐어요'); return; }
+    setPicked([...picked, id]);
+  };
+  const clear = () => setPicked([]);
 
   const compare = () => {
     if (picked.length === 1) navigate(`/report/session/${picked[0]}`);
@@ -55,7 +62,13 @@ export default function Sessions() {
         ))}
       </main>
       <div className="report__dock">
-        <Button disabled={picked.length === 0} onClick={compare}>비교하기</Button>
+        {picked.length > 0 && (
+          <div className="report__pick">
+            <span className="report__pick-msg" role="status">{picked.length === 1 ? '하나 더 고르면 두 기록을 비교할 수 있어요' : '두 기록을 골랐어요'}</span>
+            <button type="button" className="report__pick-clear" onClick={clear}>선택 취소</button>
+          </div>
+        )}
+        <Button disabled={picked.length === 0} onClick={compare}>{picked.length === 1 ? '기록 보기' : '비교하기'}</Button>
       </div>
     </>
   );
