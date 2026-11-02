@@ -1,12 +1,13 @@
-// 앱 화면 주소 모음 — 화면을 새로 만들면 ready를 true로 바꿔요.
-// (아직 없는 화면으로 가면 스플래시로 돌아가 버려서, 준비 안 된 곳은 안내만 띄워요)
+// 앱 화면 주소 — 화면을 새로 만들면 ready를 true로 바꿔요.
+// (아직 없는 화면으로 가려고 하면 "준비 중" 안내만 띄워요)
 export const ROUTES = {
-  login: { path: '/login/', ready: true },
-  onboarding: { path: '/onboarding/', ready: true },
-  home: { path: '/home/', ready: true },
-  report: { path: '/report/', ready: false },
-  ai: { path: '/ai/', ready: false },
-  my: { path: '/my/', ready: false },
+  splash: { path: '/', ready: true },
+  login: { path: '/login', ready: true },
+  onboarding: { path: '/onboarding', ready: true },
+  home: { path: '/home', ready: true },
+  report: { path: '/report', ready: false },
+  ai: { path: '/ai', ready: false },
+  my: { path: '/my', ready: false },
 };
 
 // 처음 온 사람 / 다시 온 사람 — 온보딩을 끝내면 markOnboarded()를 불러요

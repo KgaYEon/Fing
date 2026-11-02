@@ -38,7 +38,6 @@ scripts/build-tokens.mjs   원본 → CSS 변수 + 점검 규칙
 src/styles/tokens.css      자동 생성 CSS 변수 (직접 수정 X)
 src/tokens/tokens.json     자동 생성 페이지용 데이터 (직접 수정 X)
 ds/ + src/design-system/   디자인시스템 페이지 (주소 /ds)
-index.html, login/, onboarding/, home/ + src/app/  앱 화면 (스플래시 → 로그인 → 온보딩 → 홈)
 figma/text-styles.raw.json 피그마 텍스트 스타일 원본 (직접 수정 X)
 src/styles/typography.css  자동 생성 글자 스타일 (.t-title-1 등)
 src/styles/spacing.css     자동 생성 간격 (--space-4 ~ --space-64, 4px 단위)
@@ -53,6 +52,25 @@ figma/icons.raw.json       피그마 아이콘 원본 (직접 수정 X)
 src/icons/                 자동 생성 아이콘 (svg 파일, icon() 함수)
 figma-plugin/              개발용 피그마 동기화 플러그인
 ```
+
+## 앱 (리액트)
+
+주소마다 화면 컴포넌트가 하나씩 있어요. 화면 안의 덩어리도 컴포넌트로 나눴어요.
+
+```
+src/app/main.jsx            시작점 (토큰·공통 스타일 불러오기)
+src/app/App.jsx             주소 ↔ 화면 연결
+src/app/routes.js           화면 주소 모음 (ready: 만든 화면인지)
+src/app/components/         여러 화면이 같이 쓰는 컴포넌트
+  Icon · Logo · Button · Chip(Badge) · IconBox · Choice · OptionRow · SocialButton · TabBar · Sheet
+src/app/screens/
+  Splash/      /            스플래시
+  Login/       /login       로그인 + 약관 시트 (LegalLinks · LegalSheet)
+  Onboarding/  /onboarding/…  단계마다 화면 하나 (steps/: Welcome · Permission · PermissionDone · Nickname · Intro · Question · Done)
+  Home/        /home        HomeHeader(TrackerPopover) · WaveInfo(FitDonut) · GoalCard · BestRecords · RecentRecords · MetricSheet
+```
+
+화면 CSS는 각 화면 폴더 안에, 공통 컴포넌트 CSS는 `src/ui/`(디자인시스템과 같이 써요)에 있어요.
 
 ## 화면에서 쓰는 법
 

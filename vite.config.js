@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
 import { buildTokens, TOKEN_PATHS } from './scripts/build-tokens.mjs';
 import { buildIcons, ICON_PATHS } from './scripts/build-icons.mjs';
@@ -100,17 +101,15 @@ function trailingSlash(paths) {
 }
 
 export default defineConfig({
-  base: './',
-  plugins: [figmaTokenSync(), trailingSlash(['/ds', '/login', '/onboarding', '/home'])],
+  base: '/',
+  // 앱(스플래시·로그인·온보딩·홈)은 리액트 한 페이지 + 주소로 화면을 바꿔요. /ds는 따로예요.
+  plugins: [react(), figmaTokenSync(), trailingSlash(['/ds'])],
   server: { port: 5173, strictPort: true },
   build: {
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
         ds: resolve(import.meta.dirname, 'ds/index.html'),
-        login: resolve(import.meta.dirname, 'login/index.html'),
-        onboarding: resolve(import.meta.dirname, 'onboarding/index.html'),
-        home: resolve(import.meta.dirname, 'home/index.html'),
       },
     },
   },
