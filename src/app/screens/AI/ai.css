@@ -1,0 +1,71 @@
+/* AI — 피그마 "AI" 섹션 (130:2075). 위치·크기는 402px 화면 기준. */
+.ai { background: var(--color-bg); }
+.ai__head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--space-12) + env(safe-area-inset-top, 0px)) var(--space-20) var(--space-12);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-md), inset 0 -1px 0 var(--color-btn-light);
+}
+.ai__title { margin: 0; font: var(--text-title-2); color: var(--color-txt-black); }
+
+.ai__main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-40);
+  padding: calc(var(--space-56) + 1px) var(--space-20) var(--space-24);   /* 피그마: 헤더 아래 56 */
+}
+.ai__main > * { flex: none; }
+.ai__main.is-empty { gap: calc(var(--space-64) + var(--space-8)); }   /* 피그마 72 */
+.ai__dock { flex: none; padding: var(--space-8) var(--space-20) var(--space-20); }
+.ai > .tab-bar { flex: none; padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* 소개 */
+.ai-intro { display: flex; flex-direction: column; align-items: center; gap: var(--space-24); text-align: center; }
+.ai-intro__icon { display: grid; place-items: center; width: 68px; height: 68px; border-radius: var(--radius-16); background: var(--color-btn-light); box-shadow: inset 0 0 0 1px var(--color-str-pri-light); color: var(--color-btn-default); }
+.ai-intro__text { display: flex; flex-direction: column; gap: var(--space-4); }
+.ai-intro__title { margin: 0; font: var(--text-title-3); color: var(--color-txt-black); }
+.ai-intro__sub { margin: 0; font: var(--text-caption-1); color: var(--color-txt-unselected); }
+
+/* 추천 질문 */
+.ai-suggest { width: 100%; display: flex; flex-direction: column; align-items: center; gap: var(--space-24); }
+.ai-suggest__head { display: flex; align-items: center; gap: var(--space-8); width: 100%; margin: 0; font: var(--text-caption-2); color: var(--color-txt-unselected); white-space: nowrap; }
+.ai-suggest__head::before, .ai-suggest__head::after { content: ''; flex: 1; height: 1px; background: var(--color-btn-disable); }
+.ai-suggest__head .icon { color: var(--color-btn-default); margin-right: calc(var(--space-4) * -1); }
+.ai-suggest__list { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }
+.ai-suggest__chip { min-height: 44px; }
+.ai-suggest__chip:disabled { opacity: .5; cursor: default; }
+
+/* 대화 */
+.ai-chat { width: 100%; display: flex; flex-direction: column; gap: var(--space-16); }
+.ai-msg { max-width: 78%; border-radius: var(--radius-16); font: var(--text-caption-1); animation: msg-in .25s cubic-bezier(.2, .8, .2, 1); }
+.ai-msg p { margin: 0; white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; }
+.ai-msg--me { align-self: flex-end; padding: var(--space-16) var(--space-24); background: var(--color-btn-light); box-shadow: inset 0 0 0 1px var(--color-str-pri-light); color: var(--color-txt-semiblack); }
+.ai-msg--ai { align-self: flex-start; display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-16); background: var(--color-btn-white); box-shadow: inset 0 0 0 1px var(--color-str-gray); color: var(--color-txt-black); }
+.ai-msg__links { display: flex; flex-direction: column; gap: var(--space-8); }
+.ai-msg__btn { min-height: 46px; padding: var(--space-12) var(--space-24); }
+@keyframes msg-in { from { opacity: 0; transform: translateY(6px); } }
+.ai-msg--thinking { flex-direction: row; gap: var(--space-4); padding: var(--space-16) var(--space-20); }
+.ai-msg--thinking span { width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--color-btn-disable); animation: dot 1s ease-in-out infinite; }
+.ai-msg--thinking span:nth-child(2) { animation-delay: .15s; }
+.ai-msg--thinking span:nth-child(3) { animation-delay: .3s; }
+@keyframes dot { 0%, 100% { opacity: .3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .ai-msg, .ai-msg--thinking span { animation: none; } }
+
+/* 질문 입력 바 */
+.ai-ask { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-8) var(--space-8) var(--space-8) var(--space-16); border-radius: var(--radius-16); background: var(--color-btn-white); box-shadow: inset 0 0 0 1px var(--color-btn-gray-press); transition: box-shadow .15s ease; }
+.ai-ask:focus-within { box-shadow: inset 0 0 0 1px var(--color-str-primary); }
+.ai-ask__input { flex: 1; min-width: 0; padding: var(--space-12) 0; border: 0; background: none; font: var(--text-caption-1); color: var(--color-txt-semiblack); caret-color: var(--color-btn-default); outline: none; }
+.ai-ask__input::placeholder { color: var(--color-neutral-800); }   /* 피그마 뉴트럴/800 */
+.ai-ask__send { flex: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--radius-12); background: var(--color-btn-light); color: var(--color-btn-default); cursor: pointer; transition: background-color .15s ease, color .15s ease; }
+.ai-ask__send:not([aria-disabled]) { background: var(--color-btn-default); color: var(--color-txt-white); }
+.ai-ask__send[aria-disabled] { cursor: default; }
+.ai-ask__send:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; }

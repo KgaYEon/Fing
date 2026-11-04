@@ -177,6 +177,37 @@ export const components = [
     notes: ['약관 표의 머리글 배경이 #F0F0F0(토큰 아님)이에요. 코드는 가장 가까운 btn/gray를 썼어요.'],
   },
   {
+    key: 'chip-tabs', name: 'Chip tabs', figma: 'chip 1 (color=primary) 여러 개', figmaId: '22:138', file: 'chip.css', wide: true,
+    lead: '여러 칩 중 하나만 고르는 줄이에요. 넘치면 옆으로 넘겨요. (리포트 기록 종류 · 서핑별 필터)',
+    demos: [
+      { label: '기본', html: '<div class="chip-tabs" role="radiogroup">' + ['캐치율', '평균 라이딩', '최장 라이딩', '파도 수'].map((t, i) => `<button class="chip chip--primary" role="radio" aria-pressed="${i === 0}">${t}</button>`).join('') + '</div>' },
+      { label: '큰 칩 (chip--lg)', html: '<div class="chip-tabs" role="radiogroup">' + ['전체', '즐겨찾기', '10월', '09월'].map((t, i) => `<button class="chip chip--primary chip--lg" role="radio" aria-pressed="${i === 0}">${t}</button>`).join('') + '</div>' },
+    ],
+    code: "// 리액트\n<ChipTabs label=\"기록 종류\" value={metric} onChange={setMetric}\n  items={[{ key: 'catch', label: '캐치율' }, …]} />",
+    notes: ['리포트-종합 칩은 높이 29, 리포트-서핑별 칩은 높이 37이에요. 같은 칩인데 크기가 두 가지라 chip--lg로 나눴어요.'],
+  },
+  {
+    key: 'back-header', name: 'Back header', figma: '이용약관 헤더', figmaId: '111:1153', file: 'back-header.css', wide: true,
+    lead: '안쪽 화면 위에 있는 뒤로가기 + 가운데 제목이에요.',
+    demos: [{ label: '예시', html: `<header class="back-header" style="padding-top:12px"><button type="button" class="back-header__btn" aria-label="뒤로가기">${icon('arr-left', { size: 36 })}</button><h1 class="back-header__title">계정 관리</h1></header>` }],
+    code: '<BackHeader title="계정 관리" fallback="/my" />',
+    notes: ['피그마에서 헤더 이름이 화면마다 "이용약관 헤더"로 복사돼 있어요. 컴포넌트로 만들면 한 번에 고칠 수 있어요.'],
+  },
+  {
+    key: 'menu-list', name: 'Menu list', figma: 'menu · menu cont', figmaId: '67:330', file: 'menu-list.css', wide: true,
+    lead: '마이 화면의 목록이에요. 줄을 붙여 쌓고 첫 줄·마지막 줄 모서리만 둥글어요. 화살표 줄 · 스위치 줄 · 빨간 줄이 있어요.',
+    demos: [{ label: '예시', html: `<section class="menu-group"><h2 class="menu-group__title">알림</h2><ul class="menu-list"><li class="menu-row"><span class="menu-row__text"><span class="menu-row__title">기록 도착 알림</span><span class="menu-row__desc">서핑 기록이 동기화되면 알려드려요</span></span><input type="checkbox" class="toggle" role="switch" aria-label="기록 도착 알림" checked></li><li><button type="button" class="menu-row menu-row--btn"><span class="menu-row__text"><span class="menu-row__title menu-row__title--soft">계정관리</span></span>${icon('arr-right')}</button></li><li><button type="button" class="menu-row menu-row--btn"><span class="menu-row__text"><span class="menu-row__title menu-row__title--danger">로그아웃</span></span></button></li></ul></section>` }],
+    code: '<MenuGroup title="알림">\n  <MenuRow title="기록 도착 알림" desc="…" toggle={{ checked, onChange }} />\n  <MenuRow title="계정관리" tone="soft" to="/my/account" />\n  <MenuRow title="로그아웃" tone="danger" onClick={…} arrow={false} />\n</MenuGroup>',
+    notes: ['피그마는 줄마다 테두리를 따로 그려서 줄 사이 선이 두 겹(2px)이 돼요. 코드는 1px로 맞췄어요.'],
+  },
+  {
+    key: 'tracker', name: 'Tracker chip', figma: 'chip 1 + Status - 트래커 연결 상태', figmaId: '7:1791', file: 'tracker.css', wide: true,
+    lead: '홈·AI 위에 있는 트래커 칩이에요. 누르면 연결 상태 카드가 떠요 (정상 · 배터리 부족 · 해제 · 오류).',
+    demos: [{ label: '정상 연결', html: `<div style="position:relative;height:150px"><button type="button" class="chip home__tracker" data-state="ok" style="position:absolute;right:0">트래커${icon('on', { className: 'home__dot' })}</button><div class="home-pop" data-state="ok" style="right:0;top:40px;animation:none"><div class="home-pop__top"><div class="home-pop__text"><span class="home-pop__eyebrow">FING TRACKER</span><span class="home-pop__status">${icon('on', { className: 'home__dot' })}정상 연결됨</span></div><span class="home-pop__icon">${icon('link')}</span></div><div class="home-pop__batt"><span class="home-pop__batt-k">배터리</span><span class="home-pop__batt-v">${icon('batt-full', { className: 'home-pop__batt-ic' })}82%</span></div></div></div>` }],
+    code: '<TrackerChip />            // 홈\n<TrackerChip label="기기 연결됨" />   // AI',
+    notes: ['배터리 그림이 ic/ 아이콘이 아니라 직접 그린 모양이에요. 코드는 ic/batt-full · batt-half · batt-low를 써요.', '카드 글자색 몇 개가 토큰 없이 직접 들어가 있어요 (#8390A3 · #263953 · #708097).'],
+  },
+  {
     key: 'press', name: 'Press · Loading', figma: '(공통 동작)', figmaId: '46:262', file: 'press.css', wide: true,
     lead: '누르는 모든 것에 들어가는 공통 동작이에요. 누르면 살짝 작아지고, 로딩 중에는 다시 눌러도 반응하지 않아요.',
     demos: [{ label: '눌러보세요 (1초 로딩)', html: '<div style="display:flex;flex-direction:column;gap:12px"><button class="button" data-demo-busy>저장하기</button><button type="button" class="social-button social-button--kakao" data-demo-busy><span>카카오로 시작하기</span></button></div>' }],

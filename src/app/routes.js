@@ -6,7 +6,7 @@ export const ROUTES = {
   onboarding: { path: '/onboarding', ready: true },
   home: { path: '/home', ready: true },
   report: { path: '/report', ready: true },
-  ai: { path: '/ai', ready: false },
+  ai: { path: '/ai', ready: true },
   my: { path: '/my', ready: true },
 };
 

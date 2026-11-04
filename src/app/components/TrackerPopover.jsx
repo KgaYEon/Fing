@@ -1,5 +1,5 @@
 // 트래커 연결 상태 카드 — 피그마 7:1791(정상) · 33:941(배터리 부족) · 33:823(해제) · 33:904(오류)
-import Icon from '../../components/Icon.jsx';
+import Icon from './Icon.jsx';
 
 export const TRACKER_STATES = {
   ok: { label: '정상 연결됨', icon: 'link' },

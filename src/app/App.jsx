@@ -10,6 +10,7 @@ import Home from './screens/Home/Home.jsx';
 import Report from './screens/Report/Report.jsx';
 import ReportCompare from './screens/Report/ReportCompare.jsx';
 import ReportDetail from './screens/Report/ReportDetail.jsx';
+import AiPage from './screens/AI/AiPage.jsx';
 import MyPage from './screens/My/MyPage.jsx';
 import ProfileEdit from './screens/My/ProfileEdit.jsx';
 import Account from './screens/My/Account.jsx';
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/report/sessions" element={<Report />} />
         <Route path="/report/compare" element={<ReportCompare />} />
         <Route path="/report/session/:id" element={<ReportDetail />} />
+        <Route path="/ai" element={<AiPage />} />
         <Route path="/my" element={<MyPage />} />
         <Route path="/my/profile" element={<ProfileEdit />} />
         <Route path="/my/account" element={<Account />} />

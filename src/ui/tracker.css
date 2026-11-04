@@ -1,0 +1,42 @@
+/* tracker — 트래커 칩 + 연결 상태 카드 (피그마 홈·AI 헤더의 chip → Status - 트래커 연결 상태 7:1791 · 33:941 · 33:823 · 33:904)
+   src/app/components/TrackerChip.jsx */
+.home__tracker { gap: var(--space-8); }
+.home__dot { width: 6px; height: 16px; flex: none; }
+.home__tracker[data-state='ok'] .home__dot, .home-pop[data-state='ok'] .home__dot { color: var(--color-status-success-700); }
+.home__tracker[data-state='low'] .home__dot, .home-pop[data-state='low'] .home__dot { color: var(--color-status-warning-700); }
+.home__tracker[data-state='off'] .home__dot, .home-pop[data-state='off'] .home__dot { color: var(--color-btn-disable); }
+.home__tracker[data-state='error'] .home__dot, .home-pop[data-state='error'] .home__dot { color: var(--color-status-danger); }
+
+/* 트래커 연결 상태 카드 (7:1791 · 33:941 · 33:823 · 33:904) */
+.home-pop {
+  position: absolute;
+  top: calc(100% + var(--space-8));
+  right: var(--space-20);
+  width: 249px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  border-radius: var(--radius-16);
+  background: var(--color-btn-white);
+  box-shadow: var(--shadow-md), 0 0 0 1px var(--color-str-gray);
+  transform-origin: top right;
+  animation: pop-in .18s cubic-bezier(.2, .8, .2, 1);
+}
+.home-pop[hidden] { display: none; }
+@keyframes pop-in { from { opacity: 0; transform: scale(.96) translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .home-pop { animation: none; } }
+.home-pop__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
+.home-pop__text { display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; }
+.home-pop__eyebrow { font: var(--text-caption-2); color: var(--color-txt-placeholder); }
+.home-pop__status { display: flex; align-items: center; gap: var(--space-4); font: var(--text-body-3); color: var(--color-txt-semiblack); }
+.home-pop__desc { margin-top: calc(var(--space-4) * -1); font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.home-pop__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--radius-12); background: var(--color-btn-light); color: var(--color-btn-default); }
+.home-pop[data-state='low'] .home-pop__icon { color: var(--color-status-warning-700); }
+.home-pop[data-state='off'] .home-pop__icon { color: var(--color-txt-unselected); }
+.home-pop[data-state='error'] .home-pop__icon { color: var(--color-status-danger); }
+.home-pop__batt { display: flex; align-items: center; justify-content: space-between; padding-top: var(--space-12); border-top: 1px solid var(--color-str-gray); }
+.home-pop__batt-k { font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.home-pop__batt-v { display: flex; align-items: center; gap: var(--space-8); font: var(--text-caption-1); color: var(--color-txt-semiblack); }
+.home-pop__batt-ic { color: var(--color-btn-default); }
+.home-pop[data-state='low'] .home-pop__batt-ic { color: var(--color-status-warning-700); }
