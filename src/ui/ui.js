@@ -71,7 +71,7 @@ export const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 /** 잠깐 뜨는 안내 — toast('준비 중이에요') */
 export function toast(message, ms = 2000) {
   let el = document.querySelector('.toast');
-  if (!el) { el = document.createElement('div'); el.className = 'toast'; el.setAttribute('role', 'status'); document.body.append(el); }
+  if (!el) { el = document.createElement('div'); el.className = 'toast'; el.setAttribute('role', 'status'); (document.querySelector('.app') || document.body).append(el); }   // 앱이면 폰 틀 안에
   el.textContent = message;
   el.classList.add('is-on');
   clearTimeout(el._t);

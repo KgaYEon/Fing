@@ -58,3 +58,10 @@
 .doc td:first-child { white-space: nowrap; color: var(--color-txt-semiblack); }
 .doc tr + tr td { border-top: 1px solid var(--color-btn-gray); }
 .doc__date { font: var(--text-title-4); color: var(--color-txt-black); }
+
+/* 앱(리액트) 안에서 여는 시트 — 화면 틀 안에 깔려요 (src/app/components/Sheet.jsx) */
+.sheet-layer { position: absolute; inset: 0; z-index: 50; display: flex; align-items: flex-end; }
+.sheet-layer__backdrop { position: absolute; inset: 0; background: rgba(5, 8, 13, .4); animation: sheet-fade .28s ease; }
+.sheet-layer.is-closing .sheet-layer__backdrop { animation: sheet-fade .2s ease reverse forwards; }
+.sheet.sheet--in-app { position: relative; inset: auto; max-width: none; max-height: 88%; }
+@media (prefers-reduced-motion: reduce) { .sheet-layer__backdrop { animation: none; } }

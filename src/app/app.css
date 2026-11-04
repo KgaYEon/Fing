@@ -1,6 +1,7 @@
 /* 앱 화면 공통 틀
    - 폰에서는 화면을 꽉 채우고
-   - 컴퓨터에서는 피그마 크기(402 × 940)의 폰 모양으로 가운데에 보여줘요 */
+   - 컴퓨터에서는 피그마 크기(402 × 940)의 폰 모양으로 가운데에 보여줘요
+     화면(창)이 작으면 틀을 찌그러뜨리지 않고 통째로 줄여요 → 윈도우·맥 어디서나 같은 비율 (--frame-zoom, main.jsx) */
 html, body { height: 100%; }
 :root {
   --fig-top: 38px;      /* 피그마 화면의 위 상태바 높이 */
@@ -34,7 +35,8 @@ body { background: var(--color-btn-white); }
   body { display: grid; place-items: center; background: var(--color-neutral-300); }
   .app {
     width: 402px;
-    height: min(940px, calc(100dvh - var(--space-48)));
+    height: 940px;
+    zoom: var(--frame-zoom, 1);
     border-radius: var(--radius-24);
     box-shadow: var(--shadow-md), 0 0 0 1px var(--color-str-gray);
   }
@@ -42,3 +44,6 @@ body { background: var(--color-btn-white); }
 }
 
 .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+/* 잠깐 뜨는 안내 — 앱 틀 안에 */
+.app .toast { position: absolute; z-index: 60; }

@@ -6,6 +6,15 @@ import '../styles/base.css';
 import './app.css';
 import App from './App.jsx';
 
+// 컴퓨터에서 폰 틀(402 × 940)이 창 안에 다 들어오도록 통째로 줄여요 (늘리지는 않아요)
+const FRAME = { w: 402, h: 940, margin: 48 };
+function fitFrame() {
+  const z = Math.min(1, (innerHeight - FRAME.margin) / FRAME.h, (innerWidth - FRAME.margin) / FRAME.w);
+  document.documentElement.style.setProperty('--frame-zoom', Math.max(0.3, z).toFixed(4));
+}
+fitFrame();
+addEventListener('resize', fitFrame);
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
