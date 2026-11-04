@@ -27,7 +27,7 @@ export default function DataManage() {
   const [ask, setAsk] = useState(null);
   const confirm = () => {
     if (ask === 'ai') { try { localStorage.removeItem('fing.ai.chat'); } catch {} }
-    if (ask === 'reset') ['fing.favorites', 'fing.home', 'fing.report.picked'].forEach((k) => { try { localStorage.removeItem(k); sessionStorage.removeItem(k); } catch {} });
+    if (ask === 'reset') ['fing.favorites', 'fing.home', 'fing.report.pick'].forEach((k) => { try { localStorage.removeItem(k); sessionStorage.removeItem(k); } catch {} });
     toast(ASK[ask].done);
     setAsk(null);
   };

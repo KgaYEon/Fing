@@ -33,7 +33,7 @@
 .home__wave { display: flex; flex-direction: column; gap: var(--space-20); }
 .home__wave-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-12); }
 .home__place { display: flex; flex-direction: column; gap: var(--space-8); padding-top: var(--space-4); }
-.home__date { margin: 0; font: var(--text-body-3); color: var(--color-btn-default); }
+.home__date { margin: 0; font: var(--text-body-3); color: var(--color-txt-unselected); }   /* 파랑 줄이기: 피그마 btn/default */
 .home__spot { margin: 0; font: var(--text-title-2); color: var(--color-txt-black); }
 .home__wave-head .badge { flex: none; }
 .home__wave-body { display: flex; flex-direction: column; gap: var(--space-24); }
@@ -42,7 +42,7 @@
 .home__height-k { padding: 0 var(--space-4); font: var(--text-caption-1); color: var(--color-txt-unselected); }
 .home__height-v { display: flex; align-items: flex-end; gap: var(--space-4); }
 .home__height-v b { font: var(--text-display); color: var(--color-txt-black); }
-.home__unit { padding-bottom: 2px; font: var(--text-unit); color: var(--color-btn-default); }
+.home__unit { padding-bottom: 2px; font: var(--text-unit); color: var(--color-txt-black); }   /* 파랑 줄이기: 피그마 btn/default */
 
 /* 적합도 도넛 — 위에서부터 시계방향으로 채워져요 */
 .home__fit { position: relative; width: 92px; height: 92px; flex: none; }
@@ -62,9 +62,9 @@
 .home__fit-text span { font: var(--text-caption-2); color: var(--color-txt-unselected); }
 
 .home__weather { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); margin: 0; padding: 0; list-style: none; }
-.home__weather-item { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-12) var(--space-16); border-radius: var(--radius-12); background: var(--color-btn-light); }
-.home__weather-item .icon { flex: none; color: var(--color-btn-default); }
-.home__weather-k { font: var(--text-caption-1); color: var(--color-btn-default); }
+.home__weather-item { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-12) var(--space-16); border-radius: var(--radius-12); background: var(--color-btn-white); box-shadow: inset 0 0 0 1px var(--color-str-gray); }   /* 파랑 줄이기: 피그마 btn/light */
+.home__weather-item .icon { flex: none; color: var(--color-txt-unselected); }   /* 파랑 줄이기 */
+.home__weather-k { font: var(--text-caption-1); color: var(--color-txt-unselected); }   /* 파랑 줄이기: 피그마 btn/default */
 .home__weather-v { font: var(--text-caption-1); color: var(--color-txt-black); }
 .home__note { display: flex; align-items: center; gap: var(--space-8); margin: calc(var(--space-4) * -1) 0 0; font: var(--text-caption-1); color: var(--color-btn-default); }
 .home__note::before { content: ''; width: 6px; height: 6px; border-radius: var(--radius-full); background: currentColor; }
@@ -83,7 +83,7 @@
 .home__goal-main { display: flex; align-items: flex-end; gap: var(--space-4); margin: 0; }
 .home__goal-main b { font: var(--text-display); color: var(--color-txt-black); }
 .home__goal-main span { font: var(--text-title-2); color: var(--color-txt-black); }
-.home__goal-sub { margin: 0; padding: 0 var(--space-4); font: var(--text-body-4); color: var(--color-txt-unselected); }   /* 피그마 txt/placeholder — 잘 안 보여서 한 단계 진하게 */
+.home__goal-sub { margin: 0; padding: 0 var(--space-4); font: var(--text-body-4); color: var(--color-txt-placeholder); }
 .home__cta { padding-block: var(--space-16); }   /* 피그마 높이 56 */
 
 /* 이전 최대 기록 */
@@ -99,8 +99,8 @@
   box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--color-neutral-300);   /* 피그마 선 #F2F2F2 (토큰 아님) */
 }
 .home__row-label { display: flex; align-items: center; gap: var(--space-12); }
-.home__row-name { font: var(--text-caption-1); color: var(--color-txt-primary); }
-.home__row-date { font: var(--text-caption-2); color: var(--color-txt-unselected); }   /* 피그마 txt/placeholder */
+.home__row-name { font: var(--text-caption-1); color: var(--color-txt-semiblack); }   /* 파랑 줄이기: 피그마 txt/primary */
+.home__row-date { font: var(--text-caption-2); color: var(--color-txt-placeholder); }
 .home__row-value { font: var(--text-title-4); color: var(--color-txt-semiblack); white-space: nowrap; }
 
 /* 최근 기록 — 옆으로 넘겨봐요 */
@@ -109,18 +109,24 @@
 .home__minis {
   display: flex;
   gap: var(--space-8);
-  margin: 0;
-  padding: var(--space-4) 0;   /* 옆 여백 없이 — 넘긴 카드가 가장자리에 살짝 비쳐 보이지 않게 */
+  margin: 0 calc(var(--space-16) * -1);
+  padding: var(--space-4) var(--space-16);
   list-style: none;
   overflow-x: auto;
   scroll-snap-type: x proximity;
   scrollbar-width: none;
 }
 .home__minis::-webkit-scrollbar { display: none; }
+/* 옆으로 넘길 게 있으면 그쪽 끝을 흐리게 — "더 있어요" 신호 (잘린 카드가 고장처럼 보이지 않게) */
+.home__minis.can-left { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px); mask-image: linear-gradient(to right, transparent 0, #000 48px); }
+.home__minis.can-right { -webkit-mask-image: linear-gradient(to left, transparent 0, #000 48px); mask-image: linear-gradient(to left, transparent 0, #000 48px); }
+.home__minis.can-left.can-right { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%); }
+.home__more { display: inline-flex; align-items: center; gap: 2px; margin-top: calc(var(--space-4) * -1); padding: 0; border: 0; background: none; font: var(--text-caption-2); color: var(--color-txt-placeholder); cursor: pointer; }
+.home__more[hidden] { display: none; }
 .home__minis:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: -2px; border-radius: var(--radius-8); }
 .home__mini {
   flex: none;
-  width: calc((100% - var(--space-8) * 3) / 4);   /* 한 화면에 4개가 딱 맞게 (피그마 73px) — 끝 카드가 반쯤 잘려 보이지 않게 */
+  width: 73px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,6 +1,5 @@
 // 오늘의 파도 — 피그마 "홈 서핑 정보 섹션 / wave info"
 import Icon from '../../components/Icon.jsx';
-import { Badge } from '../../components/Chip.jsx';
 import FitDonut from './FitDonut.jsx';
 
 const today = () => {
@@ -16,7 +15,6 @@ export default function WaveInfo({ wave }) {
           <p className="home__date">{today()}</p>
           <h2 className="home__spot" id="wave-spot">{wave.spot}</h2>
         </div>
-        <Badge>{wave.status}</Badge>
       </div>
       <div className="home__wave-body">
         <div className="home__metrics">

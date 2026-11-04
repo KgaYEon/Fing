@@ -2,7 +2,6 @@
 // 선택 동의를 끌 때는 확인 모달 (111:1416 위치 · 111:1701 마케팅 · 111:1720 야간), 켤 때는 바로 켜요
 import { useState } from 'react';
 import { MenuGroup, MenuRow } from '../../components/MenuList.jsx';
-import { Badge } from '../../components/Chip.jsx';
 import Modal from '../../components/Modal.jsx';
 import { toast } from '../../../ui/ui.js';
 import SubPage from './SubPage.jsx';
@@ -19,13 +18,13 @@ export default function Terms() {
   const [c, set] = useConsents();
   const [ask, setAsk] = useState(null);
   const change = (key) => (on) => { if (on) { set({ [key]: true }); toast('동의했어요'); } else setAsk(key); };
-  const agreed = <Badge>{AGREED_AT} 동의</Badge>;
+  const agreed = <span className="my-terms__agreed">{AGREED_AT} 동의</span>;
 
   return (
     <SubPage title="약관 확인 및 동의" className="my-terms">
       <MenuGroup title="필수 동의 항목">
-        <MenuRow title="이용 약관 보기" to="/my/terms/service" right={agreed} arrow={false} />
-        <MenuRow title="개인정보 처리 방침 보기" to="/my/terms/privacy" right={agreed} arrow={false} />
+        <MenuRow title="이용 약관 보기" to="/my/terms/service" right={agreed} />
+        <MenuRow title="개인정보 처리 방침 보기" to="/my/terms/privacy" right={agreed} />
       </MenuGroup>
       <MenuGroup title="선택 동의 항목">
         <MenuRow title="위치 기반 서비스 동의" desc="서핑하는 동안의 위치로 기록을 만들어요" toggle={{ checked: c.location, onChange: change('location') }} />

@@ -26,7 +26,7 @@
 .report__sec { display: flex; flex-direction: column; gap: var(--space-16); }
 .report__sec-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
 .report__sec-title { margin: 0; font: var(--text-title-4); color: var(--color-txt-black); }
-.report__sec-sub { font: var(--text-caption-2); color: var(--color-txt-unselected); }   /* 피그마 txt/placeholder */
+.report__sec-sub { font: var(--text-caption-2); color: var(--color-txt-placeholder); }
 .report__more { display: inline-flex; align-items: center; gap: var(--space-4); padding: 0 var(--space-4); border: 0; background: none; font: var(--text-caption-1); color: var(--color-txt-placeholder); cursor: pointer; }
 .report__more .icon { color: var(--color-txt-placeholder); }
 .report__empty { margin: var(--space-40) 0; text-align: center; font: var(--text-caption-1); color: var(--color-txt-placeholder); }
@@ -47,6 +47,9 @@
 }
 @keyframes chart-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 .report-chart__dot { fill: var(--color-btn-default); }
+.report-chart__mark { fill: var(--color-btn-white); stroke: var(--color-btn-default); stroke-width: 2; }
+.report-chart__label { position: absolute; transform: translate(-50%, calc(-100% - 8px)); font: var(--text-caption-2); color: var(--color-txt-unselected); white-space: nowrap; animation: tip-in .3s .7s ease both; }
+.report-chart__label.is-min { transform: translate(-50%, 8px); }
 .report-chart__dot-in { fill: var(--color-btn-white); }
 .report-chart__tip {
   position: absolute;
@@ -86,20 +89,30 @@
 .report-firsts__text { font: var(--text-body-4); color: var(--color-txt-semiblack); }
 
 /* ─── 서핑별 ─── */
-.report__filters { margin: 0 calc(var(--space-20) * -1); padding: 0 var(--space-20); }
+.report__filters, .report__chips { margin: 0 calc(var(--space-20) * -1); padding: 0 var(--space-20); scroll-padding-inline: var(--space-20); }   /* 칩 줄은 화면 끝까지 넘겨요 */
+.report__chips .chip { padding-inline: var(--space-20); }   /* 여백 늘리기: 피그마 16 */
 .report-month { display: flex; flex-direction: column; gap: var(--space-12); }
 .report-month__title { margin: 0; padding: 0 var(--space-4); font: var(--text-body-4); color: var(--color-txt-unselected); }
-.report-card { position: relative; transition: box-shadow .15s ease; }
-.report-card.is-selected { box-shadow: inset 0 0 0 1px var(--color-str-primary); }
+.report-card { position: relative; transition: box-shadow .15s ease, transform .1s ease; }
+.report-card.is-selected { box-shadow: inset 0 0 0 2px var(--color-str-primary); }
 .report-card__pick { position: absolute; inset: 0; border: 0; border-radius: inherit; background: none; cursor: pointer; }
 .report-card__pick:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; }
 .report-card:active:not(:has(.record-card__fav:active)) { transform: scale(.99); }
 .report-card .record-card__fav { position: relative; z-index: 1; }
 .report-card .record-card__fav[aria-pressed='false'] { color: var(--color-btn-disable); }
-.report__pick { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); padding: 0 var(--space-4) var(--space-12); animation: pick-in .2s ease; }
-.report__pick-msg { font: var(--text-caption-2); color: var(--color-txt-unselected); }
-.report__pick-clear { padding: var(--space-4) 0; border: 0; background: none; font: var(--text-caption-2); color: var(--color-txt-primary); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
-@keyframes pick-in { from { opacity: 0; transform: translateY(4px); } }
+.report-card .record-card__rate { display: inline-flex; align-items: center; gap: var(--space-4); }
+.report-card__go { color: var(--color-txt-placeholder); }   /* 누르면 상세로 간다는 표시 */
+/* 비교 모드: 왼쪽 동그라미 체크 */
+.report-card__check { display: inline-grid; place-items: center; flex: none; width: 22px; height: 22px; margin-right: var(--space-4); border-radius: var(--radius-full); box-shadow: inset 0 0 0 1.5px var(--color-btn-disable); background: var(--color-btn-white); color: var(--color-txt-white); transition: background-color .15s ease, box-shadow .15s ease; }
+.report-card.is-selected .report-card__check { background: var(--color-btn-default); box-shadow: none; }
+.report-card.is-picking:not(.is-selected) { opacity: .92; }
+.report__mode { position: sticky; top: calc(var(--space-24) * -1); z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); margin-bottom: calc(var(--space-12) * -1); padding: var(--space-12) var(--space-16); border-radius: var(--radius-12); background: var(--color-btn-default); color: var(--color-txt-white); font: var(--text-caption-1); box-shadow: var(--shadow-md); animation: pick-in .2s ease; }
+.report__mode b { font-weight: 700; }
+.report__mode-count { font: var(--text-title-4); }
+@keyframes pick-in { from { opacity: 0; transform: translateY(-4px); } }
+.report__dock-pair { display: flex; gap: var(--space-8); }
+.report__dock-pair > .button:first-child { flex: 0 0 96px; }
+.report__dock-pair > .button:last-child { flex: 1; }
 .report__dock { flex: none; padding: var(--space-12) var(--space-20) var(--space-20); background: linear-gradient(to bottom, transparent, var(--color-bg) var(--space-12)); margin-top: calc(var(--space-24) * -1); position: relative; }
 
 /* ─── 비교 · 상세: 한눈에 ─── */
@@ -146,7 +159,7 @@
 .report-rows thead th { padding: 0 0 0 var(--space-12); text-align: left; font: var(--text-caption-2); color: var(--color-txt-unselected); }
 .report-rows thead th:not(:first-child) { width: 72px; padding: 0 var(--space-16) 0 0; text-align: right; }
 .report-rows tbody th, .report-rows tbody td { padding: var(--space-16); background: var(--color-btn-white); }
-.report-rows tbody th { border-radius: var(--radius-16) 0 0 var(--radius-16); text-align: left; font: var(--text-caption-1); color: var(--color-txt-primary); }
+.report-rows tbody th { border-radius: var(--radius-16) 0 0 var(--radius-16); text-align: left; font: var(--text-caption-1); color: var(--color-txt-unselected); }   /* 파랑 줄이기: 피그마 txt/primary — 파랑은 좋아진 숫자에만 */
 .report-rows tbody td { width: 72px; text-align: right; font: var(--text-title-4); color: var(--color-txt-semiblack); white-space: nowrap; }
 .report-rows tbody td:first-of-type { padding-right: var(--space-8); }
 .report-rows tbody td:last-child { border-radius: 0 var(--radius-16) var(--radius-16) 0; }

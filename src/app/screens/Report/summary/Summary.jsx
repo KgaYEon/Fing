@@ -10,7 +10,7 @@ export default function Summary() {
   const [metric, setMetric] = useState('catch');
   return (
     <main className="report__main">
-      <ChipTabs label="기록 종류" value={metric} onChange={setMetric} items={METRIC_ORDER.map((k) => ({ key: k, label: METRICS[k].label }))} />
+      <ChipTabs label="기록 종류" className="report__chips" value={metric} onChange={setMetric} items={METRIC_ORDER.map((k) => ({ key: k, label: METRICS[k].label }))} />
       <MetricChart metric={metric} />
       <BestGrid />
       <FirstRecords />
