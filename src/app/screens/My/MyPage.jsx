@@ -23,7 +23,7 @@ function ProfileCard() {
           <h2 className="my-card__name">{p.nickname}</h2>
           <p className="my-card__days">핑과 함께 {daysSince(p.firstDate)}일째 파도 타는 중</p>
         </div>
-        <Link to="/my/profile" className="my-card__edit" aria-label="프로필 수정"><Icon name="edit" size={16} /></Link>
+        <Link to="/my/profile" className="my-card__edit hit-44" aria-label="프로필 수정"><Icon name="edit" size={16} /></Link>
       </div>
       <dl className="my-stats">
         {STATS.map((s) => (

@@ -33,7 +33,7 @@ export default function DataManage() {
   };
   return (
     <SubPage title="내 데이터 관리" fallback="/my/account">
-      <MenuGroup title="메뉴">
+      <MenuGroup label="데이터 관리 메뉴">
         <MenuRow title="내 기록 내보내기" desc="지금까지의 서핑 기록을 파일로 저장해요" onClick={() => { exportCsv(); toast('서핑 기록 파일을 저장했어요'); }} arrow={false} />
         <MenuRow title="AI 대화 기록 삭제" desc="AI와 나눈 질문과 답변을 모두 지워요" onClick={() => setAsk('ai')} arrow={false} />
         <MenuRow title="서핑 기록 초기화" desc="계정은 그대로 두고 기록만 처음부터 시작해요" tone="danger" onClick={() => setAsk('reset')} arrow={false} />

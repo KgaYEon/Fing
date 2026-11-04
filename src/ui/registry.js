@@ -204,8 +204,8 @@ export const components = [
     key: 'tracker', name: 'Tracker chip', figma: 'chip 1 + Status - 트래커 연결 상태', figmaId: '7:1791', file: 'tracker.css', wide: true,
     lead: '홈·AI 위에 있는 트래커 칩이에요. 누르면 연결 상태 카드가 떠요 (정상 · 배터리 부족 · 해제 · 오류).',
     demos: [{ label: '정상 연결', html: `<div style="position:relative;height:150px"><button type="button" class="chip home__tracker" data-state="ok" style="position:absolute;right:0">트래커${icon('on', { className: 'home__dot' })}</button><div class="home-pop" data-state="ok" style="right:0;top:40px;animation:none"><div class="home-pop__top"><div class="home-pop__text"><span class="home-pop__eyebrow">FING TRACKER</span><span class="home-pop__status">${icon('on', { className: 'home__dot' })}정상 연결됨</span></div><span class="home-pop__icon">${icon('link')}</span></div><div class="home-pop__batt"><span class="home-pop__batt-k">배터리</span><span class="home-pop__batt-v">${icon('batt-full', { className: 'home-pop__batt-ic' })}82%</span></div></div></div>` }],
-    code: '<TrackerChip />            // 홈\n<TrackerChip label="기기 연결됨" />   // AI',
-    notes: ['배터리 그림이 ic/ 아이콘이 아니라 직접 그린 모양이에요. 코드는 ic/batt-full · batt-half · batt-low를 써요.', '카드 글자색 몇 개가 토큰 없이 직접 들어가 있어요 (#8390A3 · #263953 · #708097).'],
+    code: '<TrackerChip />   // 홈 · AI',
+    notes: ['배터리 그림이 ic/ 아이콘이 아니라 직접 그린 모양이에요. 코드는 ic/batt-full · batt-half · batt-low를 써요.', '카드 글자색 몇 개가 토큰 없이 직접 들어가 있어요 (#8390A3 · #263953 · #708097).', '홈은 "트래커", AI는 "기기 연결됨"으로 이름이 달라요. 코드는 "트래커"로 맞췄어요.'],
   },
   {
     key: 'press', name: 'Press · Loading', figma: '(공통 동작)', figmaId: '46:262', file: 'press.css', wide: true,

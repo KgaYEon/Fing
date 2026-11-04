@@ -13,7 +13,7 @@ export default function SessionCard({ s, selected, onSelect, fav, onFav }) {
           <span className="record-card__date">{title}{s.id === NEW_ID && <span className="badge badge--sm">NEW</span>}</span>
           <span className="record-card__meta">{s.spot} / {s.height}m</span>
         </div>
-        <button type="button" className="record-card__fav" aria-pressed={fav} aria-label={fav ? '즐겨찾기 해제' : '즐겨찾기'} onClick={() => onFav(s.id)}>
+        <button type="button" className="record-card__fav hit-44" aria-pressed={fav} aria-label={fav ? '즐겨찾기 해제' : '즐겨찾기'} onClick={() => onFav(s.id)}>
           <Icon name={fav ? 'star-2' : 'star-str'} size={20} />
         </button>
       </div>

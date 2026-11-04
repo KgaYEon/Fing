@@ -10,7 +10,7 @@ export default function GoalCard({ metric, onSet }) {
     <section className="home__card home__goal" aria-labelledby="goal-title">
       <div className="home__card-head">
         <h2 className="home__card-title" id="goal-title">나의 목표</h2>
-        <Chip className="home__chip" onClick={onSet}>목표 설정</Chip>
+        <Chip className="home__chip hit-44" onClick={onSet}>목표 설정</Chip>
       </div>
       <div className="home__goal-body">
         <p className="home__goal-main"><b>{g.value}</b><span>{g.unit}</span></p>

@@ -7,6 +7,7 @@ export default function RecentRecords({ metric, onSet }) {
   const list = useRef(null);
   const max = Math.max(...RECENT.map((r) => r[metric]));
   // 최근 기록이 보이게 오른쪽 끝부터
+  // 최근 기록이 보이게 오른쪽 끝부터 (카드 4개가 딱 맞게 들어가서 양 끝이 잘리지 않아요)
   useLayoutEffect(() => { list.current.scrollLeft = list.current.scrollWidth; }, [metric]);
 
   return (
@@ -15,7 +16,7 @@ export default function RecentRecords({ metric, onSet }) {
         <h2 className="home__card-title home__recent-title" id="recent-title">
           최근 기록<span className="home__bar" aria-hidden="true" /><span className="home__recent-k">{METRICS[metric].label}</span>
         </h2>
-        <Chip className="home__chip" onClick={onSet}>설정</Chip>
+        <Chip className="home__chip hit-44" onClick={onSet}>설정</Chip>
       </div>
       <ul className="home__minis" ref={list} tabIndex={0} aria-label="최근 기록 (옆으로 넘겨보기)">
         {RECENT.map((r) => (

@@ -8,7 +8,7 @@ const ROWS = [
   { key: 'count', label: '1시간 파도 수', unit: '개' },
 ];
 
-export default function DetailRows({ title, a, b, labels = ['과거기록', '최근기록'] }) {
+export default function DetailRows({ title, a, b, labels = [a.name, b.name] }) {   // 머리글은 위 막대그래프처럼 날짜로
   return (
     <section className="report__sec" aria-labelledby="rows-title">
       <h2 className="report__sec-title" id="rows-title">{title}</h2>

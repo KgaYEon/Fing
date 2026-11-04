@@ -24,7 +24,7 @@ export default function AiPage() {
     <div className="screen ai">
       <header className="ai__head">
         <h1 className="ai__title">AI</h1>
-        <TrackerChip label="기기 연결됨" />
+        <TrackerChip />
       </header>
       <main className={`ai__main${messages.length ? '' : ' is-empty'}`} ref={list} aria-live="polite">
         <AiIntro />

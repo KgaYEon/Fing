@@ -83,7 +83,7 @@
 .home__goal-main { display: flex; align-items: flex-end; gap: var(--space-4); margin: 0; }
 .home__goal-main b { font: var(--text-display); color: var(--color-txt-black); }
 .home__goal-main span { font: var(--text-title-2); color: var(--color-txt-black); }
-.home__goal-sub { margin: 0; padding: 0 var(--space-4); font: var(--text-body-4); color: var(--color-txt-placeholder); }
+.home__goal-sub { margin: 0; padding: 0 var(--space-4); font: var(--text-body-4); color: var(--color-txt-unselected); }   /* 피그마 txt/placeholder — 잘 안 보여서 한 단계 진하게 */
 .home__cta { padding-block: var(--space-16); }   /* 피그마 높이 56 */
 
 /* 이전 최대 기록 */
@@ -100,7 +100,7 @@
 }
 .home__row-label { display: flex; align-items: center; gap: var(--space-12); }
 .home__row-name { font: var(--text-caption-1); color: var(--color-txt-primary); }
-.home__row-date { font: var(--text-caption-2); color: var(--color-txt-placeholder); }
+.home__row-date { font: var(--text-caption-2); color: var(--color-txt-unselected); }   /* 피그마 txt/placeholder */
 .home__row-value { font: var(--text-title-4); color: var(--color-txt-semiblack); white-space: nowrap; }
 
 /* 최근 기록 — 옆으로 넘겨봐요 */
@@ -109,19 +109,18 @@
 .home__minis {
   display: flex;
   gap: var(--space-8);
-  margin: 0 calc(var(--space-16) * -1);
-  padding: var(--space-4) var(--space-16);
+  margin: 0;
+  padding: var(--space-4) 0;   /* 옆 여백 없이 — 넘긴 카드가 가장자리에 살짝 비쳐 보이지 않게 */
   list-style: none;
   overflow-x: auto;
   scroll-snap-type: x proximity;
-  scroll-padding-inline: var(--space-16);
   scrollbar-width: none;
 }
 .home__minis::-webkit-scrollbar { display: none; }
 .home__minis:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: -2px; border-radius: var(--radius-8); }
 .home__mini {
   flex: none;
-  width: 73px;
+  width: calc((100% - var(--space-8) * 3) / 4);   /* 한 화면에 4개가 딱 맞게 (피그마 73px) — 끝 카드가 반쯤 잘려 보이지 않게 */
   display: flex;
   flex-direction: column;
   align-items: center;

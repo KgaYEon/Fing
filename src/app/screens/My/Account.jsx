@@ -11,10 +11,10 @@ export default function Account() {
   const [ask, setAsk] = useState(false);
   return (
     <SubPage title="계정 관리">
-      <MenuGroup title="메뉴">
+      <MenuGroup label="계정 메뉴">
         <MenuRow title="로그인 정보" desc={ACCOUNT.email} descLg />
         <MenuRow title="내 데이터 관리" tone="soft" to="/my/account/data" />
-        <MenuRow title="로그아웃" tone="danger" onClick={() => setAsk(true)} arrow={false} />
+        <MenuRow title="로그아웃" tone="soft" onClick={() => setAsk(true)} arrow={false} />
         <MenuRow title="회원 탈퇴" tone="danger" to="/my/account/withdraw" />
       </MenuGroup>
       <Modal

@@ -1,5 +1,7 @@
 // 홈 화면 예시 데이터 — 피그마 "홈" 섹션(130:2074)에 적힌 값을 그대로 옮겼어요.
 // 진짜 기록·파도 정보가 연결되면 이 파일만 바꾸면 돼요.
+// 기록 숫자(최대 기록 · 최근 기록)는 리포트와 같은 기록(report-data.js)에서 가져와서 화면끼리 숫자가 맞아요.
+import { SESSIONS, BEST as REPORT_BEST, latestOf, valueOf, shortDate } from '../Report/report-data.js';
 // (피그마에 없는 값은 "예시"라고 적어뒀어요)
 
 export const METRICS = {
@@ -30,27 +32,16 @@ export const GOALS = {
 };
 
 // 이전 최대 기록
-export const BEST = {
-  catch: { value: '42%', date: '10월 8일' },
-  count: { value: '12개', date: '10월 2일' },
-  avg: { value: '2시간 01분', date: '10월 8일' },
-  longest: { value: '4시간 23분', date: '10월 11일' },
-};
+export const BEST = REPORT_BEST;
 export const BEST_ORDER = ['catch', 'count', 'avg', 'longest']; // 피그마 순서
 
-// 시트에 보이는 "최근 기록 : …" (sheet 19:523 · 412:2730)
-export const LATEST = { catch: '30%', avg: '6초', longest: '10초', count: '4개' };
+// 시트에 보이는 "최근 기록 : …" (가장 최근 서핑)
+export const LATEST = { catch: latestOf('catch'), avg: latestOf('avg'), longest: latestOf('longest'), count: latestOf('count') };
 
-// 최근 기록 (오래된 것 → 최근). 파도 수는 피그마 값, 나머지는 예시.
-export const RECENT = [
-  { date: '09/26', catch: 28, avg: 5, longest: 9, count: 7 },
-  { date: '10/02', catch: 35, avg: 6, longest: 11, count: 9 },
-  { date: '10/06', catch: 40, avg: 7, longest: 12, count: 12 },
-  { date: '10/11', catch: 31, avg: 6, longest: 10, count: 8 },
-  { date: '10/16', catch: 42, avg: 8, longest: 14, count: 14 },
-  { date: '10/20', catch: 36, avg: 6, longest: 12, count: 10 },
-  { date: '10/24', catch: 38, avg: 7, longest: 13, count: 13 },
-];
+// 최근 기록 (오래된 것 → 최근, 7번)
+export const RECENT = SESSIONS.slice(0, 7).reverse().map((s) => ({
+  date: shortDate(s.date), catch: valueOf(s, 'catch'), avg: valueOf(s, 'avg'), longest: valueOf(s, 'longest'), count: valueOf(s, 'count'),
+}));
 export const UNIT = { catch: '%', avg: '초', longest: '초', count: '개' };
 
 // 트래커 상태 (Status - 트래커 연결 상태 7:1791 · 33:941 · 33:823 · 33:904)

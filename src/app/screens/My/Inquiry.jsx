@@ -40,7 +40,7 @@ export default function Inquiry() {
     >
       <div className="my-ask__form">
         <input className="my-ask__title" type="text" placeholder="문의 제목" aria-label="문의 제목" maxLength={TITLE_MAX} value={title} onChange={(e) => setTitle(e.target.value)} />
-        <textarea className="my-ask__body" placeholder="문의 내용을 입력해주세요" aria-label="문의 내용" maxLength={BODY_MAX} value={body} onChange={(e) => setBody(e.target.value)} />
+        <textarea className="my-ask__body" placeholder={"문의 내용을 입력해주세요\n답변은 가입한 이메일로 보내드려요"} aria-label="문의 내용" maxLength={BODY_MAX} value={body} onChange={(e) => setBody(e.target.value)} />
         <span className="my-ask__count" aria-live="polite">{body.length} / {BODY_MAX}자</span>
       </div>
       <Modal
