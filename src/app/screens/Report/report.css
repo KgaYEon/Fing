@@ -90,7 +90,7 @@
 
 /* ─── 서핑별 ─── */
 .report__filters, .report__chips { margin: 0 calc(var(--space-20) * -1); padding: 0 var(--space-20); scroll-padding-inline: var(--space-20); }   /* 칩 줄은 화면 끝까지 넘겨요 */
-.report__chips .chip { padding-inline: var(--space-20); }   /* 여백 늘리기: 피그마 16 */
+.report__chips .chip { padding: var(--space-8) var(--space-20); }   /* 여백 늘리기: 피그마 4·16 → 8·20 (4px 단위) */
 .report-month { display: flex; flex-direction: column; gap: var(--space-12); }
 .report-month__title { margin: 0; padding: 0 var(--space-4); font: var(--text-body-4); color: var(--color-txt-unselected); }
 .report-card { position: relative; transition: box-shadow .15s ease, transform .1s ease; }
