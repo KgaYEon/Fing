@@ -1,10 +1,10 @@
 // 온보딩 순서 — 피그마 "onboarding" 섹션(180:1595)을 왼쪽부터 순서대로
-// 환영 → 권한 안내 → 권한 완료 → 닉네임 → 기록 준비 → 질문 1·2·3 → 준비 끝
+// 환영 → 권한 안내 → 닉네임 → 기록 준비 → 질문 1·2·3 → 준비 끝
+// (피그마의 "권한 설정 완료" 화면 193:2386은 비슷한 화면이 이어져서 뺐어요)
 export const FLOW = {
   welcome: { next: 'permission' },
-  permission: { prev: 'welcome', next: 'permission-done' },
-  'permission-done': { prev: 'permission', next: 'nickname' },
-  nickname: { prev: 'permission-done', next: 'intro' },
+  permission: { prev: 'welcome', next: 'nickname' },
+  nickname: { prev: 'permission', next: 'intro' },
   intro: { prev: 'nickname', next: 'q1' },
   q1: { prev: 'intro', next: 'q2' },
   q2: { prev: 'q1', next: 'q3' },

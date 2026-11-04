@@ -4,6 +4,7 @@
 import { useLocation } from 'react-router-dom';
 import Segmented from '../../components/Segmented.jsx';
 import TabBar from '../../components/TabBar.jsx';
+import TabHeader from '../../components/TabHeader.jsx';
 import useThemeColor from '../../components/useThemeColor.js';
 import Summary from './summary/Summary.jsx';
 import Sessions from './sessions/Sessions.jsx';
@@ -16,10 +17,12 @@ export default function Report() {
 
   return (
     <div className="screen report">
-      <header className="report__head"><h1 className="report__title">리포트</h1></header>
-      <div className="report__tabs">
-        <Segmented label="리포트 보기" items={[{ to: '/report', label: '종합', end: true }, { to: '/report/sessions', label: '서핑별' }]} />
-      </div>
+      <TabHeader className="report__top">
+        <div className="report__head"><h1 className="report__title">리포트</h1></div>
+        <div className="report__tabs">
+          <Segmented label="리포트 보기" items={[{ to: '/report', label: '종합', end: true }, { to: '/report/sessions', label: '서핑별' }]} />
+        </div>
+      </TabHeader>
       {tab === 'summary' ? <Summary /> : <Sessions />}
       <TabBar />
     </div>

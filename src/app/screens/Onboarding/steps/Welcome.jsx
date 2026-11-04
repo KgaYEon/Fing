@@ -14,7 +14,7 @@ export default function Welcome() {
           <h1 className="ob__title">시작하기 전에<br />몇 가지 권한 허용이 필요해요</h1>
         </div>
       </div>
-      <FootOne onClick={() => go()}>계속하기</FootOne>
+      <FootOne onClick={() => go()}>권한 확인하기</FootOne>
     </Step>
   );
 }

@@ -4,15 +4,11 @@
 
 /* ─── 위 고정 영역 (헤드고정) ─── */
 .home__head {
-  position: relative;
-  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: calc(var(--space-12) + env(safe-area-inset-top, 0px)) var(--space-20) var(--space-12);
-  background: var(--color-btn-white);
-  box-shadow: var(--shadow-md), inset 0 -1px 0 var(--color-btn-light);
-}
+}   /* 바탕·그림자는 탭 헤더 공통 (.tab-head) — 피그마는 흰 바탕 + 그림자 */
 .home__logo { margin: 0; display: flex; }
 .home__logo .logo svg { width: 30px; }   /* 피그마 31×29 */
 

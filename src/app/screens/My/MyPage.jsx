@@ -3,6 +3,7 @@
 import { Link } from 'react-router-dom';
 import Icon from '../../components/Icon.jsx';
 import TabBar from '../../components/TabBar.jsx';
+import TabHeader from '../../components/TabHeader.jsx';
 import { MenuGroup, MenuRow } from '../../components/MenuList.jsx';
 import useThemeColor from '../../components/useThemeColor.js';
 import { toast } from '../../../ui/ui.js';
@@ -71,7 +72,7 @@ export default function MyPage() {
   useThemeColor('#F5F8FB');
   return (
     <div className="screen my">
-      <header className="my__head"><h1 className="my__title">마이</h1></header>
+      <TabHeader className="my__head"><h1 className="my__title">마이</h1></TabHeader>
       <main className="my__main">
         <ProfileCard />
         <TrackerGroup />

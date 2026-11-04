@@ -49,3 +49,7 @@ body { background: var(--color-btn-white); }
 
 /* 잠깐 뜨는 안내 — 앱 틀 안에 */
 .app .toast { position: absolute; z-index: 60; width: max-content; }   /* 가운데 정렬 때문에 글이 일찍 줄바꿈되지 않게 */
+
+/* 탭 화면 헤더 공통 (홈·리포트·AI·마이) — 스크롤하면 그림자 */
+.tab-head { position: relative; z-index: 3; flex: none; background: var(--color-bg); transition: box-shadow .2s ease; }
+.tab-head.is-scrolled { box-shadow: var(--shadow-md), inset 0 -1px 0 var(--color-str-gray); }

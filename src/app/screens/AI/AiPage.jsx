@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import TabBar from '../../components/TabBar.jsx';
 import TrackerChip from '../../components/TrackerChip.jsx';
+import TabHeader from '../../components/TabHeader.jsx';
 import useThemeColor from '../../components/useThemeColor.js';
 import AiIntro from './AiIntro.jsx';
 import Suggestions from './Suggestions.jsx';
@@ -22,10 +23,10 @@ export default function AiPage() {
 
   return (
     <div className="screen ai">
-      <header className="ai__head">
+      <TabHeader className="ai__head">
         <h1 className="ai__title">AI</h1>
         <TrackerChip />
-      </header>
+      </TabHeader>
       <main className={`ai__main${messages.length ? '' : ' is-empty'}`} ref={list} aria-live="polite">
         <AiIntro />
         {messages.length === 0 && <Suggestions onPick={ask} disabled={thinking} />}

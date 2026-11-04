@@ -15,11 +15,10 @@ export function Step({ name, dir, children, focusTitle = true }) {
 /** 줄바꿈 있는 제목 — ['첫 줄', '둘째 줄'] */
 export const Lines = ({ lines }) => lines.map((l, i) => <span key={i}>{i > 0 && <br />}{l}</span>);
 
-/** 아래: "아래 계속하기 버튼을 눌러…" + 버튼 하나 */
+/** 아래: 버튼 하나 (피그마의 "아래 계속하기 버튼을 눌러 진행해주세요" 문장은 버튼과 같은 말이라 뺐어요) */
 export function FootOne({ children, ...btn }) {
   return (
     <div className="ob__foot ob__foot--one">
-      <p className="ob__hint">아래 계속하기 버튼을 눌러 진행해주세요</p>
       <Button {...btn}>{children}</Button>
     </div>
   );

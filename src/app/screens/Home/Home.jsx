@@ -16,7 +16,7 @@ import './home.css';
 export default function Home() {
   const [settings, setSetting] = useHomeSettings();
   const [sheet, setSheet] = useState(null); // 'goal' | 'recent' | null
-  useThemeColor('#FFFFFF');
+  useThemeColor('#F5F8FB');
 
   return (
     <div className="screen home">

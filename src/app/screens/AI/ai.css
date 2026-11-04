@@ -1,15 +1,11 @@
 /* AI — 피그마 "AI" 섹션 (130:2075). 위치·크기는 402px 화면 기준. */
 .ai { background: var(--color-bg); }
 .ai__head {
-  position: relative;
-  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: calc(var(--space-12) + env(safe-area-inset-top, 0px)) var(--space-20) var(--space-12);
-  background: var(--color-bg);
-  box-shadow: var(--shadow-md), inset 0 -1px 0 var(--color-btn-light);
-}
+}   /* 바탕·그림자는 탭 헤더 공통 (.tab-head) */
 .ai__title { margin: 0; font: var(--text-title-2); color: var(--color-txt-black); }
 
 .ai__main {
