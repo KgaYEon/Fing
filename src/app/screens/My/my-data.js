@@ -8,5 +8,6 @@ export const STATS = [
 ];
 export const RIDES_TOTAL = 86;   // 회원 탈퇴 안내 "라이딩 86개"
 export const TRACKER = { connected: true, battery: 100 };
-export const DEFAULT_PROFILE = { nickname: '도윤', firstDate: '2026-10-09', photo: null };
+// 온보딩에서 닉네임을 안 정하고 들어온 경우의 기본 이름
+export const DEFAULT_PROFILE = { nickname: '신이난 물개', firstDate: '2026-10-09', photo: null };
 export const AGREED_AT = '2026.02.03';   // 필수 약관 동의 날짜 (피그마 값)
