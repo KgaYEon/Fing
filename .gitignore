@@ -3,6 +3,10 @@ dist/
 .DS_Store
 *.log
 
+# 비밀 키 (AI 연결) — 절대 깃허브에 올리지 않아요
+.env.local
+.env.*.local
+
 # 자동 생성 파일 — 개발 서버/빌드가 실행될 때 만들어져요
 src/styles/tokens.css
 src/styles/typography.css

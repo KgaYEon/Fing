@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
 import { buildTokens, TOKEN_PATHS } from './scripts/build-tokens.mjs';
@@ -9,6 +9,7 @@ import { buildSpacing } from './scripts/build-spacing.mjs';
 import { buildRadius } from './scripts/build-radius.mjs';
 import { buildEffects, EFFECT_PATHS } from './scripts/build-effects.mjs';
 import { buildComponents, COMPONENT_PATHS, componentList } from './scripts/build-components.mjs';
+import { aiProxy } from './scripts/ai-proxy.mjs';
 
 // 피그마 ↔ 프로젝트 토큰 동기화
 // 1) 개발 서버가 켜질 때 토큰을 한 번 만듭니다.
@@ -100,10 +101,11 @@ function trailingSlash(paths) {
   return { name: 'fing-trailing-slash', configureServer(s) { s.middlewares.use(mw); }, configurePreviewServer(s) { s.middlewares.use(mw); } };
 }
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: '/',
   // 앱(스플래시·로그인·온보딩·홈)은 리액트 한 페이지 + 주소로 화면을 바꿔요. /ds는 따로예요.
-  plugins: [react(), figmaTokenSync(), trailingSlash(['/ds'])],
+  // aiProxy: AI 화면 → Claude 연결 (.env.local 의 ANTHROPIC_API_KEY, 앱 화면으로는 안 보내요)
+  plugins: [react(), figmaTokenSync(), trailingSlash(['/ds']), aiProxy(() => loadEnv(mode, process.cwd(), '').ANTHROPIC_API_KEY)],
   server: { port: 5173, strictPort: true },
   build: {
     rollupOptions: {
@@ -113,4 +115,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

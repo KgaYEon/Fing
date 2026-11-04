@@ -53,6 +53,15 @@ src/icons/                 자동 생성 아이콘 (svg 파일, icon() 함수)
 figma-plugin/              개발용 피그마 동기화 플러그인
 ```
 
+## AI 화면을 Claude와 연결하기
+
+1. `.env.example`을 복사해서 이름을 `.env.local`로 바꿔요.
+2. `ANTHROPIC_API_KEY=` 뒤에 Anthropic API 키를 붙여넣어요. (키는 console.anthropic.com 에서 만들어요)
+3. `npm run dev`를 다시 켜요.
+
+키는 이 컴퓨터에만 있고 깃허브·앱 화면으로는 가지 않아요. 키가 없으면 AI 화면은 정해진 답으로 대답해요.
+연결 코드: `scripts/ai-proxy.mjs` (모델·말투 설정), 같이 보내는 내 기록 정리: `src/app/screens/AI/context.js`
+
 ## 앱 (리액트)
 
 주소마다 화면 컴포넌트가 하나씩 있어요. 화면 안의 덩어리도 컴포넌트로 나눴어요.
@@ -69,7 +78,7 @@ src/app/screens/
   Onboarding/  /onboarding/…  단계마다 화면 하나 (steps/: Welcome · Permission · PermissionDone · Nickname · Intro · Question · Done)
   Home/        /home        HomeHeader(TrackerPopover) · WaveInfo(FitDonut) · GoalCard · BestRecords · RecentRecords · MetricSheet
   Report/      /report      종합(summary/: MetricChart · BestGrid · FirstRecords) · 서핑별(sessions/: SessionCard)
-  AI/          /ai          AiIntro · Suggestions · Message · AskBar (answers.js: 지금은 정해진 답)
+  AI/          /ai          AiIntro · Suggestions · Message · AskBar (useChat: Claude 연결, answers.js: 연결 안 될 때 정해진 답)
   My/          /my          마이(MyPage) · /my/profile 프로필 수정 · /my/account 계정 관리(DataManage · Withdraw) · /my/inquiry 문의 · /my/terms 약관(LegalDoc)
                /report/compare?ids=…  두 기록 비교 · /report/session/:id  기록 하나 상세 (compare/: GlanceCard · BarPair · DetailRows · ConditionCompare · ConditionTable)
 ```
