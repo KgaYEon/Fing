@@ -39,7 +39,7 @@ export default function useChat() {
       reply = { text: ai, links: canned.suggest ? [] : canned.links, by: 'claude' };
     } catch (e) {
       if (String(e.message) === 'no-key') offline.current = true;
-      await new Promise((r) => setTimeout(r, 600));   // 생각하는 척
+      await new Promise((r) => setTimeout(r, Math.min(1400, 500 + canned.text.length * 8)));   // 생각하는 척 (긴 답일수록 조금 더)
       reply = { ...canned, by: 'local' };
     }
     setMessages((m) => [...m, { id: Date.now() + 1, from: 'ai', ...reply }]);
