@@ -7,7 +7,7 @@ export const ROUTES = {
   home: { path: '/home', ready: true },
   report: { path: '/report', ready: true },
   ai: { path: '/ai', ready: false },
-  my: { path: '/my', ready: false },
+  my: { path: '/my', ready: true },
 };
 
 // 처음 온 사람 / 다시 온 사람 — 온보딩을 끝내면 markOnboarded()를 불러요

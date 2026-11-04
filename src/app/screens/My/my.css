@@ -1,0 +1,94 @@
+/* 마이 — 피그마 "마이페이지" 섹션 (130:2073). 위치·크기는 402px 화면 기준. */
+.my { background: var(--color-bg); }
+.my__head { padding: calc(var(--space-12) + env(safe-area-inset-top, 0px)) var(--space-20) var(--space-12); }
+.my__title { margin: 0; font: var(--text-title-2); color: var(--color-txt-black); }
+.my__main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  padding: var(--space-4) var(--space-20) var(--space-40);
+}
+.my__main > * { flex: none; }
+.my__main--sub { padding-top: var(--space-24); }
+.my__foot { flex: none; padding: var(--space-12) var(--space-20) var(--space-20); }
+.my > .tab-bar { flex: none; padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* ─── 프로필 카드 ─── */
+.my-avatar { position: relative; flex: none; display: grid; place-items: center; border-radius: var(--radius-full); background: var(--color-btn-light); box-shadow: inset 0 0 0 1px var(--color-str-pri-light); color: var(--color-btn-default); overflow: hidden; }
+.my-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.my-card { display: flex; flex-direction: column; gap: var(--space-24); padding: var(--space-24) var(--space-16); border-radius: var(--radius-16); background: var(--color-btn-white); box-shadow: inset 0 0 0 1px var(--color-str-gray); }
+.my-card__head { position: relative; display: flex; align-items: center; gap: var(--space-32); padding-right: var(--space-40); }
+.my-card__who { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.my-card__name { margin: 0; font: var(--text-title-3); color: var(--color-txt-black); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.my-card__days { margin: 0; font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.my-card__edit { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--radius-full); background: var(--color-btn-white); box-shadow: inset 0 0 0 1px var(--color-str-gray); color: var(--color-txt-unselected); }
+.my-card__edit:active { transform: scale(.92); }
+.my-card__edit:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; }
+.my-stats { display: flex; justify-content: center; gap: var(--space-24); margin: 0; padding-top: var(--space-24); border-top: 1px solid var(--color-str-gray); }
+.my-stats__item { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
+.my-stats__item + .my-stats__item { padding-left: var(--space-24); border-left: 1px solid var(--color-str-gray); }
+.my-stats dt { font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.my-stats dd { display: flex; align-items: baseline; gap: var(--space-4); margin: 0; }
+.my-stats b { font: var(--text-title-3); color: var(--color-txt-black); }
+.my-stats dd span { font: var(--text-caption-2); color: var(--color-txt-unselected); }
+
+/* ─── 트래커 줄 (big-menu cont) ─── */
+.my-tracker { padding-block: var(--space-24); }
+.my-tracker__info { display: flex; align-items: center; gap: var(--space-16); }
+.my-tracker__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--radius-12); background: var(--color-btn-light); color: var(--color-btn-default); }
+.my-tracker__name { color: var(--color-txt-black); }
+.my-tracker__state { display: flex; align-items: center; gap: var(--space-4); font: var(--text-caption-2); color: var(--color-txt-unselected); }
+.my-tracker__dot { width: 6px; height: 16px; color: var(--color-btn-disable); }
+.my-tracker__state.is-on .my-tracker__dot { color: var(--color-status-success-700); }
+.my-tracker__batt { display: flex; align-items: center; gap: var(--space-4); font: var(--text-caption-2); color: var(--color-txt-black); }
+.my-tracker__batt .icon { color: var(--color-btn-default); }
+
+/* ─── 프로필 수정 ─── */
+.my-edit .my__main { gap: var(--space-40); padding-top: var(--space-40); }
+.my-edit__photo { display: flex; flex-direction: column; align-items: center; gap: var(--space-12); }
+.my-edit__avatar { padding: 0; border: 0; border-radius: var(--radius-full); background: none; cursor: pointer; }
+.my-edit__avatar:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; }
+.my-edit__photo-btn, .my-edit__photo-del { padding: 0; border: 0; background: none; font: var(--text-caption-2); color: var(--color-btn-default); cursor: pointer; }
+.my-edit__photo-del { margin-top: calc(var(--space-8) * -1); color: var(--color-txt-placeholder); }
+.my-fields { display: flex; flex-direction: column; gap: var(--space-24); }
+.my-field { display: flex; flex-direction: column; gap: var(--space-8); }
+.my-field__label { padding: 0 var(--space-8); font: var(--text-caption-1); color: var(--color-txt-unselected); }
+.my-field__input { width: 100%; min-height: 62px; padding: var(--space-20) var(--space-24); border: 0; border-radius: var(--radius-16); background: var(--color-btn-white); box-shadow: inset 0 0 0 1px var(--color-str-gray); font: var(--text-body-3); color: var(--color-txt-semiblack); outline: none; transition: box-shadow .15s ease; }
+.my-field__input:focus { box-shadow: inset 0 0 0 1px var(--color-str-primary); }
+.my-field[data-tone='danger'] .my-field__input { box-shadow: inset 0 0 0 1px var(--color-status-danger); }
+.my-field__msg { padding: 0 var(--space-8); font: var(--text-caption-2); color: var(--color-txt-placeholder); text-align: right; }
+.my-field[data-tone='danger'] .my-field__msg { color: var(--color-status-danger); text-align: left; }
+
+/* ─── 문의하기 ─── */
+.my-ask .my__main { padding-top: calc(var(--space-48) + var(--space-4)); }
+.my-ask__form { flex: 1 0 auto !important; display: flex; flex-direction: column; gap: var(--space-24); }
+.my-ask__title { width: 100%; padding: 0 var(--space-12) var(--space-8); border: 0; border-bottom: 1px solid var(--color-str-gray); background: none; font: var(--text-title-2); color: var(--color-txt-black); outline: none; }
+.my-ask__title:focus { border-bottom-color: var(--color-str-primary); }
+.my-ask__body { flex: 1; min-height: 240px; width: 100%; padding: 0 var(--space-12); border: 0; background: none; resize: none; font: var(--text-body-4); color: var(--color-txt-semiblack); outline: none; }
+.my-ask__title::placeholder, .my-ask__body::placeholder { color: var(--color-txt-placeholder); }
+.my-ask__count { align-self: flex-end; font: var(--text-caption-2); color: var(--color-txt-placeholder); }
+
+/* ─── 회원 탈퇴 ─── */
+.my-withdraw .my__main { gap: var(--space-32); padding: var(--space-48) calc(var(--space-28) + 2px) var(--space-24); }
+.my-withdraw__head { display: flex; flex-direction: column; align-items: center; gap: var(--space-12); text-align: center; }
+.my-withdraw__title { margin: 0; font: var(--text-title-1); color: var(--color-txt-semiblack); }
+.my-withdraw__sub { margin: 0; font: var(--text-caption-1); color: var(--color-txt-unselected); }
+.my-notes { display: flex; flex-direction: column; gap: var(--space-16); }
+.my-note { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-24) var(--space-28); border-radius: var(--radius-16); background: var(--color-btn-gray); }
+.my-note__title { margin: 0; font: var(--text-title-4); color: var(--color-txt-black); }
+.my-note__label { margin: 0 0 calc(var(--space-12) * -1); font: var(--text-caption-1); color: var(--color-txt-unselected); }
+.my-note__list { margin: 0; padding: 0; list-style: none; font: var(--text-caption-1); color: var(--color-txt-unselected); }
+.my-note__list li::before { content: '- '; }
+.my-withdraw .my__foot { padding-bottom: var(--space-24); }
+.my-withdraw__btns { display: flex; gap: var(--space-12); }
+.my-withdraw__btns .button { flex: 1; padding-inline: var(--space-20); }
+
+/* ─── 약관 ─── */
+.my-terms .my__main { gap: var(--space-24); padding-top: calc(var(--space-32) + var(--space-4)); }
+.my-terms .menu-group__title { padding: 0 var(--space-4); }
+.my-terms .menu-row .badge { flex: none; }
+.my-doc .my__main { padding-top: var(--space-24); }

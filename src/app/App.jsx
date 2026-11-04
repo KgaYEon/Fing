@@ -10,6 +10,14 @@ import Home from './screens/Home/Home.jsx';
 import Report from './screens/Report/Report.jsx';
 import ReportCompare from './screens/Report/ReportCompare.jsx';
 import ReportDetail from './screens/Report/ReportDetail.jsx';
+import MyPage from './screens/My/MyPage.jsx';
+import ProfileEdit from './screens/My/ProfileEdit.jsx';
+import Account from './screens/My/Account.jsx';
+import DataManage from './screens/My/DataManage.jsx';
+import Withdraw from './screens/My/Withdraw.jsx';
+import Inquiry from './screens/My/Inquiry.jsx';
+import Terms from './screens/My/Terms.jsx';
+import LegalDoc from './screens/My/LegalDoc.jsx';
 
 export default function App() {
   const { pathname } = useLocation();
@@ -31,6 +39,14 @@ export default function App() {
         <Route path="/report/sessions" element={<Report />} />
         <Route path="/report/compare" element={<ReportCompare />} />
         <Route path="/report/session/:id" element={<ReportDetail />} />
+        <Route path="/my" element={<MyPage />} />
+        <Route path="/my/profile" element={<ProfileEdit />} />
+        <Route path="/my/account" element={<Account />} />
+        <Route path="/my/account/data" element={<DataManage />} />
+        <Route path="/my/account/withdraw" element={<Withdraw />} />
+        <Route path="/my/inquiry" element={<Inquiry />} />
+        <Route path="/my/terms" element={<Terms />} />
+        <Route path="/my/terms/:doc" element={<LegalDoc />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       </div>

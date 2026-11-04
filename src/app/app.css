@@ -48,4 +48,4 @@ body { background: var(--color-btn-white); }
 .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
 
 /* 잠깐 뜨는 안내 — 앱 틀 안에 */
-.app .toast { position: absolute; z-index: 60; }
+.app .toast { position: absolute; z-index: 60; width: max-content; }   /* 가운데 정렬 때문에 글이 일찍 줄바꿈되지 않게 */

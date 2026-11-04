@@ -2,12 +2,12 @@
 import { useNavigate } from 'react-router-dom';
 import Icon from './Icon.jsx';
 
-export default function BackHeader({ title, fallback = '/' }) {
+export default function BackHeader({ title, fallback = '/', onBack }) {
   const navigate = useNavigate();
   const back = () => (window.history.state?.idx > 0 ? navigate(-1) : navigate(fallback, { replace: true }));
   return (
     <header className="back-header">
-      <button type="button" className="back-header__btn" onClick={back} aria-label="뒤로가기"><Icon name="arr-left" size={36} /></button>
+      <button type="button" className="back-header__btn" onClick={onBack || back} aria-label="뒤로가기"><Icon name="arr-left" size={36} /></button>
       <h1 className="back-header__title">{title}</h1>
     </header>
   );

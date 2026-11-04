@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Icon from './Icon.jsx';
 import { TABS, toast } from '../../ui/ui.js';
 import { ROUTES } from '../routes.js';
+import { runNavGuard } from './navGuard.js';
 
 export default function TabBar() {
   return (
@@ -15,7 +16,10 @@ export default function TabBar() {
             key={t.key}
             to={route.path}
             className="tab-bar__item"
-            onClick={(e) => { if (!route.ready) { e.preventDefault(); toast(`${t.label} 화면은 아직 준비 중이에요`); } }}
+            onClick={(e) => {
+              if (!route.ready) { e.preventDefault(); toast(`${t.label} 화면은 아직 준비 중이에요`); return; }
+              if (runNavGuard(route.path)) e.preventDefault();   // 저장 안 한 내용이 있으면 먼저 물어보기
+            }}
           >
             <Icon name={t.icon} />
             <span>{t.label}</span>
