@@ -74,7 +74,7 @@
   padding: 0;
   border: 0;
   background: none;
-  color: var(--color-txt-unselected);
+  color: var(--color-str-dark-gray);   /* 피그마: ic/arr-left 선 색 str/dark-gray */
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
@@ -167,3 +167,53 @@
 .ob__body--q { gap: var(--space-32); padding: calc(172px - 102px) var(--space-20) 0; }   /* 피그마 y 172 (위 바 아래 끝 y 102) */
 .ob__choices { display: flex; flex-direction: column; gap: var(--space-12); }
 .ob__choices .choice { min-height: 78px; }
+
+/* ─── 권한 요청 창 — 폰 시스템 창처럼 (피그마 439:4029 · 439:4061 · 439:4073 · 439:4085) ───
+   .app 전체(상태바·시스템 버튼 포함)를 덮어요. 창은 폭 402 · 둥글기 32 · 아래에서 올라옴 */
+.perm-ask-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(5, 8, 13, .4);
+  animation: perm-fade .2s ease both;
+}
+@media (min-width: 520px) { .perm-ask-layer { padding-bottom: var(--fig-bottom); } }   /* 컴퓨터 폰 틀: 아래 시스템 버튼 위에 */
+.perm-ask {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  padding: var(--space-24) var(--space-24) var(--space-16);
+  border-radius: 32px;
+  background: var(--color-bg);
+  animation: perm-up .28s cubic-bezier(.2, .8, .2, 1) both;
+}
+.perm-ask__head { display: flex; flex-direction: column; align-items: center; gap: var(--space-12); color: var(--color-btn-default); }
+.perm-ask__title { margin: 0; font: var(--text-caption-1); color: #000; text-align: center; }
+.perm-ask__title b { font-weight: 700; }
+.perm-ask__menus { display: flex; flex-direction: column; gap: var(--space-8); }
+.perm-ask__menu {
+  margin: 0;
+  padding: var(--space-8) 10px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  font: var(--text-title-3);
+  color: #000;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color .15s ease;
+}
+.perm-ask__menu:active { background: var(--color-btn-gray); }
+@media (hover: hover) { .perm-ask__menu:hover { background: var(--color-btn-gray); } }
+.perm-ask__menu:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: -2px; }
+.perm-ask-layer.is-leaving { animation: perm-fade-out .18s ease both; }
+.perm-ask.is-leaving { animation: perm-down .18s ease both; }
+@keyframes perm-fade { from { background: rgba(5, 8, 13, 0); } }
+@keyframes perm-fade-out { to { background: rgba(5, 8, 13, 0); } }
+@keyframes perm-up { from { opacity: 0; transform: translateY(24px); } }
+@keyframes perm-down { to { opacity: 0; transform: translateY(24px); } }
+@media (prefers-reduced-motion: reduce) { .perm-ask-layer, .perm-ask, .perm-ask-layer.is-leaving, .perm-ask.is-leaving { animation: none; } }

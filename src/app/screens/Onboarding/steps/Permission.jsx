@@ -1,16 +1,25 @@
 // 권한 안내 — 피그마 439:2806
-// 실제 권한 요청은 앱(네이티브)에서 붙일 예정 — 지금은 잠깐 기다리는 척만 해요
-import { useState } from 'react';
+// "권한 설정하기" → 폰의 권한 요청 창이 블루투스 · 알림 · 위치 · 사진 순서로 하나씩 떠요 (PermissionAsk)
+// 실제 권한 요청은 앱(네이티브)에서 붙일 예정 — 지금은 고른 답만 저장해요 (data.permissions)
+import { useRef, useState } from 'react';
 import IconBox from '../../../components/IconBox.jsx';
-import { wait } from '../../../../ui/ui.js';
 import useStep from '../useStep.js';
 import { Step, Top, Foot } from '../parts.jsx';
-import { PERMISSIONS } from '../content.js';
+import { PERMISSIONS, PERMISSION_ASKS } from '../content.js';
+import PermissionAsk from './PermissionAsk.jsx';
 
 export default function Permission() {
-  const { go, back, dir } = useStep('permission');
-  const [busy, setBusy] = useState(false);
-  const allow = async () => { setBusy(true); await wait(600); go(); };
+  const { update, go, back, dir } = useStep('permission');
+  const [step, setStep] = useState(-1);   // 지금 떠 있는 요청 창 (-1: 없음)
+  const answers = useRef({});
+
+  const onAnswer = (value) => {
+    answers.current[PERMISSION_ASKS[step].key] = value;
+    if (step < PERMISSION_ASKS.length - 1) { setStep(step + 1); return; }
+    setStep(-1);
+    update({ permissions: { ...answers.current } });
+    go();
+  };
 
   return (
     <Step name="permission" dir={dir}>
@@ -34,7 +43,8 @@ export default function Permission() {
         </div>
         <p className="ob__note">선택 권한의 경우 허용하지 않아도 서비스를 사용하실 수 있으나,<br />일부 서비스 이용이 제한될 수 있어요.</p>
       </div>
-      <Foot busy={busy} onClick={allow}>권한 설정하기</Foot>
+      <Foot onClick={() => setStep(0)}>권한 설정하기</Foot>
+      {step >= 0 && <PermissionAsk ask={PERMISSION_ASKS[step]} last={step === PERMISSION_ASKS.length - 1} onAnswer={onAnswer} />}
     </Step>
   );
 }

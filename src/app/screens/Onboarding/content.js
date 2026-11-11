@@ -49,3 +49,12 @@ export const QUESTION_COUNT = 3;
 
 // 2번 답에 따라 3번의 "추천"이 바뀌어요 (피그마 198:1928 · 198:2134 · 198:2255)
 export const RECOMMEND = { white: 'catch', green: 'count', side: 'avg' };
+
+// 권한 요청 창 — 피그마 439:4029(bt) · 439:4061(al) · 439:4073(loc) · 439:4085(pic)
+// 폰이 띄우는 시스템 창처럼 하나씩 차례로 떠요. 마지막 버튼(허용 안함)이 거절이에요.
+export const PERMISSION_ASKS = [
+  { key: 'bluetooth', icon: 'bluetooth', lines: ['근처에 있는 기기를 찾아 연결하고', '기기 간 상대적 위치를 파악하도록 허용하시겠습니까?'], options: ['허용', '허용 안함'] },
+  { key: 'notification', icon: 'bell', lines: ['알림을 보내도록 허용하시겠습니까?'], options: ['허용', '허용 안함'] },
+  { key: 'location', icon: 'location', lines: ['이 기기의 위치 정보에 액세스하도록', '허용하시겠습니까?'], options: ['모두 허용', '이번만 허용', '허용 안함'] },
+  { key: 'photo', icon: 'picture', lines: ['기기의 사진과 동영상에 액세스하도록', '허용하시겠습니까?'], options: ['앱 사용 중에만 허용', '사진 및 동영상 선택', '허용 안함'] },
+];
