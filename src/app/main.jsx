@@ -17,7 +17,8 @@ addEventListener('resize', fitFrame);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    {/* 포트폴리오 사이트 안(/fing)에 올릴 때도 주소가 맞도록 빌드 기준 경로를 붙여요 */}
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <App />
     </BrowserRouter>
   </StrictMode>,

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:portfolio": "vite build --base=/fing/",
     "preview": "vite preview",
     "tokens": "node scripts/build-tokens.mjs && node scripts/build-spacing.mjs && node scripts/build-radius.mjs && node scripts/build-effects.mjs && node scripts/build-icons.mjs && node scripts/build-typography.mjs && node scripts/build-components.mjs"
   },
