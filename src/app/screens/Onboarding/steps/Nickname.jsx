@@ -6,7 +6,7 @@ import { Step, Top, Foot } from '../parts.jsx';
 import { NICK_MAX, NICK_SAMPLE, nickState, nickLength } from '../flow.js';
 
 export default function Nickname() {
-  const { data, update, go, back, skip, dir } = useStep('nickname');
+  const { data, update, go, skip, dir } = useStep('nickname');
   const value = data.nickDraft ?? data.nickname ?? '';
   const st = nickState(value);
   const input = useRef(null);
@@ -20,7 +20,7 @@ export default function Nickname() {
 
   return (
     <Step name="nickname" dir={dir} focusTitle={false}>
-      <Top onBack={back} action="건너뛰기" onAction={skipStep} />
+      <Top action="건너뛰기" onAction={skipStep} />
       <div className="ob__body ob__body--nick">
         <div className="ob__head">
           <h1 className="ob__title" id="nick-title">닉네임으로 사용할<br />서퍼님의 이름을 알려주세요!</h1>

@@ -7,7 +7,7 @@ export const FLOW = {
   permission: { prev: 'welcome', next: 'permission-done' },
   'permission-done': { next: 'nickname' },
   bluetooth: { next: 'nickname' },
-  nickname: { prev: 'permission', next: 'intro' },
+  nickname: { next: 'intro' },   // 닉네임 화면에는 ← 가 없어요
   intro: { prev: 'nickname', next: 'q1' },
   q1: { prev: 'intro', next: 'q2' },
   q2: { prev: 'q1', next: 'q3' },
