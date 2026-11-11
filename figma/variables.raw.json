@@ -68,6 +68,7 @@
         "VariableID:33:581",
         "VariableID:15:424",
         "VariableID:67:455",
+        "VariableID:439:2759",
         "VariableID:111:773",
         "VariableID:67:473",
         "VariableID:46:265",
@@ -1260,6 +1261,22 @@
       "hiddenFromPublishing": false,
       "valuesByMode": {
         "384:0": 99
+      }
+    },
+    {
+      "id": "VariableID:439:2759",
+      "name": "str/dark-gray",
+      "collectionId": "VariableCollectionId:14:371",
+      "resolvedType": "COLOR",
+      "description": "",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "hiddenFromPublishing": false,
+      "valuesByMode": {
+        "14:0": {
+          "alias": "VariableID:13:27"
+        }
       }
     }
   ]

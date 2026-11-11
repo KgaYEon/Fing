@@ -15,5 +15,6 @@ export default function useStep(step) {
     if (location.state?.from === prev) navigate(-1);
     else navigate(`/onboarding/${prev}`, { replace: true, state: { dir: 'back' } });
   };
-  return { data, update, go, back, dir: location.state?.dir || 'fwd' };
+  const skip = () => go('done');   // 건너뛰기 — 남은 질문 없이 바로 준비 끝으로
+  return { data, update, go, back: prev ? back : undefined, skip, dir: location.state?.dir || 'fwd' };
 }

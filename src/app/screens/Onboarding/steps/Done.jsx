@@ -1,13 +1,12 @@
-// 준비 끝 — 피그마 205:2105
+// 준비 끝 — 피그마 439:3621 (위 바 없음)
 // "핑 시작하기" → 답 저장 + 온보딩 끝 표시 → 홈
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '../../../components/Icon.jsx';
-import Button from '../../../components/Button.jsx';
 import { wait } from '../../../../ui/ui.js';
 import { ROUTES, markOnboarded } from '../../../routes.js';
 import useStep from '../useStep.js';
-import { Step } from '../parts.jsx';
+import { Step, Foot } from '../parts.jsx';
 import { DRAFT } from '../flow.js';
 import Confetti from './Confetti.jsx';
 
@@ -39,7 +38,7 @@ export default function Done() {
           <p className="ob__sub">핑과 함께 서핑을 시작해볼까요?</p>
         </div>
       </div>
-      <div className="ob__foot"><Button busy={busy} onClick={finish}>핑 시작하기</Button></div>
+      <Foot busy={busy} onClick={finish}>핑 시작하기</Foot>
     </Step>
   );
 }

@@ -325,18 +325,18 @@
             "CENTER"
           ],
           "fill": {
-            "hex": "#BEC6D2",
+            "hex": "#EDF0F6",
             "opacity": 1,
-            "var": "btn/disable"
+            "var": "btn/gray"
           },
           "stroke": null,
           "strokeWeight": 0,
           "text": {
             "style": "Btn",
             "fill": {
-              "hex": "#636E7F",
+              "hex": "#848F9E",
               "opacity": 1,
-              "var": "txt/unselected"
+              "var": "txt/placeholder"
             }
           }
         },

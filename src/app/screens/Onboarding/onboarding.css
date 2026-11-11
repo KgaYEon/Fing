@@ -1,4 +1,5 @@
 /* 온보딩 — 피그마 "onboarding" 섹션 (180:1595)
+   모든 단계는 피그마 컴포넌트 "onboarding -"(439:2751) 틀을 같이 써요: 위 바(.ob__top) · 슬롯(내용) · 아래 버튼 하나(.ob__foot)
    위치 숫자(px)는 피그마 402 × 940 화면 기준이에요. 간격은 토큰을 써요.
    피그마 위치에는 위 상태바(38) · 아래 시스템 버튼(52)이 들어 있어서 그만큼 빼요 (--fig-top · --fig-bottom). */
 .ob { background: var(--color-bg); }
@@ -29,9 +30,9 @@
 
 /* ─── 가운데 정렬 화면 (환영 · 권한 완료 · 기록 준비 · 준비 끝) ─── */
 .ob__center { display: flex; flex-direction: column; align-items: center; gap: var(--space-24); padding: 0 var(--space-20); }
-.ob__center--welcome { padding-top: calc(252px - var(--fig-top)); }   /* 피그마 y 253 */
-.ob__center--intro { padding-top: calc(312px - var(--fig-top)); }     /* 피그마 y 314 */
-.ob__center--finish { padding-top: calc(248px - var(--fig-top)); }    /* 피그마 y 249 */
+.ob__center--welcome { padding-top: calc(264px - 102px); }   /* 피그마 y 264 (위 바 아래 끝 y 102) */
+.ob__center--intro { padding-top: calc(350px - 102px); }     /* 피그마 y 350 (위 바 아래 끝 y 102) */
+.ob__center--finish { padding-top: calc(277px - var(--fig-top)); }    /* 피그마 y 277 (체크 상자) */
 
 /* 큰 아이콘 상자 — 피그마 "icon box"를 64px로 키운 것 */
 .icon-box--lg { width: 64px; height: 64px; border-radius: var(--radius-16); }
@@ -54,22 +55,50 @@
 @keyframes ob-pop { from { opacity: 0; transform: translateX(-50%) scale(.6); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
 @media (prefers-reduced-motion: reduce) { .ob__confetti { animation: none; } }
 
-/* ─── 아래 버튼 영역 ─── */
+/* ─── 위 바 — 피그마 "onboarding top" (x 14 · y 62 · 374 × 40) ─── */
+.ob__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  margin: calc(62px - var(--fig-top)) 14px 0;
+  position: relative;
+  z-index: 1;
+}
+.ob__top-back {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-txt-unselected);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ob__top-action {
+  margin: 0 0 0 auto;
+  padding: 0 var(--space-8);
+  border: 0;
+  background: none;
+  font: var(--text-body-3);
+  color: var(--color-txt-placeholder);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ob__top-back:focus-visible, .ob__top-action:focus-visible { outline: 2px solid var(--color-str-primary); outline-offset: 2px; border-radius: var(--radius-8); }
+
+/* ─── 아래 버튼 — 피그마 "Button" (x 25 · y 800 · 353 × 64, 아래 시스템 버튼 위 24) ─── */
 .ob__foot {
   margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-16);
-  padding: 0 var(--space-20) calc(var(--space-56) * 2 - var(--fig-bottom) + env(safe-area-inset-bottom, 0px));   /* 피그마: 버튼 아래 113 */
+  padding: 0 var(--space-24) calc(var(--space-24) + env(safe-area-inset-bottom, 0px));
 }
-.ob__foot--one { padding-inline: var(--space-24); padding-bottom: calc(var(--space-48) + var(--space-56) - var(--fig-bottom) + env(safe-area-inset-bottom, 0px)); }   /* 피그마: 아래 106 */
-.ob__foot--stack { gap: var(--space-8); padding-inline: var(--space-24); }
-.ob__pair { display: flex; gap: var(--space-8); }
-.ob__pair .button { padding-inline: var(--space-20); }
 
 /* ─── 권한 안내 (190:2257) ─── */
 .ob__body { display: flex; flex-direction: column; }
-.ob__body--perm { padding: calc(124px - var(--fig-top)) var(--space-40) 0; }   /* 피그마 x 41 · y 126 */
+.ob__body--perm { padding: calc(142px - 102px) var(--space-40) 0; }   /* 피그마 x 43 · y 142 (위 바 아래 끝 y 102) */
 .ob__perms { display: flex; flex-direction: column; gap: calc(var(--space-32) + var(--space-4)); margin-top: var(--space-40); }
 .ob__perm-group { display: flex; flex-direction: column; gap: var(--space-16); }
 .ob__perm-label { margin: 0; font: var(--text-body-4); color: var(--color-txt-unselected); }
@@ -87,7 +116,7 @@
 }
 
 /* ─── 닉네임 (193:2525) ─── */
-.ob__body--nick { gap: calc(var(--space-64) + var(--space-8)); padding: calc(136px - var(--fig-top)) var(--space-32) 0; }   /* 피그마 x 33 · y 136 */
+.ob__body--nick { gap: calc(var(--space-64) + var(--space-8)); padding: calc(156px - 102px) var(--space-32) 0; }   /* 피그마 x 34 · y 156 (위 바 아래 끝 y 102) */
 .ob__field { display: flex; flex-direction: column; gap: var(--space-4); }
 .ob__input {
   width: 100%;
@@ -116,7 +145,7 @@
 /* ─── 질문 (193:2577 · 194:1862 · 198:1928) ─── */
 .ob__progress {
   position: absolute;
-  top: calc(97px - var(--fig-top));   /* 피그마 y 97 */
+  top: calc(134px - var(--fig-top));   /* 피그마 y 134 */
   left: var(--space-20);
   right: var(--space-20);
   height: 6px;
@@ -135,6 +164,6 @@
 }
 @keyframes ob-bar { from { transform: scaleX(var(--from)); } }
 @media (prefers-reduced-motion: reduce) { .ob__progress-fill { animation: none; } }
-.ob__body--q { gap: var(--space-32); padding: calc(156px - var(--fig-top)) var(--space-20) 0; }   /* 피그마 y 157 */
+.ob__body--q { gap: var(--space-32); padding: calc(172px - 102px) var(--space-20) 0; }   /* 피그마 y 172 (위 바 아래 끝 y 102) */
 .ob__choices { display: flex; flex-direction: column; gap: var(--space-12); }
 .ob__choices .choice { min-height: 78px; }

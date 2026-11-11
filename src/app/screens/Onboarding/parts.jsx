@@ -1,6 +1,7 @@
 // 온보딩 화면들이 같이 쓰는 조각
 import { useEffect, useRef } from 'react';
 import Button from '../../components/Button.jsx';
+import Icon from '../../components/Icon.jsx';
 
 /** 단계 화면 틀 — 들어올 때 옆에서 밀려오고, 제목에 포커스 */
 export function Step({ name, dir, children, focusTitle = true }) {
@@ -15,23 +16,23 @@ export function Step({ name, dir, children, focusTitle = true }) {
 /** 줄바꿈 있는 제목 — ['첫 줄', '둘째 줄'] */
 export const Lines = ({ lines }) => lines.map((l, i) => <span key={i}>{i > 0 && <br />}{l}</span>);
 
-/** 아래: 버튼 하나 (피그마의 "아래 계속하기 버튼을 눌러 진행해주세요" 문장은 버튼과 같은 말이라 뺐어요) */
-export function FootOne({ children, ...btn }) {
+/** 위: 뒤로가기(←) · 오른쪽 글자 버튼 — 피그마 온보딩 틀의 "onboarding top"
+ *  <Top onBack={back} action="건너뛰기" onAction={skip} />  (둘 다 없으면 빈 자리만 차지해요) */
+export function Top({ onBack, action, onAction }) {
   return (
-    <div className="ob__foot ob__foot--one">
-      <Button {...btn}>{children}</Button>
+    <div className="ob__top">
+      {onBack && <button type="button" className="ob__top-back" onClick={onBack} aria-label="뒤로가기"><Icon name="arr-left" size={40} /></button>}
+      {action && <button type="button" className="ob__top-action" onClick={onAction}>{action}</button>}
     </div>
   );
 }
 
-/** 아래: 이전으로 · 다음으로 */
-export function FootPair({ onPrev, onNext, nextOk }) {
+/** 아래: 버튼 하나 — 피그마 온보딩 틀의 "Button" (모든 단계가 같은 자리)
+ *  disabled면 회색(unselected) 모양으로 바뀌고 눌리지 않아요 */
+export function Foot({ children, ...btn }) {
   return (
     <div className="ob__foot">
-      <div className="ob__pair">
-        <Button variant="secondary" onClick={onPrev}>이전으로</Button>
-        <Button disabled={!nextOk} onClick={onNext}>다음으로</Button>
-      </div>
+      <Button {...btn}>{children}</Button>
     </div>
   );
 }
