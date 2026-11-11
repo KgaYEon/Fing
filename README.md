@@ -75,7 +75,7 @@ src/app/components/         여러 화면이 같이 쓰는 컴포넌트
 src/app/screens/
   Splash/      /            스플래시
   Login/       /login       로그인 + 약관 시트 (LegalLinks · LegalSheet)
-  Onboarding/  /onboarding/…  단계마다 화면 하나 (steps/: Welcome · Permission · PermissionDone · Nickname · Intro · Question · Done)
+  Onboarding/  /onboarding/…  단계마다 화면 하나 (steps/: Welcome · Permission(PermissionAsk) · PermissionDone · BluetoothDenied · Nickname · Intro · Question · Done)
   Home/        /home        HomeHeader(TrackerPopover) · WaveInfo(FitDonut) · GoalCard · BestRecords · RecentRecords · MetricSheet
   Report/      /report      종합(summary/: MetricChart · BestGrid · FirstRecords) · 서핑별(sessions/: SessionCard)
   AI/          /ai          AiIntro · Suggestions · Message · AskBar (useChat: Claude 연결, answers.js: 연결 안 될 때 정해진 답)

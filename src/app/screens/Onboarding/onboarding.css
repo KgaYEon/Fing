@@ -32,11 +32,15 @@
 .ob__center { display: flex; flex-direction: column; align-items: center; gap: var(--space-24); padding: 0 var(--space-20); }
 .ob__center--welcome { padding-top: calc(264px - 102px); }   /* 피그마 y 264 (위 바 아래 끝 y 102) */
 .ob__center--intro { padding-top: calc(350px - 102px); }     /* 피그마 y 350 (위 바 아래 끝 y 102) */
+.ob__center--perm { padding-top: calc(299px - 102px); }      /* 피그마 y 299 (아이콘 상자) — 권한 설정 완료 · 블루투스 권한 필요 */
 .ob__center--finish { padding-top: calc(277px - var(--fig-top)); }    /* 피그마 y 277 (체크 상자) */
 
 /* 큰 아이콘 상자 — 피그마 "icon box"를 64px로 키운 것 */
 .icon-box--lg { width: 64px; height: 64px; border-radius: var(--radius-16); }
 .icon-box--lg .icon { width: 32px; height: 32px; }
+/* 상태 안내 아이콘 상자 — 피그마 "icon box"(44)를 64로 키운 비율 그대로 (둥글기 13.7 · 아이콘 27.4) */
+.icon-box--status { width: 64px; height: 64px; border-radius: 13.714px; }
+.icon-box--status .icon { width: 27.429px; height: 27.429px; }
 .icon-box--finish .icon { width: 28px; height: 28px; }
 .icon-box--finish { width: 54px; height: 54px; border-radius: var(--radius-16); }
 

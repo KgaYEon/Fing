@@ -18,7 +18,7 @@ export default function Permission() {
     if (step < PERMISSION_ASKS.length - 1) { setStep(step + 1); return; }
     setStep(-1);
     update({ permissions: { ...answers.current } });
-    go();
+    go(answers.current.bluetooth === 'denied' ? 'bluetooth' : 'permission-done');
   };
 
   return (
