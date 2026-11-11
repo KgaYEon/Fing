@@ -1,12 +1,12 @@
 // 닉네임 — 피그마 439:2924 (빈칸) · 439:3041 (입력) · 439:2986 (너무 김)
-// 건너뛰기: 닉네임이 비어 있거나 너무 길면 예시 이름(춤추는 돌고래 01)으로 정하고 준비 끝으로
+// 건너뛰기: 닉네임이 비어 있거나 너무 길면 예시 이름(춤추는 돌고래 01)으로 정하고 질문 시작(기록 준비)으로
 import { useEffect, useRef } from 'react';
 import useStep from '../useStep.js';
 import { Step, Top, Foot } from '../parts.jsx';
 import { NICK_MAX, NICK_SAMPLE, nickState, nickLength } from '../flow.js';
 
 export default function Nickname() {
-  const { data, update, go, skip, dir } = useStep('nickname');
+  const { data, update, go, dir } = useStep('nickname');
   const value = data.nickDraft ?? data.nickname ?? '';
   const st = nickState(value);
   const input = useRef(null);
@@ -16,7 +16,7 @@ export default function Nickname() {
 
   const onChange = (e) => update({ nickDraft: e.target.value, nickname: e.target.value.trim() });
   const next = () => { if (st.ok) go(); };
-  const skipStep = () => { if (!st.ok) update({ nickDraft: NICK_SAMPLE, nickname: NICK_SAMPLE }); skip(); };
+  const skipStep = () => { if (!st.ok) update({ nickDraft: NICK_SAMPLE, nickname: NICK_SAMPLE }); go(); };   // 건너뛰기: 질문 시작(기록 준비)으로
 
   return (
     <Step name="nickname" dir={dir} focusTitle={false}>
