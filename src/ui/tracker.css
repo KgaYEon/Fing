@@ -1,7 +1,9 @@
 /* tracker — 트래커 칩 + 연결 상태 카드 (피그마 홈·AI 헤더의 chip → Status - 트래커 연결 상태 7:1791 · 33:941 · 33:823 · 33:904)
    src/app/components/TrackerChip.jsx */
 .home__tracker { gap: var(--space-8); }
-.home__dot { width: 6px; height: 16px; flex: none; }
+/* ic/on 은 24×24 안에 6px 점 — 피그마처럼 24×20 자리만 차지하게 위아래 2px 겹침 */
+.home__dot { width: 24px; height: 24px; margin-block: -2px; flex: none; }
+.home__tracker .home__dot { margin-right: calc(var(--space-8) * -1); }   /* 칩 안에서는 피그마처럼 16px 자리 */
 .home__tracker[data-state='ok'] .home__dot, .home-pop[data-state='ok'] .home__dot { color: var(--color-status-success-700); }
 .home__tracker[data-state='low'] .home__dot, .home-pop[data-state='low'] .home__dot { color: var(--color-status-warning-700); }
 .home__tracker[data-state='off'] .home__dot, .home-pop[data-state='off'] .home__dot { color: var(--color-btn-disable); }

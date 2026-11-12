@@ -22,7 +22,7 @@ export default function SessionCard({ s, mode, selected, onOpen, onSelect, fav, 
         </div>
         {!picking && (
           <button type="button" className="record-card__fav hit-44" aria-pressed={fav} aria-label={fav ? '즐겨찾기 해제' : '즐겨찾기'} onClick={() => onFav(s.id)}>
-            <Icon name={fav ? 'star-2' : 'star-str'} size={20} />
+            <Icon name={fav ? 'star-filled' : 'star-str'} size={20} />
           </button>
         )}
       </div>

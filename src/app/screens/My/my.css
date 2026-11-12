@@ -42,7 +42,7 @@
 .my-tracker__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--radius-12); background: var(--color-btn-light); color: var(--color-btn-default); }
 .my-tracker__name { color: var(--color-txt-black); }
 .my-tracker__state { display: flex; align-items: center; gap: var(--space-4); font: var(--text-caption-2); color: var(--color-txt-unselected); }
-.my-tracker__dot { width: 6px; height: 16px; color: var(--color-btn-disable); }
+.my-tracker__dot { width: 24px; height: 24px; margin-block: -2px; flex: none; color: var(--color-btn-disable); }   /* 피그마: 24×20 자리 */
 .my-tracker__state.is-on .my-tracker__dot { color: var(--color-status-success-700); }
 .my-tracker__batt { display: flex; align-items: center; gap: var(--space-4); font: var(--text-caption-2); color: var(--color-txt-black); }
 .my-tracker__batt .icon { color: var(--color-btn-default); }

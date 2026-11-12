@@ -18,7 +18,7 @@ export const logo = ({ white = false, label = 'Fing' } = {}) =>
 
 /** 별점 — rating(3) / rating(4, 5) */
 export const rating = (value, max = 5) =>
-  `<span class="rating" role="img" aria-label="${max}점 중 ${value}점">${Array.from({ length: max }, (_, i) => icon(i < value ? 'star-2' : 'star-str', { size: 16 })).join('')}</span>`;
+  `<span class="rating" role="img" aria-label="${max}점 중 ${value}점">${Array.from({ length: max }, (_, i) => icon(i < value ? 'star-filled' : 'star-str', { size: 16 })).join('')}</span>`;
 
 /** 소셜 로그인 버튼 — socialButton('kakao') */
 const SOCIAL = {
