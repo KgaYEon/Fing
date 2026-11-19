@@ -26,9 +26,9 @@ export function buildSpacing({ write = true } = {}) {
     const value = v.valuesByMode[col.defaultModeId];
     const key = v.name.split('/').pop().trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
     if (typeof value === 'number' && value % BASE !== 0)
-      lint.push({ level: 'warn', rule: 'space-grid', title: `"${v.name}"(${value}px)이 ${BASE}px 단위가 아니에요`, detail: `간격은 ${BASE}의 배수로 맞추기로 했어요. ${Math.round(value / BASE) * BASE}px로 바꾸는 걸 추천해요.`, keys: [key] });
+      lint.push({ level: 'warn', rule: 'space-grid', title: `"${v.name}"(${value}px)이 ${BASE}px 단위가 아닙니다`, detail: `간격은 ${BASE}의 배수로 맞추기로 했습니다. ${Math.round(value / BASE) * BASE}px로 바꾸는 걸 추천합니다.`, keys: [key] });
     if (!v.scopes.includes('GAP') && !v.scopes.includes('ALL_SCOPES'))
-      lint.push({ level: 'info', rule: 'space-scope', title: `"${v.name}"이 간격 자리에서 안 보여요`, detail: '피그마 변수 설정에서 범위(Scoping)에 Gap을 켜주세요.', keys: [key] });
+      lint.push({ level: 'info', rule: 'space-scope', title: `"${v.name}"이 간격 자리에서 안 보입니다`, detail: '피그마 변수 설정에서 범위(Scoping)에 Gap을 켜야 합니다.', keys: [key] });
     return { key, name: v.name, id: v.id, value, cssVar: `--space-${key}`, description: v.description || '' };
   }).sort((a, b) => a.value - b.value);
 

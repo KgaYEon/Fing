@@ -49,16 +49,16 @@ export function buildIcons({ write = true } = {}) {
     let key = base.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-|-$/g, '');
     if (used[key]) {
       const first = used[key];
-      lint.push({ level: 'warn', rule: 'icon-duplicate', title: `아이콘 이름 "${ic.name}"이 두 개예요`,
-        detail: `코드에서는 이름으로 아이콘을 불러서, 같은 이름이면 하나를 구분할 수 없어요. 나중 것은 임시로 "${key}-2"로 만들어뒀어요. 피그마에서 둘 중 하나의 이름을 바꿔주세요.`,
+      lint.push({ level: 'warn', rule: 'icon-duplicate', title: `아이콘 이름 "${ic.name}"이 두 개입니다`,
+        detail: `코드에서는 이름으로 아이콘을 불러서, 같은 이름이면 하나를 구분할 수 없습니다. 나중 것은 임시로 "${key}-2"로 만들어 두었습니다. 피그마에서 둘 중 하나의 이름을 바꿔야 합니다.`,
         tokens: [first, ic.id], keys: [key, `${key}-2`] });
       key = `${key}-2`;
     }
     used[key] = ic.id;
     if (base !== base.toLowerCase())
-      lint.push({ level: 'info', rule: 'icon-case', title: `"${ic.name}"에 대문자가 섞여 있어요`, detail: `다른 아이콘은 모두 소문자예요. 코드에서는 "${key}"로 바꿔서 쓰고 있어요.`, tokens: [ic.id], keys: [key] });
+      lint.push({ level: 'info', rule: 'icon-case', title: `"${ic.name}"에 대문자가 섞여 있습니다`, detail: `다른 아이콘은 모두 소문자입니다. 코드에서는 "${key}"로 바꿔서 쓰고 있습니다.`, tokens: [ic.id], keys: [key] });
     if (ic.width !== 24 || ic.height !== 24)
-      lint.push({ level: 'info', rule: 'icon-size', title: `"${ic.name}" 크기가 ${ic.width}×${ic.height}이에요`, detail: '다른 아이콘은 24×24예요. 점 표시처럼 일부러 다른 크기라면 괜찮아요.', tokens: [ic.id], keys: [key] });
+      lint.push({ level: 'info', rule: 'icon-size', title: `"${ic.name}" 크기가 ${ic.width}×${ic.height}입니다`, detail: '다른 아이콘은 24×24입니다. 점 표시처럼 일부러 다른 크기라면 괜찮습니다.', tokens: [ic.id], keys: [key] });
 
     // 쓰인 색 모으기
     const colors = [...new Set([...ic.svg.matchAll(/(?:fill|stroke)="([^"]+)"/g)].map((m) => m[1]).filter((c) => c !== 'none').map(normHex))];

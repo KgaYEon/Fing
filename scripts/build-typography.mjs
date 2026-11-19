@@ -40,7 +40,7 @@ export function buildTypography({ write = true } = {}) {
     const fam = FAMILY[s.font.family] || { var: `--font-${slug(s.font.family)}`, stack: `'${s.font.family}', sans-serif` };
     families.set(fam.var, { family: s.font.family, stack: fam.stack });
     if (!FAMILY[s.font.family])
-      lint.push({ level: 'warn', rule: 'type-font', title: `"${s.font.family}" 글꼴을 코드에서 아직 못 불러와요`, detail: `"${s.name}"에서 써요. 웹에서 쓸 글꼴 파일 경로를 알려주시면 연결할게요. 그 전까지는 기본 글꼴로 보여요.`, keys: [key] });
+      lint.push({ level: 'warn', rule: 'type-font', title: `"${s.font.family}" 글꼴을 코드에서 아직 못 불러옵니다`, detail: `"${s.name}"에서 씁니다. 웹에서 쓸 글꼴 파일 경로를 알려주시면 연결하겠습니다. 그 전까지는 기본 글꼴로 보입니다.`, keys: [key] });
     return {
       key, id: s.id, name: s.name, description: s.description || '',
       family: s.font.family, style: s.font.style, weight: weightOf(s.font.style),
@@ -57,19 +57,19 @@ export function buildTypography({ write = true } = {}) {
     (seen[sig] ||= []).push(s);
     const ratio = s.lineHeightPx / s.size;
     if (ratio < 1)
-      lint.push({ level: 'warn', rule: 'type-tight', title: `"${s.name}" 줄 높이(${s.lineHeightPx})가 글자 크기(${s.size})보다 작아요`, detail: '한 줄일 땐 괜찮아 보여도, 두 줄이 되면 윗줄과 아랫줄 글자가 겹치거나 글자 끝이 잘릴 수 있어요. 숫자 단위처럼 항상 한 줄이면 괜찮아요.', keys: [s.key] });
+      lint.push({ level: 'warn', rule: 'type-tight', title: `"${s.name}" 줄 높이(${s.lineHeightPx})가 글자 크기(${s.size})보다 작습니다`, detail: '한 줄일 땐 괜찮아 보여도, 두 줄이 되면 윗줄과 아랫줄 글자가 겹치거나 글자 끝이 잘릴 수 있습니다. 숫자 단위처럼 항상 한 줄이면 괜찮습니다.', keys: [s.key] });
     else if (ratio < 1.15 && s.size >= 20)
-      lint.push({ level: 'info', rule: 'type-tight', title: `"${s.name}" 줄 높이가 글자 크기와 같아요 (${s.size}/${s.lineHeightPx})`, detail: '한 줄 제목이면 괜찮아요. 두 줄로 넘어가면 한글은 줄 사이가 꽤 좁아 보여요.', keys: [s.key] });
+      lint.push({ level: 'info', rule: 'type-tight', title: `"${s.name}" 줄 높이가 글자 크기와 같습니다 (${s.size}/${s.lineHeightPx})`, detail: '한 줄 제목이면 괜찮습니다. 두 줄로 넘어가면 한글은 줄 사이가 꽤 좁아 보입니다.', keys: [s.key] });
     else if (ratio > 1.7)
-      lint.push({ level: 'info', rule: 'type-loose', title: `"${s.name}" 줄 높이가 넓어요 (${s.size}/${s.lineHeightPx})`, detail: `글자 크기의 ${Math.round(ratio * 100) / 100}배예요. 다른 제목들은 1.2~1.4배 정도라 일부러 여유를 준 게 아니라면 확인해보세요.`, keys: [s.key] });
+      lint.push({ level: 'info', rule: 'type-loose', title: `"${s.name}" 줄 높이가 넓습니다 (${s.size}/${s.lineHeightPx})`, detail: `글자 크기의 ${Math.round(ratio * 100) / 100}배입니다. 다른 제목들은 1.2~1.4배 정도라 일부러 여유를 준 게 아니라면 확인이 필요합니다.`, keys: [s.key] });
   }
   for (const list of Object.values(seen))
     if (list.length > 1)
-      lint.push({ level: 'info', rule: 'type-duplicate', title: '설정이 완전히 같은 스타일', detail: `${list.map((s) => `"${s.name}"`).join(', ')}은 글꼴·굵기·크기·줄 높이가 모두 같아요. 쓰임이 달라서 이름을 나눈 거라면 괜찮아요.`, keys: list.map((s) => s.key) });
+      lint.push({ level: 'info', rule: 'type-duplicate', title: '설정이 완전히 같은 스타일', detail: `${list.map((s) => `"${s.name}"`).join(', ')}은 글꼴·굵기·크기·줄 높이가 모두 같습니다. 쓰임이 달라서 이름을 나눈 거라면 괜찮습니다.`, keys: list.map((s) => s.key) });
 
   const lower = styles.filter((s) => s.name[0] === s.name[0].toLowerCase()).length;
   if (lower && lower < styles.length)
-    lint.push({ level: 'info', rule: 'type-case', title: '이름의 대소문자가 섞여 있어요', detail: `"Title 1"처럼 대문자로 시작하는 것과 "body 3"처럼 소문자로 시작하는 게 섞여 있어요. 코드에서는 모두 소문자(t-title-1, t-body-3)로 바꿔서 쓰니 동작엔 문제없어요.`, keys: styles.map((s) => s.key) });
+    lint.push({ level: 'info', rule: 'type-case', title: '이름의 대소문자가 섞여 있습니다', detail: `"Title 1"처럼 대문자로 시작하는 것과 "body 3"처럼 소문자로 시작하는 게 섞여 있습니다. 코드에서는 모두 소문자(t-title-1, t-body-3)로 바꿔서 쓰니 동작엔 문제없습니다.`, keys: styles.map((s) => s.key) });
 
   // 의도한 결정
   let acks = [];

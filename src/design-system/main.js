@@ -181,7 +181,7 @@ const iconView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
       <h1>Icon</h1>
-      <p class="lead">피그마에서 이름이 <code>ic/</code>로 시작하는 아이콘 컴포넌트를 그대로 가져왔어요. 한 가지 색으로 된 아이콘은 놓인 곳의 글자색을 따라가서, 시멘틱 텍스트 토큰으로 색을 바꿀 수 있어요. 아이콘을 누르면 코드가 복사돼요.</p>
+      <p class="lead">피그마에서 이름이 <code>ic/</code>로 시작하는 아이콘 컴포넌트를 그대로 가져왔습니다. 한 가지 색으로 된 아이콘은 놓인 곳의 글자색을 따라가서, 시멘틱 텍스트 토큰으로 색을 바꿀 수 있습니다. 아이콘을 누르면 코드가 복사됩니다.</p>
       <div class="meta">
         ${iconFigmaUrl ? `<a class="pill" href="${iconFigmaUrl}" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
         <span class="pill ghost">마지막 동기화 ${fmtDate(im.exportedAt)}</span>
@@ -216,15 +216,15 @@ const iconView = () => `
             ${iconFlag.has(i.key) ? `<span class="flag ${iconFlag.get(i.key)}" title="점검 항목 있음"></span>` : ''}
           </button>`).join('')}
       </div>
-      <p class="sub legend">"여러 색" 아이콘은 피그마 색을 그대로 써서 미리보기 색이 바뀌지 않아요.</p>
+      <p class="sub legend">"여러 색" 아이콘은 피그마 색을 그대로 써서 미리보기 색이 바뀌지 않습니다.</p>
     </section>
 
     <section id="icon-health" class="section">
       <div class="section-head">
         <h2>점검 <span class="sub">${iconData.lint.filter((l) => l.level !== 'ok').length}개 항목</span></h2>
-        <p>아이콘을 동기화할 때마다 다시 검사해요.</p>
+        <p>아이콘을 동기화할 때마다 다시 검사합니다.</p>
       </div>
-      <div class="lints">${iconData.lint.filter((l) => l.level !== 'ok').map(iconLintCard).join('') || '<p class="sub">발견된 문제가 없어요.</p>'}</div>
+      <div class="lints">${iconData.lint.filter((l) => l.level !== 'ok').map(iconLintCard).join('') || '<p class="sub">발견된 문제가 없습니다.</p>'}</div>
       ${iconData.lint.some((l) => l.level === 'ok') ? `<h3 class="lint-sub">의도한 결정</h3><div class="lints">${iconData.lint.filter((l) => l.level === 'ok').map(iconLintCard).join('')}</div>` : ''}
     </section>
 
@@ -232,7 +232,7 @@ const iconView = () => `
       <div class="section-head"><h2>코드에서 쓰는 법</h2></div>
       <pre class="code"><code>import { icon } from '/src/icons/icons.js';
 
-// 기본 24px, 놓인 곳의 글자색을 따라가요
+// 기본 24px, 놓인 곳의 글자색을 따라갑니다
 button.innerHTML = icon('home');
 
 // 크기 지정 + 화면낭독기용 이름
@@ -250,13 +250,13 @@ for (const l of typeData.lint) if (l.level !== 'ok') for (const k of l.keys) if 
 const keyLintCard = (prefix) => (l) => lintCard({ ...l, tokens: [] }).replace(/<\/p>\s*<\/div>\s*<\/article>$/, `</p>${l.keys.length && l.keys.length <= 8 ? `<div class="lint-tokens">${l.keys.map((k) => `<a class="ref-chip" href="#${prefix}${esc(k)}">${esc(k)}</a>`).join('')}</div>` : ''}</div></article>`);
 const typeWarn = typeData.lint.filter((l) => l.level === 'warn' || l.level === 'error').length;
 const tm = typeData.meta || {};
-const SAMPLE = '핑으로 오늘을 기록해요 Fing 2026';
+const SAMPLE = '핑으로 오늘을 기록합니다 Fing 2026';
 
 const typeView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
       <h1>Typography</h1>
-      <p class="lead">피그마 텍스트 스타일에서 자동으로 만들어진 글자 스타일이에요. 클래스 이름을 누르면 복사돼요.</p>
+      <p class="lead">피그마 텍스트 스타일에서 자동으로 만들어진 글자 스타일입니다. 클래스 이름을 누르면 복사됩니다.</p>
       <div class="meta">
         ${tm.fileKey ? `<a class="pill" href="https://www.figma.com/design/${tm.fileKey}/" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
         <span class="pill ghost">마지막 동기화 ${fmtDate(tm.exportedAt)}</span>
@@ -270,7 +270,7 @@ const typeView = () => `
     </div>
 
     <div class="search">
-      <input id="sample" type="text" value="${SAMPLE}" placeholder="미리 볼 문장을 입력하세요" autocomplete="off" aria-label="미리보기 문장" />
+      <input id="sample" type="text" value="${SAMPLE}" placeholder="미리 볼 문장 입력" autocomplete="off" aria-label="미리보기 문장" />
     </div>
 
     <section class="section">
@@ -295,9 +295,9 @@ const typeView = () => `
     <section id="type-health" class="section">
       <div class="section-head">
         <h2>점검 <span class="sub">${typeData.lint.filter((l) => l.level !== 'ok').length}개 항목</span></h2>
-        <p>텍스트 스타일을 동기화할 때마다 다시 검사해요.</p>
+        <p>텍스트 스타일을 동기화할 때마다 다시 검사합니다.</p>
       </div>
-      <div class="lints">${typeData.lint.filter((l) => l.level !== 'ok').map(keyLintCard('type-')).join('') || '<p class="sub">발견된 문제가 없어요.</p>'}</div>
+      <div class="lints">${typeData.lint.filter((l) => l.level !== 'ok').map(keyLintCard('type-')).join('') || '<p class="sub">발견된 문제가 없습니다.</p>'}</div>
       ${typeData.lint.some((l) => l.level === 'ok') ? `<h3 class="lint-sub">의도한 결정</h3><div class="lints">${typeData.lint.filter((l) => l.level === 'ok').map(keyLintCard('type-')).join('')}</div>` : ''}
     </section>
 
@@ -330,7 +330,7 @@ const componentView = (set) => () => {
     <header class="page-head">
       <p class="eyebrow">Components</p>
       <h1>${esc(set.name)}</h1>
-      <p class="lead">피그마 ${esc(set.name)} 컴포넌트에서 자동으로 만들어졌어요. 아래 버튼은 진짜 코드 버튼이라 눌러볼 수 있어요. 클래스 이름을 누르면 복사돼요.</p>
+      <p class="lead">피그마 ${esc(set.name)} 컴포넌트에서 자동으로 만들어졌습니다. 아래 버튼은 진짜 코드 버튼이라 눌러볼 수 있습니다. 클래스 이름을 누르면 복사됩니다.</p>
       <div class="meta">
         ${compData.meta?.fileKey ? `<a class="pill" href="https://www.figma.com/design/${compData.meta.fileKey}/?node-id=${set.id.replace(':', '-')}" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
         <span class="pill ghost">마지막 동기화 ${fmtDate(compData.meta?.exportedAt)}</span>
@@ -370,7 +370,7 @@ const componentView = (set) => () => {
           </div>`;
         }).join('')}
       </div>
-      <p class="sub legend">각 칸 아래는 배경 색 · 글자 색 토큰이에요. 기울어진 글씨는 토큰에 연결 안 된 색이에요.</p>
+      <p class="sub legend">각 칸 아래는 배경 색 · 글자 색 토큰입니다. 기울어진 글씨는 토큰에 연결 안 된 색입니다.</p>
     </section>
 
     <section class="section">
@@ -387,9 +387,9 @@ const componentView = (set) => () => {
     <section id="comp-health" class="section">
       <div class="section-head">
         <h2>점검 <span class="sub">${lints.filter((l) => l.level !== 'ok').length}개 항목</span></h2>
-        <p>컴포넌트를 동기화할 때마다 다시 검사해요.</p>
+        <p>컴포넌트를 동기화할 때마다 다시 검사합니다.</p>
       </div>
-      <div class="lints">${lints.filter((l) => l.level !== 'ok').map((l) => lintCard({ ...l, tokens: [] })).join('') || '<p class="sub">발견된 문제가 없어요.</p>'}</div>
+      <div class="lints">${lints.filter((l) => l.level !== 'ok').map((l) => lintCard({ ...l, tokens: [] })).join('') || '<p class="sub">발견된 문제가 없습니다.</p>'}</div>
       ${lints.some((l) => l.level === 'ok') ? `<h3 class="lint-sub">의도한 결정</h3><div class="lints">${lints.filter((l) => l.level === 'ok').map((l) => lintCard({ ...l, tokens: [] })).join('')}</div>` : ''}
     </section>
 
@@ -411,7 +411,7 @@ const spaceView = () => {
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
       <h1>Spacing</h1>
-      <p class="lead">모든 간격은 <strong>${spaceData.base}px 단위</strong>로 맞춰요. 피그마 Spacing 변수에서 자동으로 만들어졌고, 피그마에서는 여백·간격 자리에서만 고를 수 있어요. 이름을 누르면 복사돼요.</p>
+      <p class="lead">모든 간격은 <strong>${spaceData.base}px 단위</strong>로 맞춥니다. 피그마 Spacing 변수에서 자동으로 만들어졌고, 피그마에서는 여백·간격 자리에서만 고를 수 있습니다. 이름을 누르면 복사됩니다.</p>
       <div class="meta">
         ${spaceData.meta?.fileKey ? `<a class="pill" href="https://www.figma.com/design/${spaceData.meta.fileKey}/" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
         <span class="pill ghost">마지막 동기화 ${fmtDate(spaceData.meta?.exportedAt)}</span>
@@ -440,7 +440,7 @@ const spaceView = () => {
     </section>
 
     <section class="section">
-      <div class="section-head"><h2>어디에 쓰나요</h2><p>같은 값이라도 이렇게 나눠 쓰면 화면 리듬이 일정해져요. 정해진 규칙은 아니고 출발점이에요.</p></div>
+      <div class="section-head"><h2>어디에 쓰는지</h2><p>같은 값이라도 이렇게 나눠 쓰면 화면 리듬이 일정해집니다. 정해진 규칙은 아니고 출발점입니다.</p></div>
       <div class="space-guide">
         <div><strong>4 · 8</strong><span>아이콘과 글자 사이, 칩 안쪽처럼 아주 가까운 것</span></div>
         <div><strong>12 · 16</strong><span>목록 항목 사이, 카드 안쪽 여백</span></div>
@@ -472,7 +472,7 @@ const radiusView = () => {
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
       <h1>Radius</h1>
-      <p class="lead">모서리 둥글기는 <strong>${steps.length}단계</strong>만 써요. 피그마 Radius 변수에서 자동으로 만들어졌고, 피그마에서는 모서리 둥글기 자리에서만 고를 수 있어요. 이름을 누르면 복사돼요.</p>
+      <p class="lead">모서리 둥글기는 <strong>${steps.length}단계</strong>만 씁니다. 피그마 Radius 변수에서 자동으로 만들어졌고, 피그마에서는 모서리 둥글기 자리에서만 고를 수 있습니다. 이름을 누르면 복사됩니다.</p>
       <div class="meta">
         ${radiusData.meta?.fileKey ? `<a class="pill" href="https://www.figma.com/design/${radiusData.meta.fileKey}/" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
         <span class="pill ghost">마지막 동기화 ${fmtDate(radiusData.meta?.exportedAt)}</span>
@@ -517,7 +517,7 @@ const effectView = () => {
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
       <h1>Effect</h1>
-      <p class="lead">그림자는 <strong>${styles.length}단계</strong>만 써요. 피그마 이펙트 스타일에서 자동으로 만들어졌어요. 이름을 누르면 복사돼요.</p>
+      <p class="lead">그림자는 <strong>${styles.length}단계</strong>만 씁니다. 피그마 이펙트 스타일에서 자동으로 만들어졌습니다. 이름을 누르면 복사됩니다.</p>
       <div class="meta">
         ${effectData.meta?.fileKey ? `<a class="pill" href="https://www.figma.com/design/${effectData.meta.fileKey}/" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
         <span class="pill ghost">마지막 동기화 ${fmtDate(effectData.meta?.exportedAt)}</span>
@@ -570,12 +570,12 @@ const uiView = (c) => () => `
 
     ${c.notes.length ? `
     <section class="section">
-      <div class="section-head"><h2>피그마에서 확인할 점 <span class="sub">${c.notes.length}개</span></h2><p>코드로 옮기다가 발견한 거예요. 피그마에서 고치면 다음 동기화 때 반영할게요.</p></div>
+      <div class="section-head"><h2>피그마에서 확인할 점 <span class="sub">${c.notes.length}개</span></h2><p>코드로 옮기다가 발견한 것입니다. 피그마에서 고치면 다음 동기화 때 반영하겠습니다.</p></div>
       <ul class="ui-notes">${c.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
     </section>` : ''}
 
     <section class="section">
-      <div class="section-head"><h2>코드에서 쓰는 법</h2><p>색·간격·글자·둥글기는 토큰을 써서 피그마를 따라가요. 모양(구조)을 바꾸면 말씀해 주세요.</p></div>
+      <div class="section-head"><h2>코드에서 쓰는 법</h2><p>색·간격·글자·둥글기는 토큰을 써서 피그마를 따라갑니다. 모양(구조)을 바꾸면 말씀해 주시기 바랍니다.</p></div>
       <pre class="code"><code>${c.codeHtml}</code></pre>
     </section>
 `;
@@ -584,7 +584,7 @@ const colorView = () => `
     <header class="page-head">
       <p class="eyebrow">Foundations</p>
       <h1>Color</h1>
-      <p class="lead">피그마 <strong>${esc(m.fileName)}</strong> 파일의 변수에서 자동으로 만들어진 색상 토큰이에요. 칩이나 변수 이름을 누르면 <code>var(--…)</code>가 복사돼요.</p>
+      <p class="lead">피그마 <strong>${esc(m.fileName)}</strong> 파일의 변수에서 자동으로 만들어진 색상 토큰입니다. 칩이나 변수 이름을 누르면 <code>var(--…)</code>가 복사됩니다.</p>
       <div class="meta">
         ${figmaUrl ? `<a class="pill" href="${figmaUrl}" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>` : ''}
         <span class="pill ghost">마지막 동기화 ${fmtDate(m.exportedAt)}</span>
@@ -605,7 +605,7 @@ const colorView = () => `
     <section id="primitive" class="section">
       <div class="section-head">
         <h2>${esc(c.label)} <span class="sub">${esc(c.name)}</span></h2>
-        <p>실제 색 값이 들어있는 기본 팔레트예요. 화면에서는 직접 쓰지 않고, 아래 시멘틱 토큰이 이 색들을 참조해요.</p>
+        <p>실제 색 값이 들어있는 기본 팔레트입니다. 화면에서는 직접 쓰지 않고, 아래 시멘틱 토큰이 이 색들을 참조합니다.</p>
       </div>
       ${c.groups.map((g) => (g.isRamp ? rampGroup(g) : cardGroup(g))).join('')}
     </section>`).join('')}
@@ -614,7 +614,7 @@ const colorView = () => `
     <section id="semantic" class="section">
       <div class="section-head">
         <h2>${esc(c.label)} <span class="sub">${esc(c.name)}</span></h2>
-        <p>용도에 이름을 붙인 토큰이에요. 화면을 퍼블리싱할 때는 이 토큰만 써요. 참조 경로를 누르면 원색으로 이동해요.</p>
+        <p>용도에 이름을 붙인 토큰입니다. 화면을 퍼블리싱할 때는 이 토큰만 씁니다. 참조 경로를 누르면 원색으로 이동합니다.</p>
       </div>
       ${c.groups.map(semanticGroup).join('')}
     </section>`).join('')}
@@ -622,12 +622,12 @@ const colorView = () => `
     <section id="health" class="section">
       <div class="section-head">
         <h2>점검 <span class="sub">${data.lint.filter((l) => l.level !== 'ok').length}개 항목</span></h2>
-        <p>동기화할 때마다 자동으로 다시 검사해요. 피그마에서 고치면 이 목록에서 사라져요.</p>
+        <p>동기화할 때마다 자동으로 다시 검사합니다. 피그마에서 고치면 이 목록에서 사라집니다.</p>
       </div>
-      <div class="lints">${data.lint.filter((l) => l.level !== 'ok').map(lintCard).join('') || '<p class="sub">발견된 문제가 없어요.</p>'}</div>
+      <div class="lints">${data.lint.filter((l) => l.level !== 'ok').map(lintCard).join('') || '<p class="sub">발견된 문제가 없습니다.</p>'}</div>
       ${data.lint.some((l) => l.level === 'ok') ? `
       <h3 class="lint-sub">의도한 결정 <span class="sub">${data.lint.filter((l) => l.level === 'ok').length}개</span></h3>
-      <p class="sub lint-sub-desc">점검에 걸렸지만 일부러 그렇게 정한 항목이에요. tokens/lint-config.json에서 관리해요.</p>
+      <p class="sub lint-sub-desc">점검에 걸렸지만 일부러 그렇게 정한 항목입니다. tokens/lint-config.json에서 관리합니다.</p>
       <div class="lints">${data.lint.filter((l) => l.level === 'ok').map(lintCard).join('')}</div>` : ''}
     </section>
 

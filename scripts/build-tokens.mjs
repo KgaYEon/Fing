@@ -60,7 +60,7 @@ export function buildTokens({ write = true } = {}) {
     let name = `--color-${v.name.split('/').map(segToCss).join('-')}`;
     if (used[name]) {
       lint.push({ level: 'error', rule: 'name-collision', title: 'CSS 변수 이름이 겹칩니다',
-        detail: `"${v.name}"과 "${varById[used[name]].name}"이 같은 코드 이름(${name})이 됩니다. 컬렉션 이름을 붙여 구분했어요.`, tokens: [v.name, varById[used[name]].name] });
+        detail: `"${v.name}"과 "${varById[used[name]].name}"이 같은 코드 이름(${name})이 됩니다. 컬렉션 이름을 붙여 구분했습니다.`, tokens: [v.name, varById[used[name]].name] });
       name = `${name}--${slug(colById[v.collectionId].name)}`;
     }
     used[name] = v.id;
@@ -101,7 +101,7 @@ export function buildTokens({ write = true } = {}) {
         const rv = resolveValue(v, m.modeId);
         return { mode: m.name, hex: rv.color ? toHex(rv.color) : null };
       });
-      if (r.broken) lint.push({ level: 'error', rule: 'broken-alias', title: '참조가 끊긴 토큰', detail: `"${v.name}"이 가리키는 변수를 찾을 수 없어요. (경로: ${r.chain.join(' → ')})`, tokens: [v.name] });
+      if (r.broken) lint.push({ level: 'error', rule: 'broken-alias', title: '참조가 끊긴 토큰', detail: `"${v.name}"이 가리키는 변수를 찾을 수 없습니다. (경로: ${r.chain.join(' → ')})`, tokens: [v.name] });
       return {
         id: v.id, name: v.name, group, leaf, step: stepMatch ? Number(stepMatch[1]) : null,
         cssVar: cssName[v.id], description: v.description, scopes: v.scopes,
@@ -131,22 +131,22 @@ export function buildTokens({ write = true } = {}) {
   // ---------- 점검 규칙 ----------
   const allScopes = colors.filter((v) => v.scopes.includes('ALL_SCOPES'));
   if (allScopes.length)
-    lint.push({ level: 'warn', rule: 'all-scopes', title: `변수 ${allScopes.length}개가 '모든 속성'에 노출돼요`,
-      detail: '스코프가 ALL_SCOPES면 텍스트 색 자리에 버튼 배경 토큰이 뜨는 식으로 선택지가 섞여요. 원색은 스코프를 모두 끄고(시멘틱으로만 쓰게), 시멘틱은 txt→Text fill, bg/btn→Frame·Shape fill, str→Stroke로 좁히는 걸 권장해요.',
+    lint.push({ level: 'warn', rule: 'all-scopes', title: `변수 ${allScopes.length}개가 '모든 속성'에 노출됩니다`,
+      detail: '스코프가 ALL_SCOPES면 텍스트 색 자리에 버튼 배경 토큰이 뜨는 식으로 선택지가 섞입니다. 원색은 스코프를 모두 끄고(시멘틱으로만 쓰게), 시멘틱은 txt→Text fill, bg/btn→Frame·Shape fill, str→Stroke로 좁히는 걸 권장합니다.',
       tokens: allScopes.map((v) => v.name) });
 
   for (const c of raw.collections) {
-    if (/^Collection( \d+)?$/.test(c.name)) lint.push({ level: 'info', rule: 'default-name', title: `컬렉션 이름이 기본값("${c.name}")이에요`, detail: '역할이 드러나게 "Semantic" 같은 이름으로 바꾸면 피그마에서도 찾기 쉬워요. 바꾼 뒤 tokens/name-map.json의 collections 항목도 같은 이름으로 맞춰주세요.', tokens: [] });
+    if (/^Collection( \d+)?$/.test(c.name)) lint.push({ level: 'info', rule: 'default-name', title: `컬렉션 이름이 기본값("${c.name}")입니다`, detail: '역할이 드러나게 "Semantic" 같은 이름으로 바꾸면 피그마에서도 찾기 쉽습니다. 바꾼 뒤 tokens/name-map.json의 collections 항목도 같은 이름으로 맞춰야 합니다.', tokens: [] });
   }
   const defaultModeCols = raw.collections.filter((c) => c.variableIds.some((id) => varById[id]?.resolvedType === 'COLOR')).filter((c) => c.modes.some((m) => /^Mode \d+$/.test(m.name)));
   if (defaultModeCols.length)
-    lint.push({ level: 'info', rule: 'default-mode', title: '모드 이름이 기본값("Mode 1")이에요', detail: `${defaultModeCols.map((c) => `"${c.name}"`).join(', ')}. 모드가 하나뿐이면 그대로 둬도 괜찮아요. 다크모드 등을 추가할 계획이면 "Light"처럼 이름을 붙여두면 코드에서 [data-theme="이름"]으로 그대로 쓰여요.`, tokens: [] });
+    lint.push({ level: 'info', rule: 'default-mode', title: '모드 이름이 기본값("Mode 1")입니다', detail: `${defaultModeCols.map((c) => `"${c.name}"`).join(', ')}. 모드가 하나뿐이면 그대로 둬도 괜찮습니다. 다크모드 등을 추가할 계획이면 "Light"처럼 이름을 붙여두면 코드에서 [data-theme="이름"]으로 그대로 쓰입니다.`, tokens: [] });
 
   for (const t of allTokens) {
     if (t.alias && byName[t.alias.name]?.alias && byName[t.alias.name].collection.id === t.collection.id)
-      lint.push({ level: 'info', rule: 'alias-chain', title: '시멘틱이 시멘틱을 참조해요', detail: `"${t.name}" → "${t.alias.name}" → "${byName[t.alias.name].alias.name}". 버튼 색을 바꾸면 텍스트 색도 같이 바뀌는 연결이에요. 의도한 게 아니라면 원색을 직접 참조하게 바꾸세요.`, tokens: [t.name] });
+      lint.push({ level: 'info', rule: 'alias-chain', title: '시멘틱이 시멘틱을 참조합니다', detail: `"${t.name}" → "${t.alias.name}" → "${byName[t.alias.name].alias.name}". 버튼 색을 바꾸면 텍스트 색도 같이 바뀌는 연결입니다. 의도한 게 아니라면 원색을 직접 참조하게 바꾸는 것을 권장합니다.`, tokens: [t.name] });
     if (t.collection.role === 'semantic' && !t.alias)
-      lint.push({ level: 'warn', rule: 'raw-in-semantic', title: '시멘틱 토큰에 색이 직접 들어가 있어요', detail: `"${t.name}"은 원색을 참조하지 않고 ${t.hex} 값을 직접 가지고 있어요.`, tokens: [t.name] });
+      lint.push({ level: 'warn', rule: 'raw-in-semantic', title: '시멘틱 토큰에 색이 직접 들어가 있습니다', detail: `"${t.name}"은 원색을 참조하지 않고 ${t.hex} 값을 직접 가지고 있습니다.`, tokens: [t.name] });
   }
 
   for (const c of collections) {
@@ -155,13 +155,13 @@ export function buildTokens({ write = true } = {}) {
       for (const t of g.tokens) if (t.alias) (byTarget[t.alias.id] ||= []).push(t);
       for (const list of Object.values(byTarget))
         if (list.length > 1)
-          lint.push({ level: 'warn', rule: 'duplicate', title: '같은 그룹에서 같은 색을 가리키는 토큰', detail: `${list.map((t) => `"${t.name}"`).join(', ')}이 모두 "${list[0].alias.name}"을 가리켜요. 쓰임이 다르면 괜찮지만, 이름이 비슷하다면(예: disable/dis) 하나로 정리할지 확인해보세요.`, tokens: list.map((t) => t.name) });
+          lint.push({ level: 'warn', rule: 'duplicate', title: '같은 그룹에서 같은 색을 가리키는 토큰', detail: `${list.map((t) => `"${t.name}"`).join(', ')}이 모두 "${list[0].alias.name}"을 가리킵니다. 쓰임이 다르면 괜찮지만, 이름이 비슷하다면(예: disable/dis) 하나로 정리할지 확인이 필요합니다.`, tokens: list.map((t) => t.name) });
       for (const a of g.tokens) for (const b of g.tokens)
         if (a !== b && a.leaf && b.leaf && !(a.step !== null && b.step !== null) && b.leaf.length > a.leaf.length && b.leaf.startsWith(a.leaf) && !/[-\s]/.test(b.leaf.slice(a.leaf.length, a.leaf.length + 1)))
-          lint.push({ level: 'warn', rule: 'similar-name', title: '헷갈리기 쉬운 비슷한 이름', detail: `"${a.name}"(${a.alias?.name ?? a.hex})와 "${b.name}"(${b.alias?.name ?? b.hex})은 이름은 거의 같은데 색이 달라요. 줄임말 대신 각각 어디에 쓰는지 이름에 드러나게 바꾸는 걸 추천해요. (예: …/disable-bg, …/disable-border)`, tokens: [a.name, b.name] });
+          lint.push({ level: 'warn', rule: 'similar-name', title: '헷갈리기 쉬운 비슷한 이름', detail: `"${a.name}"(${a.alias?.name ?? a.hex})와 "${b.name}"(${b.alias?.name ?? b.hex})은 이름은 거의 같은데 색이 다릅니다. 줄임말 대신 각각 어디에 쓰는지 이름에 드러나게 바꾸는 걸 추천합니다. (예: …/disable-bg, …/disable-border)`, tokens: [a.name, b.name] });
       const numbered = g.tokens.filter((t) => t.step !== null).length;
       if (g.tokens.length > 1 && numbered > 0 && numbered < g.tokens.length)
-        lint.push({ level: 'info', rule: 'mixed-naming', title: `"${g.key}" 그룹의 이름 규칙이 섞여 있어요`, detail: `숫자 단계(예: ${g.tokens.find((t) => t.step !== null).leaf})와 단어(예: ${g.tokens.find((t) => t.step === null).leaf})가 함께 쓰여요. 한 가지 규칙으로 맞추면 코드 이름도 예측하기 쉬워져요.`, tokens: g.tokens.map((t) => t.name) });
+        lint.push({ level: 'info', rule: 'mixed-naming', title: `"${g.key}" 그룹의 이름 규칙이 섞여 있습니다`, detail: `숫자 단계(예: ${g.tokens.find((t) => t.step !== null).leaf})와 단어(예: ${g.tokens.find((t) => t.step === null).leaf})가 함께 쓰입니다. 한 가지 규칙으로 맞추면 코드 이름도 예측하기 쉬워집니다.`, tokens: g.tokens.map((t) => t.name) });
     }
   }
 
@@ -172,11 +172,11 @@ export function buildTokens({ write = true } = {}) {
     const onBg = bgTok ? contrast(hexToRgb(t.hex), hexToRgb(bgTok.hex)) : null;
     const worst = Math.min(onWhite, onBg ?? onWhite);
     if (worst < 4.5)
-      lint.push({ level: worst < 3 ? 'warn' : 'info', rule: 'contrast', title: `"${t.name}" 대비가 본문 기준(4.5:1)보다 낮아요`, detail: `흰 배경 ${onWhite}:1${onBg ? `, bg 배경 ${onBg}:1` : ''}. ${t.leaf === 'placeholder' ? '플레이스홀더도 읽어야 하는 텍스트라 WCAG에선 4.5:1을 권장해요.' : '작은 글씨에 쓰인다면 한 단계 진한 원색을 고려해보세요.'}`, tokens: [t.name] });
+      lint.push({ level: worst < 3 ? 'warn' : 'info', rule: 'contrast', title: `"${t.name}" 대비가 본문 기준(4.5:1)보다 낮습니다`, detail: `흰 배경 ${onWhite}:1${onBg ? `, bg 배경 ${onBg}:1` : ''}. ${t.leaf === 'placeholder' ? '플레이스홀더도 읽어야 하는 텍스트라 WCAG에선 4.5:1을 권장합니다.' : '작은 글씨에 쓰인다면 한 단계 진한 원색을 고려하는 것을 권장합니다.'}`, tokens: [t.name] });
   }
 
   if (unmapped.size)
-    lint.push({ level: 'info', rule: 'unmapped', title: '영문 이름이 없는 한글 그룹이 있어요', detail: `${[...unmapped].join(', ')} → tokens/name-map.json의 segments에 영문 이름을 추가하면 CSS 변수 이름이 깔끔해져요.`, tokens: [] });
+    lint.push({ level: 'info', rule: 'unmapped', title: '영문 이름이 없는 한글 그룹이 있습니다', detail: `${[...unmapped].join(', ')} → tokens/name-map.json의 segments에 영문 이름을 추가하면 CSS 변수 이름이 깔끔해집니다.`, tokens: [] });
 
   // ---------- CSS ----------
   const lines = [

@@ -27,7 +27,7 @@ export function buildEffects({ write = true } = {}) {
     const shadowCss = shadows.map((e) => `${e.type === 'INNER_SHADOW' ? 'inset ' : ''}${e.x}px ${e.y}px ${e.blur}px ${e.spread}px ${rgba(e.color)}`).join(', ');
     for (const e of shadows)
       if ([e.x, e.y, e.blur, e.spread].some((n) => n % 2 !== 0))
-        lint.push({ level: 'info', rule: 'effect-grid', title: `"${s.name}" 값에 홀수·소수가 있어요`, detail: `위치 ${e.x}/${e.y}, 흐림 ${e.blur}, 퍼짐 ${e.spread}. 짝수로 맞추면 화면마다 그림자가 더 고르게 보여요.`, keys: [key] });
+        lint.push({ level: 'info', rule: 'effect-grid', title: `"${s.name}" 값에 홀수·소수가 있습니다`, detail: `위치 ${e.x}/${e.y}, 흐림 ${e.blur}, 퍼짐 ${e.spread}. 짝수로 맞추면 화면마다 그림자가 더 고르게 보입니다.`, keys: [key] });
     return {
       key, name: s.name, id: s.id, description: s.description || '', group,
       cssVar: `--${group === 'effect' ? 'effect' : group}-${key}`,

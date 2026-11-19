@@ -63,7 +63,7 @@ export function buildComponents({ write = true } = {}) {
     const color = (paint, where, v) => {
       if (!paint) return null;
       if (paint.var && tokenByName[paint.var]) return { css: `var(${tokenByName[paint.var].cssVar})`, token: paint.var, hex: paint.hex };
-      lint.push({ level: 'warn', rule: 'comp-unbound', title: `${set.name} "${v.name}"의 ${where} 색이 토큰에 연결 안 돼 있어요`, detail: `${paint.hex}가 직접 들어가 있어요. 피그마에서 색 변수를 연결하면 색을 바꿀 때 같이 바뀌어요. 코드에서는 일단 ${paint.hex}를 그대로 썼어요.`, keys: [v.name] });
+      lint.push({ level: 'warn', rule: 'comp-unbound', title: `${set.name} "${v.name}"의 ${where} 색이 토큰에 연결 안 돼 있습니다`, detail: `${paint.hex}가 직접 들어가 있습니다. 피그마에서 색 변수를 연결하면 색을 바꿀 때 같이 바뀝니다. 코드에서는 일단 ${paint.hex}를 그대로 썼습니다.`, keys: [v.name] });
       return { css: paint.hex, token: null, hex: paint.hex };
     };
 
@@ -73,7 +73,7 @@ export function buildComponents({ write = true } = {}) {
     for (const v of set.variants) {
       const sig = variantProps.map(([k]) => `${k}=${v.props[k]}`).join(', ');
       if (seen[sig]) {
-        lint.push({ level: 'warn', rule: 'comp-duplicate', title: `${set.name}에 "${sig}"가 두 개 있어요`, detail: '피그마에서 같은 조합의 variant가 겹치면 어느 쪽이 쓰일지 정해지지 않아요. 하나는 지우거나 이름을 바꿔주세요. 코드는 먼저 나온 것을 썼어요.', keys: [sig] });
+        lint.push({ level: 'warn', rule: 'comp-duplicate', title: `${set.name}에 "${sig}"가 두 개 있습니다`, detail: '피그마에서 같은 조합의 variant가 겹치면 어느 쪽이 쓰일지 정해지지 않습니다. 하나는 지우거나 이름을 바꿔야 합니다. 코드는 먼저 나온 것을 썼습니다.', keys: [sig] });
         continue;
       }
       seen[sig] = v;
@@ -81,7 +81,7 @@ export function buildComponents({ write = true } = {}) {
       const fg = v.text ? color(v.text.fill, '글자', v) : null;
       const border = v.stroke ? color(v.stroke, '테두리', v) : null;
       if (v.text?.fill?.var && !v.text.fill.var.startsWith('txt/') && tokenByName[v.text.fill.var] && v.text.fill.var.split('/')[0] !== '시멘틱')
-        lint.push({ level: 'info', rule: 'comp-text-token', title: `${set.name} "${sig}" 글자에 "${v.text.fill.var}"를 쓰고 있어요`, detail: '버튼 배경용 토큰을 글자 색에 쓰고 있어요. 색은 같으니 지금은 괜찮지만, 같은 색인 txt/primary로 바꾸면 나중에 버튼 색만 바꿀 때 글자가 같이 바뀌는 일이 없어요.', keys: [sig] });
+        lint.push({ level: 'info', rule: 'comp-text-token', title: `${set.name} "${sig}" 글자에 "${v.text.fill.var}"를 쓰고 있습니다`, detail: '버튼 배경용 토큰을 글자 색에 쓰고 있습니다. 색은 같으니 지금은 괜찮지만, 같은 색인 txt/primary로 바꾸면 나중에 버튼 색만 바꿀 때 글자가 같이 바뀌는 일이 없습니다.', keys: [sig] });
       const ts = v.text?.style ? typeByName[v.text.style] : null;
       variants.push({ ...v, sig, bg, fg, border, textStyle: ts ? { name: ts.name, cssVar: ts.cssVar, letterSpacing: ts.letterSpacing } : null });
     }
@@ -95,12 +95,12 @@ export function buildComponents({ write = true } = {}) {
       }
       const onlyGap = [...offs.keys()].every((k) => k.startsWith('간격'));
       if (offs.size)
-        lint.push({ level: onlyGap ? 'info' : 'warn', extra: onlyGap ? ' 지금은 안에 글자 하나뿐이라 화면엔 차이가 없지만, 아이콘을 같이 넣으면 이 간격이 보여요.' : '', rule: 'comp-space-grid', title: `${set.name} 간격 중 ${BASE}px 단위가 아닌 값이 있어요`, detail: `${[...offs.keys()].join(', ')}. ${[...new Set(offs.values())].map((n) => `${n}px → ${Math.round(n / BASE) * BASE || BASE}px`).join(', ')} 로 맞추는 걸 추천해요.`, keys: [...offs.keys()] });
+        lint.push({ level: onlyGap ? 'info' : 'warn', extra: onlyGap ? ' 지금은 안에 글자 하나뿐이라 화면엔 차이가 없지만, 아이콘을 같이 넣으면 이 간격이 보입니다.' : '', rule: 'comp-space-grid', title: `${set.name} 간격 중 ${BASE}px 단위가 아닌 값이 있습니다`, detail: `${[...offs.keys()].join(', ')}. ${[...new Set(offs.values())].map((n) => `${n}px → ${Math.round(n / BASE) * BASE || BASE}px`).join(', ')} 로 맞추는 걸 추천합니다.`, keys: [...offs.keys()] });
       if (lint.at(-1)?.extra !== undefined) { lint.at(-1).detail += lint.at(-1).extra; delete lint.at(-1).extra; }
       else {
         const loose = new Set();
         for (const v of variants) for (const n of [...v.padding, v.gap]) if (n && !spaceBy[n]) loose.add(n);
-        if (loose.size) lint.push({ level: 'info', rule: 'comp-space-token', title: `${set.name} 간격 ${[...loose].join(', ')}px에 맞는 토큰이 없어요`, detail: 'Spacing에 해당 값을 추가하거나 가까운 값으로 바꿔주세요.', keys: [...loose].map(String) });
+        if (loose.size) lint.push({ level: 'info', rule: 'comp-space-token', title: `${set.name} 간격 ${[...loose].join(', ')}px에 맞는 토큰이 없습니다`, detail: 'Spacing에 해당 값을 추가하거나 가까운 값으로 바꿔야 합니다.', keys: [...loose].map(String) });
       }
     }
 
@@ -111,7 +111,7 @@ export function buildComponents({ write = true } = {}) {
         const have = variants.filter((v) => v.props[otherKeys[0]] === val).map((v) => v.props[stateKey]);
         const missing = states.filter((s) => !have.includes(s));
         if (missing.length)
-          lint.push({ level: 'info', rule: 'comp-missing-state', title: `${set.name} ${otherKeys[0]}=${val}에 ${missing.join(', ')} 상태가 없어요`, detail: `눌렀을 때 모양이 정해지지 않아서, 코드에서는 기본 모양 그대로 보여요. ${val}가 누를 수 없는 상태라면 괜찮아요.`, keys: [`${otherKeys[0]}=${val}`] });
+          lint.push({ level: 'info', rule: 'comp-missing-state', title: `${set.name} ${otherKeys[0]}=${val}에 ${missing.join(', ')} 상태가 없습니다`, detail: `눌렀을 때 모양이 정해지지 않아서, 코드에서는 기본 모양 그대로 보입니다. ${val}가 누를 수 없는 상태라면 괜찮습니다.`, keys: [`${otherKeys[0]}=${val}`] });
       }
     }
 
