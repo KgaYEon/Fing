@@ -9,6 +9,7 @@ import radiusData from '../tokens/radius.json';
 import effectData from '../tokens/effects.json';
 import { components as uiComponents } from '../ui/registry.js';
 import { enhance, openSheet, busy, wait } from '../ui/ui.js';
+import { namingView } from './naming.js';
 
 const $app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -665,6 +666,12 @@ $app.innerHTML = `
           ${uiComponents.map((c) => `<a href="#u-${c.key}" data-view="u-${c.key}">${esc(c.name)}</a>`).join('')}
         </div>
       </details>
+      <details class="nav-group" data-group="guidelines" open>
+        <summary class="nav-title">Guidelines <span class="nav-count">1</span></summary>
+        <div class="nav-items">
+          <a href="#naming" data-view="naming">Naming</a>
+        </div>
+      </details>
     </nav>
     <div class="sync" id="sync">
       <span class="dot"></span>
@@ -680,7 +687,7 @@ $app.innerHTML = `
 
 
 // ---------- 화면 전환 (#color / #icon) ----------
-const VIEWS = { color: colorView, type: typeView, space: spaceView, radius: radiusView, effect: effectView, icon: iconView };
+const VIEWS = { color: colorView, type: typeView, space: spaceView, radius: radiusView, effect: effectView, icon: iconView, naming: namingView };
 for (const set of compData.sets) VIEWS[`c-${set.className}`] = componentView(set);
 for (const c of uiComponents) VIEWS[`u-${c.key}`] = uiView(c);
 const main = document.getElementById('top');
