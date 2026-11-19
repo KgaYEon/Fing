@@ -355,7 +355,6 @@ h1 { margin: 0 0 12px; font-size: 40px; letter-spacing: -.02em; }
 
 .nm-layer-tag { font-size: 20px; font-weight: 700; }
 .nm-layer-tag em { font-style: normal; font-size: 14px; font-weight: 500; color: var(--ds-muted); margin-left: 4px; }
-.nm-ref { font-size: 12.5px; margin-top: 4px; }
 
 .nm-table { display: flex; flex-direction: column; padding: 8px 20px; border-radius: var(--ds-radius); background: var(--ds-surface); border: 1px solid var(--ds-line); }
 .nm-tr { display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--color-btn-gray); }

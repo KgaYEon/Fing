@@ -1,16 +1,15 @@
 // Guidelines › Naming — 피그마 이름 규칙
-// 토스(TDS)·당근(SEED) 디자인시스템의 이름 짓는 방식을 참고했어요.
-// 규칙을 바꾸면 이 파일의 데이터만 고치면 돼요.
+// 규칙을 바꾸면 이 파일의 데이터만 고치면 됩니다.
 
 const FIGMA_KEY = 'ePI19exWQwYPCHpC27V2G8';
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const code = (s) => `<code class="nm-code">${esc(s)}</code>`;
 
 const PRINCIPLES = [
-  { n: '01', title: '영어로 써요', desc: '개발자가 코드에서 그대로 가져다 쓰고, 컴포넌트·변수 이름과도 맞출 수 있어요.' },
-  { n: '02', title: '파스칼 케이스 하나만', desc: '단어마다 첫 글자를 대문자로 쓰고 붙여요.', ex: ['MyPage', 'GameDetail'] },
-  { n: '03', title: '띄어쓰기 없이', desc: '이름 안에서 띄어쓰기는 어디에도 쓰지 않아요.' },
-  { n: '04', title: '같은 대상은 같은 이름', desc: 'MyPage라고 정했으면 끝까지 MyPage. Profile로 바꿔 부르지 않아요.' },
+  { n: '01', title: '영어로 씁니다', desc: '개발자가 코드에서 그대로 가져다 쓸 수 있고, 컴포넌트·변수 이름과도 맞출 수 있습니다.' },
+  { n: '02', title: '파스칼 케이스 하나만', desc: '단어마다 첫 글자를 대문자로 쓰고 붙여 씁니다.', ex: ['MyPage', 'GameDetail'] },
+  { n: '03', title: '띄어쓰기 없이', desc: '이름 안에서는 띄어쓰기를 쓰지 않습니다.' },
+  { n: '04', title: '같은 대상은 같은 이름', desc: 'MyPage로 정했다면 끝까지 MyPage로 부르고, Profile로 바꿔 부르지 않습니다.' },
 ];
 
 const SYMBOLS = [
@@ -27,24 +26,24 @@ const STATES = [
 
 const SCREEN_DO = ['04-1_ReportBySession_Selected', '06-2-2_Withdraw_Modal', 'M_02_Home'];
 const SCREEN_DONT = [
-  ['리포트 - 서핑별 /선택', '한글·띄어쓰기·기호가 섞였어요'],
-  ['04_report_selected', '소문자예요. 파스칼 케이스로 써요'],
-  ['04-1 ReportBySession', '띄어쓰기 대신 _를 써요'],
-  ['마이-수정', '이름만 보고 어떤 화면인지 알 수 없어요'],
+  ['리포트 - 서핑별 /선택', '한글·띄어쓰기·기호가 섞여 있습니다'],
+  ['04_report_selected', '소문자입니다. 파스칼 케이스로 씁니다'],
+  ['04-1 ReportBySession', '띄어쓰기 대신 _를 씁니다'],
+  ['마이-수정', '이름만으로는 어떤 화면인지 알 수 없습니다'],
 ];
 
-// 컴포넌트 — 토스 TDS처럼 컴포넌트는 파스칼 케이스, 크기는 단어로
+// 컴포넌트 — 이름은 파스칼 케이스, 크기는 단어로
 const COMPONENT_RULES = [
-  { title: '종류 / 모양 / 상태 순서로 묶어요', desc: '피그마 에셋 패널에서 폴더처럼 정리돼요.', ex: ['Button/Primary/Default', 'Button/Primary/Pressed', 'Chip/White/Selected'] },
-  { title: '크기는 숫자 대신 단어로', desc: '토스 TDS처럼 Small · Medium · Large를 써요. 1, 2, 3은 무엇이 큰지 알 수 없어요.', ex: ['Button/Large', 'Button/Small'], bad: ['chip 1', 'chip 2'] },
-  { title: '부품 이름은 역할로', desc: '토스의 ListRow.Texts처럼 컴포넌트 안의 부품은 하는 일로 불러요.', ex: ['Head', 'Label', 'Icon', 'Value'], bad: ['cont', 'txt', 'Frame 660'] },
-  { title: 'Variant 속성도 파스칼 케이스', desc: '속성 이름과 값 모두 대문자로 시작해요. 코드로 옮기면 TDS처럼 size="small" 같은 prop이 돼요.', ex: ['Size=Small', 'State=Pressed', 'On=True'], bad: ['on=true', 'color=ver2 primary'] },
+  { title: '종류 / 모양 / 상태 순서로 묶습니다', desc: '피그마 에셋 패널에서 폴더처럼 정리됩니다.', ex: ['Button/Primary/Default', 'Button/Primary/Pressed', 'Chip/White/Selected'] },
+  { title: '크기는 숫자 대신 단어로', desc: 'Small · Medium · Large를 씁니다. 1, 2, 3으로는 무엇이 큰지 알 수 없습니다.', ex: ['Button/Large', 'Button/Small'], bad: ['chip 1', 'chip 2'] },
+  { title: '부품 이름은 역할로', desc: '컴포넌트 안의 부품은 하는 일로 부릅니다.', ex: ['Head', 'Label', 'Icon', 'Value'], bad: ['cont', 'txt', 'Frame 660'] },
+  { title: 'Variant 속성도 파스칼 케이스', desc: '속성 이름과 값 모두 대문자로 시작합니다. 코드로 옮기면 size="small" 같은 prop이 됩니다.', ex: ['Size=Small', 'State=Pressed', 'On=True'], bad: ['on=true', 'color=ver2 primary'] },
 ];
 
-// 변수 — 당근 SEED처럼 원색(scale)과 역할(semantic) 두 층으로
+// 변수 — 원색(scale)과 역할(semantic) 두 층으로
 const TOKEN_LAYERS = [
-  { layer: 'Scale', ko: '원색', desc: '색 이름 + 숫자 단계. 어디에 쓰는지는 담지 않아요.', ex: ['Color/Primary/500', 'Color/Neutral/100'], seed: '$scale.color.carrot500' },
-  { layer: 'Semantic', ko: '역할', desc: '쓰는 곳이 먼저, 그다음 의미와 상태. 화면에서는 이것만 써요.', ex: ['Text/Primary', 'Bg/Default', 'Button/Primary/Pressed'], seed: '$semantic.color.primary' },
+  { layer: 'Scale', ko: '원색', desc: '색 이름과 숫자 단계로 짓습니다. 어디에 쓰는지는 담지 않습니다.', ex: ['Color/Primary/500', 'Color/Neutral/100'] },
+  { layer: 'Semantic', ko: '역할', desc: '쓰는 곳을 먼저 쓰고, 그다음 의미와 상태를 씁니다. 화면에는 이 변수만 씁니다.', ex: ['Text/Primary', 'Bg/Default', 'Button/Primary/Pressed'] },
 ];
 const TOKEN_TODO = [
   ['뉴트럴/100', 'Color/Neutral/100'],
@@ -59,7 +58,7 @@ const TOKEN_TODO = [
 // 레이어 이름 사전 — 자동으로 붙은 숫자 이름(Frame 1171279250 등) 대신
 const LAYERS = [
   { group: '구조', items: [
-    ['Content', '화면의 본문 영역 전체'], ['Section', '제목이 있는 묶음 (RecentSection 처럼 앞에 붙여요)'],
+    ['Content', '화면의 본문 영역 전체'], ['Section', '제목이 있는 묶음 (RecentSection처럼 앞에 붙입니다)'],
     ['Head', '묶음의 제목줄'], ['List · Row · Grid', '여러 개가 나열된 영역'], ['Table', '표'],
     ['Summary', '요약 영역'], ['Values', '숫자 두 개가 나란히 있는 곳'],
   ] },
@@ -85,11 +84,11 @@ const SCREENS = [
 ];
 
 const TODO = [
-  ['온보딩 화면 이름 정하기', '온보딩 화면들은 내용을 보고 이름을 붙일 예정이에요.'],
-  ['마이페이지 팝업 5개 이름 정하기', '어떤 팝업인지 확인한 뒤 06-…_Modal 형식으로 바꿔요.'],
-  ['숫자 없는 자동 이름 정리', 'Text · Container · Paragraph · Vector처럼 웹에서 가져올 때 붙은 이름이에요.'],
-  ['소문자 레이어 이름 바꾸기', 'chip 2, cont, txt 같은 이름을 파스칼 케이스로 바꿔요.'],
-  ['변수 이름 맞추기', '위 "변수" 표대로 피그마 변수 이름을 바꾸고, 코드 이름은 tokens/name-map.json으로 그대로 지켜요.'],
+  ['온보딩 화면 이름 정하기', '온보딩 화면은 내용을 확인한 뒤 이름을 붙일 예정입니다.'],
+  ['마이페이지 팝업 5개 이름 정하기', '어떤 팝업인지 확인한 뒤 06-…_Modal 형식으로 바꿉니다.'],
+  ['숫자 없는 자동 이름 정리', 'Text · Container · Paragraph · Vector처럼 웹에서 가져올 때 붙은 이름입니다.'],
+  ['소문자 레이어 이름 바꾸기', 'chip 2, cont, txt 같은 이름을 파스칼 케이스로 바꿉니다.'],
+  ['변수 이름 맞추기', '위 "변수" 표대로 피그마 변수 이름을 바꾸고, 코드 이름은 tokens/name-map.json으로 그대로 유지합니다.'],
 ];
 
 const anatomy = () => `
@@ -107,17 +106,16 @@ export const namingView = () => `
   <header class="page-head">
     <p class="eyebrow">Guidelines</p>
     <h1>Naming</h1>
-    <p class="lead">피그마의 화면·컴포넌트·변수·레이어 이름을 짓는 규칙이에요. <strong>토스(TDS)</strong>와 <strong>당근(SEED)</strong> 디자인시스템이 이름을 짓는 방식을 참고했어요. 이름을 누르면 복사돼요.</p>
+    <p class="lead">피그마의 화면·컴포넌트·변수·레이어 이름을 짓는 규칙입니다. 이름을 누르면 복사됩니다.</p>
     <div class="meta">
       <a class="pill" href="https://www.figma.com/design/${FIGMA_KEY}/" target="_blank" rel="noopener">피그마 원본 열기 ↗</a>
-      <span class="pill ghost">참고: Toss TDS · Karrot SEED</span>
     </div>
   </header>
 
   <section class="section nm-hero">
     <div class="nm-formula">
       <span class="nm-formula-cap">한 줄 요약</span>
-      <p>화면은 ${code('번호_Screen_State')}, 단어는 <strong>파스칼 케이스</strong>, 기호는 역할마다 하나씩만 써요.</p>
+      <p>화면은 ${code('번호_Screen_State')}, 단어는 <strong>파스칼 케이스</strong>, 기호는 역할마다 하나씩만 씁니다.</p>
     </div>
     ${anatomy()}
   </section>
@@ -136,7 +134,7 @@ export const namingView = () => `
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>기호 역할</h2><p>기호마다 할 일이 하나씩 정해져 있어요. <strong>-는 번호 말고 다른 곳에는 쓰지 않아요.</strong></p></div>
+    <div class="section-head"><h2>기호 역할</h2><p>기호마다 할 일이 하나씩 정해져 있습니다. <strong>-는 번호 외에는 쓰지 않습니다.</strong></p></div>
     <div class="nm-grid three">
       ${SYMBOLS.map((s) => `
         <article class="nm-card nm-sym">
@@ -151,7 +149,7 @@ export const namingView = () => `
   </section>
 
   <section class="section" id="nm-screen">
-    <div class="section-head"><h2>화면 이름</h2><p>번호는 화면 흐름 순서대로 두 자리로 써요. 하위 화면은 <code class="nm-code">-</code>로 잇고, 같은 화면의 다른 상태는 번호를 그대로 두고 뒤에 상태만 붙여요.</p></div>
+    <div class="section-head"><h2>화면 이름</h2><p>번호는 화면 흐름 순서대로 두 자리로 씁니다. 하위 화면은 <code class="nm-code">-</code>로 잇고, 같은 화면의 다른 상태는 번호를 그대로 두고 뒤에 상태만 붙입니다.</p></div>
 
     <div class="nm-tree-demo">
       <div><code class="nm-code">06_MyPage</code><span class="sub">화면</span></div>
@@ -161,13 +159,13 @@ export const namingView = () => `
     </div>
 
     <h3 class="nm-sub">상태 단어 <span class="sub">${STATES.length}개</span></h3>
-    <p class="nm-sub-desc sub">기본 화면에는 붙이지 않아요. 이 목록에 있는 단어만 쓰고, 새 단어가 필요하면 먼저 여기에 추가해요.</p>
+    <p class="nm-sub-desc sub">기본 화면에는 붙이지 않습니다. 이 목록에 있는 단어만 쓰고, 새 단어가 필요하면 먼저 여기에 추가합니다.</p>
     <div class="nm-states">
       ${STATES.map(([k, v]) => `<button class="nm-state-chip" data-copy="${esc(k)}"><strong class="mono">${esc(k)}</strong><span>${esc(v)}</span></button>`).join('')}
     </div>
 
     <h3 class="nm-sub">기기가 여러 개일 때</h3>
-    <p class="nm-sub-desc sub">필요할 때만 맨 앞에 붙여요. ${code('M_')} 모바일, ${code('W_')} 웹</p>
+    <p class="nm-sub-desc sub">필요할 때만 맨 앞에 붙입니다. ${code('M_')} 모바일, ${code('W_')} 웹</p>
 
     <div class="nm-dodont">
       <div class="nm-do">
@@ -182,7 +180,7 @@ export const namingView = () => `
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>컴포넌트 이름</h2><p>토스 TDS처럼 컴포넌트 이름은 파스칼 케이스로, 크기와 모양은 숫자 대신 단어로 써요.</p></div>
+    <div class="section-head"><h2>컴포넌트 이름</h2><p>컴포넌트 이름은 파스칼 케이스로 쓰고, 크기와 모양은 숫자 대신 단어로 씁니다.</p></div>
     <div class="nm-grid two">
       ${COMPONENT_RULES.map((r) => `
         <article class="nm-card">
@@ -195,19 +193,18 @@ export const namingView = () => `
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>변수 이름</h2><p>당근 SEED처럼 변수를 두 층으로 나눠요. 원색은 값을, 역할은 쓰는 곳을 이름에 담아요. 화면에는 역할 변수만 써요.</p></div>
+    <div class="section-head"><h2>변수 이름</h2><p>변수는 두 층으로 나눕니다. 원색은 값을, 역할은 쓰는 곳을 이름에 담습니다. 화면에는 역할 변수만 씁니다.</p></div>
     <div class="nm-grid two">
       ${TOKEN_LAYERS.map((t) => `
         <article class="nm-card nm-layer">
           <span class="nm-layer-tag">${esc(t.layer)} <em>${esc(t.ko)}</em></span>
           <p>${esc(t.desc)}</p>
           ${exList(t.ex)}
-          <span class="nm-ref sub">SEED 예: <span class="mono">${esc(t.seed)}</span></span>
         </article>`).join('')}
     </div>
 
     <h3 class="nm-sub">지금 핑 변수 → 맞출 이름 <span class="ds-badge mid">다음 단계</span></h3>
-    <p class="nm-sub-desc sub">아직 바꾸지 않았어요. 피그마에서 바꿔도 코드의 CSS 변수 이름은 <span class="mono">tokens/name-map.json</span>으로 그대로 지킬 수 있어요.</p>
+    <p class="nm-sub-desc sub">아직 바꾸지 않았습니다. 피그마에서 바꿔도 코드의 CSS 변수 이름은 <span class="mono">tokens/name-map.json</span>으로 그대로 유지할 수 있습니다.</p>
     <div class="nm-table">
       <div class="nm-tr nm-th"><span>지금</span><span></span><span>맞출 이름</span></div>
       ${TOKEN_TODO.map(([a, b]) => `
@@ -220,7 +217,7 @@ export const namingView = () => `
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>레이어 이름</h2><p>${code('Frame 1171279250')}, ${code('Rectangle 240653509')}처럼 자동으로 붙은 숫자 이름은 남기지 않아요. 그 레이어가 <strong>하는 일</strong>로 이름을 붙여요.</p></div>
+    <div class="section-head"><h2>레이어 이름</h2><p>${code('Frame 1171279250')}, ${code('Rectangle 240653509')}처럼 자동으로 붙은 숫자 이름은 남기지 않습니다. 그 레이어가 <strong>하는 일</strong>로 이름을 붙입니다.</p></div>
     <div class="nm-grid three">
       ${LAYERS.map((g) => `
         <article class="nm-card nm-dict">
@@ -233,7 +230,7 @@ export const namingView = () => `
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>핑 화면 지도</h2><p>지금 피그마 UI 페이지의 화면 이름이에요.</p></div>
+    <div class="section-head"><h2>핑 화면 지도</h2><p>현재 피그마 UI 페이지의 화면 이름입니다.</p></div>
     <div class="nm-map">
       ${SCREENS.map((s) => `
         <article class="nm-map-col">
